@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Write the Orientation — Sci-Fi Writing Practice</title>
+<style>
+  :root{
+    --bg:#0b0b1a;
+    --card: rgba(255,255,255,0.03);
+    --accent:#7aa2ff;
+    --text:#eef0ff;
+    --muted:#cfcfe3;
+    --highlight:#ffcd38;
+  }
+  html,body{margin:0;padding:0;font-family:Inter, "Segoe UI", sans-serif;background:var(--bg);color:var(--text);}
+  header{text-align:center;padding:30px 15px;background:linear-gradient(180deg,#0f1530,#0b0f26);}
+  header h1{margin:0;font-size:2rem;color:var(--accent);}
+  header p{margin:8px 0 0;color:var(--muted);max-width:900px;margin:auto;line-height:1.6;}
+  main{max-width:980px;margin:20px auto;padding:15px;}
+  .instructions{background:rgba(255,255,255,0.03);padding:20px;border-radius:12px;margin-bottom:20px;line-height:1.6;}
+  .tip-card{background:var(--card);padding:18px;border-radius:12px;margin-bottom:20px;border-left:4px solid var(--highlight);}
+  .tip-card h3{margin-top:0;color:var(--highlight);}
+  .example-card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;border-left:4px solid var(--accent);}
+  .example-card h2{margin-top:0;color:var(--accent);}
+  .audio-controls{display:flex;gap:8px;margin-top:10px;}
+  .btn{padding:8px 12px;border:none;border-radius:8px;background:var(--accent);color:#06102a;font-weight:600;cursor:pointer;margin-top:8px;}
+  .btn.stop{background:#ff4b4b;color:#fff;}
+  .writing-area{width:100%;min-height:250px;background:rgba(255,255,255,0.02);border:2px solid rgba(255,255,255,0.05);border-radius:12px;padding:12px;color:var(--text);font-size:1rem;margin-bottom:12px;resize:vertical;}
+  .feedback{margin-top:12px;font-size:1rem;color:var(--highlight);min-height:24px;}
+  footer{text-align:center;padding:18px;color:var(--muted);border-top:1px solid rgba(255,255,255,0.03);margin-top:30px;}
+  .nav-links{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+  .nav-links a{background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;color:var(--text);text-decoration:none;font-weight:600;}
+  .nav-links a:hover{background:var(--accent);color:#06102a;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Write the Orientation</h1>
+  <p>This module guides you on how to write the <strong>Orientation</strong> section of a Sci-Fi story. You will learn its essential elements, strategies, and see examples before writing your own text.</p>
+</header>
+
+<main>
+  <!-- Instructions -->
+  <div class="instructions">
+    <h2>Instructions:</h2>
+    <ol>
+      <li>Read the tips and examples carefully.</li>
+      <li>Focus on the key elements: <strong>setting, time, place, characters, and initial situation</strong>.</li>
+      <li>Take notes or draft ideas before writing your orientation.</li>
+      <li>Write at least 5–7 sentences that clearly introduce your story.</li>
+      <li>Use your imagination while keeping logical flow in the story.</li>
+      <li>Click <strong>Play Audio</strong> to hear the example narration.</li>
+      <li>After writing, click <strong>Submit</strong> to receive feedback.</li>
+    </ol>
+  </div>
+
+  <!-- Writing Tips -->
+  <div class="tip-card">
+    <h3>Tips for Writing a Strong Orientation</h3>
+    <ul>
+      <li><strong>Setting:</strong> Describe the time (future, year, era) and place (planet, spaceship, city) to create a vivid context.</li>
+      <li><strong>Characters:</strong> Introduce main characters with names and roles.</li>
+      <li><strong>Initial Situation:</strong> Mention the problem, mission, or event that starts the story.</li>
+      <li><strong>Atmosphere:</strong> Include mood or tone (mysterious, exciting, tense).</li>
+      <li><strong>Engaging Hook:</strong> Start with an interesting sentence to capture attention.</li>
+      <li><strong>Clarity and Cohesion:</strong> Make sure sentences are logical and easy to understand.</li>
+    </ul>
+  </div>
+
+  <!-- Example Orientation -->
+  <div class="example-card">
+    <h2>Example Orientation</h2>
+    <p><strong>Setting:</strong> Year 2425, aboard the starship Horizon, orbiting the uncharted planet Xythera.</p>
+    <p><strong>Characters:</strong> Captain Elara, Science Officer Mira, Lieutenant Kael.</p>
+    <p><strong>Initial Situation:</strong> The crew prepares to investigate mysterious energy readings, unaware of the anomalies awaiting them.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech(exampleText)">Play Audio</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Writing Area -->
+  <textarea class="writing-area" id="writingArea" placeholder="Write your orientation here..."></textarea>
+  <button class="btn" onclick="submitWriting()">Submit</button>
+  <div class="feedback" id="feedback"></div>
+
+</main>
+
+<!-- Footer with Writing Module Links -->
+<footer>
+  <div class="nav-links">
+    <a href="write-orientation.html">Write Orientation</a>
+    <a href="continue-story.html">Continue the Story</a>
+    <a href="short-narrative.html">Create a Short Sci-Fi Narrative</a>
+  </div>
+  <p>© 2025 Sci-Fi English Learning — Writing Practice</p>
+</footer>
+
+<script>
+const synth = window.speechSynthesis;
+let currentUtterance = null;
+
+// Example text for audio
+const exampleText = "Year 2425, aboard the starship Horizon, orbiting the uncharted planet Xythera. Captain Elara, Science Officer Mira, and Lieutenant Kael prepare to investigate mysterious energy readings, unaware of the anomalies awaiting them.";
+
+function playSpeech(text){
+  stopSpeech();
+  currentUtterance = new SpeechSynthesisUtterance(text);
+  currentUtterance.lang = 'en-US';
+  currentUtterance.rate = 0.98;
+  currentUtterance.pitch = 1;
+  synth.speak(currentUtterance);
+}
+
+function stopSpeech(){
+  if(synth && synth.speaking) synth.cancel();
+  currentUtterance = null;
+}
+
+function submitWriting(){
+  const area = document.getElementById("writingArea");
+  const feedback = document.getElementById("feedback");
+  const text = area.value.trim();
+
+  if(text.length < 50){
+    feedback.innerText = "Your orientation is too short. Try to include at least 5–7 sentences with clear setting, characters, and initial situation.";
+    playSpeech("Your orientation is too short. Try to include at least five to seven sentences with clear setting, characters, and initial situation.");
+  } else {
+    feedback.innerText = "Well done! Your orientation includes essential elements. Make sure your sentences are clear and engaging.";
+    playSpeech("Well done! Your orientation includes essential elements. Make sure your sentences are clear and engaging.");
+  }
+}
+</script>
+
+</body>
+</html>

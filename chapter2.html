@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Machine Stops — Chapter II</title>
+  <style>
+    :root{
+      --primary:#0b63d6;
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --ink:#1f2937;
+      --border:#e6edf3;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Georgia, "Times New Roman", serif;
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.75;
+      padding:28px;
+    }
+    .container{
+      max-width:980px;
+      margin:0 auto;
+      background:var(--card);
+      border-radius:12px;
+      padding:28px;
+      box-shadow:0 10px 30px rgba(16,24,40,0.06);
+    }
+    header{text-align:center}
+    h1{margin:0;font-size:1.9rem}
+    h2{margin:6px 0 18px;font-weight:500;color:#374151}
+    .intro{
+      margin:14px 0 18px;
+      padding:12px 14px;
+      border-radius:10px;
+      background:#f3f7ff;
+      border:1px solid var(--border);
+      color:var(--muted);
+    }
+    .controls{display:flex;justify-content:center;gap:10px;margin:10px 0 22px}
+    .btn{
+      background:var(--primary);
+      color:#fff;
+      border:none;
+      padding:9px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:0.95rem;
+    }
+    .para{
+      position:relative;
+      margin:16px 0;
+      padding:16px 18px 56px 18px;
+      border-left:4px solid var(--primary);
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:10px;
+    }
+    .para .text{white-space:pre-wrap}
+    .para-controls{
+      position:absolute;
+      right:14px;
+      bottom:12px;
+      display:flex;
+      gap:8px;
+    }
+    .note{font-size:0.95rem;color:var(--muted);margin-top:18px}
+    nav{margin-top:24px;padding:12px;text-align:center;background:#f0f6ff;border-radius:10px;border:1px solid var(--border)}
+    nav a{text-decoration:none;color:var(--primary);font-weight:700;margin:0 12px}
+    nav a:hover{text-decoration:underline}
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:0.95rem}
+    @media (max-width:640px){
+      .para-controls{position:static;margin-top:10px;justify-content:flex-end}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🌌 The Machine Stops</h1>
+      <h2>Chapter II — The Mending Apparatus</h2>
+    </header>
+
+
+    <div class="controls">
+      <button class="btn" onclick="stopAll()">⏹ Stop All</button>
+    </div>
+
+    <!-- Para 1 -->
+    <section class="para" id="p1">
+      <div class="text">
+Vashti’s journey across the subterranean arteries ends at Kuno’s chamber. The travel has irritated her: tunnels, lifts, an air-ship, the cramped platform and the smell of the recycled air. Yet what bothers her more than the discomfort of travel is the idea that someone might prefer the surface to the Machine’s endless comforts. She stands in Kuno’s room and finds it looking like any other—hexagonal walls, a reading desk, the Book—so the journey seems absurd before it has begun.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p1')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Para 2 -->
+    <section class="para" id="p2">
+      <div class="text">
+Kuno greets her with an intensity that surprises her: he is leaner, tougher, a man shaped by his own refusals. Vashti speaks in the polished tones of a public woman: she complains of the journey, of rudeness, of delay, and offers curt instructions about time. Kuno interrupts with a single, startling claim: <em>“Mother, I have been outside.”</em> The direct speech drops like a stone into the stillness of her beliefs.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p2')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Para 3 -->
+    <section class="para" id="p3">
+      <div class="text">
+Vashti recoils. The word “outside” means Homelessness, the worst of fates—exile into an atmosphere judged hostile, a legal and social death. She asks how he dared, and Kuno answers plainly: he did not seek a permit or ritual; he climbed. In later retelling she will think that Kuno acted foolishly; the narrative’s indirect speech—her thought that he had been rash—masks the astonishment and fear beneath polite condemnation.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p3')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Para 4 -->
+    <section class="para" id="p4">
+      <div class="text">
+He recounts the climb: walking platform by platform, measuring distance with feet that had been rested too long, probing ventilation shafts until he found a fissure. He thrust his arm into darkness, felt the absence of warm hums, and climbed a ladder whose rungs cut his hands. Each rung was an act of defiance against the soft life. The Machine’s voice grew fainter until silence, sharp as a blade, replaced it.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p4')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Para 5 -->
+    <section class="para" id="p5">
+      <div class="text">
+The stoppers sealing the world above are heavy and seamless; Kuno searched until he found a handle and forced one open. He fell into sunlight that hurt like truth. Blood filled his mouth and nose, yet he crawled into a hollow of turf where grass felt like living muscle. He describes the sky — vast, indifferent, immediate — and the taste of air unprocessed by ducts. For Kuno, the surface is sacrament; for Vashti, it is madness.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p5')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Para 6 -->
+    <section class="para" id="p6">
+      <div class="text">
+Kuno’s joy is brief. He tells of the Mending Apparatus — a name that sounds gentle until he describes the thing itself: long, pale, insectile machines that crawl into breaches, dragging brush and loose turf back into the shaft, sealing seams and swallowing evidence of the outside. They are not mere repair tools; they are instruments of erasure, ensuring the subterranean order remains unmarred by contradiction.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p6')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Para 7 -->
+    <section class="para" id="p7">
+      <div class="text">
+He describes the moment they found him: coils wrapped his ankle, cold segments lifting ferns and small debris as if the earth were a thing to be tidied. He fought with strength he scarcely knew he possessed; they bound him and hauled him back through the stopper. He recalls the stars above as he fell. When he woke, he was back in a room where light came from a plate and the Book pronounced procedures for treatment.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p7')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Para 8 -->
+    <section class="para" id="p8">
+      <div class="text">
+Vashti hears all of this as scandal. She cannot accept that the Machine fails to protect its own boundaries; in her framework, any breach is a moral lapse, an error to be corrected by committees. Kuno’s account is not merely adventurous but insubordinate. She thinks—later, privately—that he has been given to dangerous fancies. This indirect tempering of his direct speech is the way institutions domesticate rebellious testimony.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p8')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Para 9 -->
+    <section class="para" id="p9">
+      <div class="text">
+Kuno insists the surface is not empty, that there are traces of those earlier lives—holes where people once lived, small communities perhaps, and, most importantly, survivors. He says that some people, cast out earlier for rejecting the Machine, still live albeit painfully, learning to mend wounds with human hands. He frames Homelessness not necessarily as death but as a hard kind of life that refuses the Machine’s pale comforts.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p9')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Para 10 -->
+    <section class="para" id="p10">
+      <div class="text">
+The Committee, when informed, will call Kuno dangerous. Systems fear bodies that act without permission: muscles that move beyond prescribed circuits produce meaning that cannot be archived. The Mending Apparatus functions ideologically as well as mechanically—it restores surfaces to the image the Machine requires, erasing anomalies so the subterranean narrative can proceed unchallenged.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p10')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Para 11 -->
+    <section class="para" id="p11">
+      <div class="text">
+Kuno’s strength and curiosity mark him as a threat. He does not cling to rhetorical protest; he demonstrates an alternative way of learning: by risking limbs and lungs, by accepting the wounds that record a contact the Machine cannot fake. Vashti, conversely, is the portrait of cultivated compliance. She will not side with him; her social imagination cannot conceive of a life measured by bruises and stars.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p11')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Para 12 -->
+    <section class="para" id="p12">
+      <div class="text">
+The chapter’s moral logic sharpens: knowledge that arrives through risk cannot be absorbed by forms designed for safety. The Mending Apparatus is the emblem of a system that refuses to let the world press back. Where bodies leave marks, the Machine removes them; where experience generates questions, the Machine issues answers. Kuno’s account thus reads as both personal testimony and social indictment.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p12')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Para 13 -->
+    <section class="para" id="p13">
+      <div class="text">
+Pedagogically, this chapter offers rich prompts: students can debate whether survival with discomfort is preferable to comfort without freedom; they can examine how technology shapes moral vocabulary; they can rehearse the tension between ritual and experiment. In textual terms, Forster’s use of direct speech—Kuno’s vivid report—and indirect speech—Vashti’s later rationalizations—creates a narrative tension that invites critical inquiry.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p13')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Para 14 -->
+    <section class="para" id="p14">
+      <div class="text">
+The encounter ends without reconciliation. Vashti storms out, convinced that the social machinery will punish Kuno or at least marginalize him. Whether the Machine will act immediately or whether the community’s inertia will dissipate his threat, the text leaves open. Kuno’s future is precarious; yet his story has been told, and stories seed possibilities even if they are censured.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p14')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Para 15 concluding -->
+    <section class="para" id="p15">
+      <div class="text">
+Concluding reflection: Chapter II moves the plot from private longing to public danger. The Mending Apparatus symbolizes how systems absorb dissent by erasing its traces. Kuno’s experience offers the reader a model of ethical curiosity: to accept risk as the price of knowing. Vashti’s response reveals the social logic that protects power: domestication of speech, refusal of pain, and the sacralization of procedure. The reader is left to weigh the cost of comfort against the value of embodied knowledge.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p15')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <nav role="navigation" aria-label="chapter navigation">
+      <a href="chapter1.html">⬅ Chapter I</a> · <a href="chapter3.html">Chapter III ➡</a> · <a href="short-story.html">Back to Short Story</a> . <a href="comprehension.html">Go to Question</a>
+    </nav>
+
+
+  <script>
+    let currentUtterance = null;
+
+    function speak(id) {
+      stopAll();
+      const el = document.getElementById(id);
+      if (!el) return;
+      const textEl = el.querySelector('.text');
+      if (!textEl) return;
+      const text = textEl.innerText.trim();
+      if (!text) return;
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US';
+      u.rate = 1.0;
+      u.pitch = 1.0;
+      u.onend = () => { currentUtterance = null; };
+      currentUtterance = u;
+      window.speechSynthesis.speak(u);
+    }
+
+    // expose speak to inline onclick
+    window.speak = speak;
+
+    function stopAll() {
+      if (window.speechSynthesis.speaking || currentUtterance) {
+        window.speechSynthesis.cancel();
+        currentUtterance = null;
+      }
+    }
+
+    // stop when tab hidden
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAll();
+    });
+  </script>
+</body>
+<footer>
+   Learning Module
+  </footer>
+</html>

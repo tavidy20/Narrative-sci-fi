@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Echoes of the Quantum Rift — Full Audio Story (TTS)</title>
+<style>
+  :root{
+    --bg:#0b0b1a;
+    --card: rgba(255,255,255,0.03);
+    --accent:#7aa2ff;
+    --text:#eef0ff;
+    --muted:#cfcfe3;
+  }
+  html,body{height:100%;margin:0;font-family:Inter, "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;}
+  body{
+    background: radial-gradient(circle at 10% 10%, #0d1330 0%, var(--bg) 40%);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    display:flex;flex-direction:column;
+  }
+
+  header{
+    text-align:center;padding:28px 18px 12px;border-bottom:1px solid rgba(255,255,255,0.04);
+    background:linear-gradient(180deg,#0f1530,#0b0f26);
+  }
+  header h1{margin:0;font-size:1.6rem;color:var(--accent);}
+  header p{margin:8px 0 0;color:var(--muted);max-width:900px;margin-left:auto;margin-right:auto}
+
+  main{flex:1;max-width:980px;margin:20px auto;padding:18px;width:100%}
+  .paragraph{
+    background:var(--card);padding:14px 16px;border-radius:10px;margin-bottom:14px;border-left:4px solid transparent;
+  }
+  .paragraph:hover{border-left-color:rgba(122,162,255,0.18)}
+  .paragraph p{margin:0 0 8px;line-height:1.65}
+  .audio-controls{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{background:var(--accent);border:none;color:#06102a;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+  .btn.stop{background:#ff6b6b;color:#fff}
+  .btn:hover{opacity:0.95}
+  footer{padding:18px;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg,#07071a,transparent)}
+  .nav-links{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+  .nav-links a{background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;color:var(--text);text-decoration:none;font-weight:600}
+  .nav-links a:hover{background:var(--accent);color:#06102a}
+  @media (max-width:600px){
+    .btn{padding:8px 10px;font-size:14px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Echoes of the Quantum Rift</h1>
+  <p>Full version — interactive listening (Text-to-Speech). Use the <strong>Play</strong> and <strong>Stop</strong> buttons for each paragraph. This page uses the browser's built-in speech synthesis (no audio files required).</p>
+</header>
+
+<main>
+  <!-- Paragraph 1 -->
+  <div class="paragraph" id="para1">
+    <p>Captain Elara stood on the observation deck of the Starship Aurora, staring at the shimmering rift that split the fabric of space. Rumors whispered through the fleet about temporal anomalies that could reshape the past and future.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para1')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 2 -->
+  <div class="paragraph" id="para2">
+    <p>The crew murmured in narrow corridors. Sensors recorded energy signatures that refused to align with known physics—spikes, echoes and harmonics that suggested the rift might be more than a tear in space.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para2')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 3 -->
+  <div class="paragraph" id="para3">
+    <p>Lieutenant Kael hunched over the navigation console, running a cascade of simulations to find safe corridors through fluctuating gravity wells. Each calculation felt like balancing on the edge of a blade.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para3')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 4 -->
+  <div class="paragraph" id="para4">
+    <p>Communication arrays crackled, picking up an irregular transmission—an alien sequence woven with prime-numbered pulses. It was not language in any conventional sense, but it carried pattern and intent.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para4')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 5 -->
+  <div class="paragraph" id="para5">
+    <p>Elara considered the options: withdraw to report the anomaly, or press forward to gather unique data. Curiosity warred with caution; the mission's scientific mandate tugged at her conscience.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para5')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 6 -->
+  <div class="paragraph" id="para6">
+    <p>Kael proposed a measured approach: launch low-profile probes to skim the rift’s event horizon and relay information without committing the entire ship to its unstable domain.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para6')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 7 -->
+  <div class="paragraph" id="para7">
+    <p>Probes vanished into the violet maw and returned with data both wondrous and terrifying—images of cities built on rings of light, clocks running backward, and rivers that flowed between moments rather than across space.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para7')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 8 -->
+  <div class="paragraph" id="para8">
+    <p>Science Officer Mira isolated mathematical residues in the probe feeds—fractals of causality that suggested the rift echoed events from multiple branches of time simultaneously.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para8')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 9 -->
+  <div class="paragraph" id="para9">
+    <p>Rumors turned to fear when sailors reported dreams that were not theirs: memories of lives never lived, losses they hadn’t suffered, and triumphs that belonged to alternate selves.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para9')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 10 -->
+  <div class="paragraph" id="para10">
+    <p>As the Aurora held station, a silhouette passed through the rift—an object of impossible geometry that moved like a poem, folding angles into silence.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para10')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 11 -->
+  <div class="paragraph" id="para11">
+    <p>Kael sent a probe to shadow the silhouette. Its video feed revealed structures that breathed light and corridors that opened to stars arranged in unfamiliar constellations.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para11')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 12 -->
+  <div class="paragraph" id="para12">
+    <p>Mira recorded hypotheses: the rift could be a natural phenomenon, an engineered device, or a junction between universes where the rules of cause and consequence blurred.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para12')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 13 -->
+  <div class="paragraph" id="para13">
+    <p>Then the probes began to return fragments of sound—tones that, when transposed, formed patterns resembling a greeting. If intelligence monitored the rift, it might attempt contact on its own terms.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para13')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 14 -->
+  <div class="paragraph" id="para14">
+    <p>Elara authorized a cautious response: a sequence of prime numbers encoded in harmonic pulses, transmitted toward the silhouette. The ship waited, instruments humming in suspense.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para14')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 15 -->
+  <div class="paragraph" id="para15">
+    <p>Moments later, the silhouette folded inward and opened like a flower, releasing a field of shimmering glyphs that mapped to the very primes Aurora had sent—response, recognition, perhaps even curiosity.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para15')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 16 -->
+  <div class="paragraph" id="para16">
+    <p>Contact set the crew to work decoding. The glyphs corresponded to probabilities, histories and options—choices the rift had witnessed across countless branches of time.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para16')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 17 -->
+  <div class="paragraph" id="para17">
+    <p>One message stood out: a condensed image of a world collapsing into silence unless a variable in the past was corrected. The glyphs suggested causality could be nudged—softly, with minimal cost.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para17')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 18 -->
+  <div class="paragraph" id="para18">
+    <p>The moral implications hit the crew hard. If the Aurora altered a moment in another timeline to prevent catastrophe, what would happen to the lives already lived in their own branch?</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para18')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 19 -->
+  <div class="paragraph" id="para19">
+    <p>Debate raged in the council: intervention could save billions elsewhere, but meddling with causality might unravel ethical threads they could not foresee.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para19')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 20 -->
+  <div class="paragraph" id="para20">
+    <p>Elara recalled a personal fragment—a life she had glimpsed among the rift's echoes where a small gesture had prevented a war. The image had moved her, making the theoretical painfully intimate.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para20')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 21 -->
+  <div class="paragraph" id="para21">
+    <p>Against cautionary voices, she proposed a controlled intervention: send a micro-signal, encoded with the corrective variable, to a precise point discovered in the glyph-map.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para21')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 22 -->
+  <div class="paragraph" id="para22">
+    <p>The engineering team worked feverishly to adapt the probes into emitters — devices capable of affecting probability fields without tearing the fabric further.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para22')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 23 -->
+  <div class="paragraph" id="para23">
+    <p>Hours blurred into tense preparation. The ship's gardens, once a place of calm, felt empty as every crew member held a private reckoning with the choice ahead.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para23')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 24 -->
+  <div class="paragraph" id="para24">
+    <p>The micro-emitter launched; its pulse slid into the rift like a pebble dropped into still water. Time around the Aurora trembled—then, surprisingly, steadied.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para24')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 25 -->
+  <div class="paragraph" id="para25">
+    <p>Data fed back images of a ruined world where floodwaters receded and a single radio transmission reached rescuers in time. Somewhere, billions of lives altered toward survival.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para25')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 26 -->
+  <div class="paragraph" id="para26">
+    <p>But the rift responded. For every thread mended elsewhere, Aurora felt a subtle loosening: instruments showed small, unexpected variations—time's weave compensating for the change.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para26')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 27 -->
+  <div class="paragraph" id="para27">
+    <p>Elara and the crew watched as consequences unfolded—some benign, others unsettling. A historian aboard noted the paradox: saving lives across one branch produced strange omissions in their own recorded past.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para27')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 28 -->
+  <div class="paragraph" id="para28">
+    <p>Ultimately, the rift began to close. The silhouette retreated, folding its geometry into a whisper. The field of glyphs dimmed to a memory and then dissolved entirely.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para28')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 29 -->
+  <div class="paragraph" id="para29">
+    <p>The Aurora emerged altered yet intact. The crew catalogued a wealth of impossible data—new physics, unfamiliar ethics, and an intimate understanding that time was not a single river but an ocean of possible currents.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para29')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Paragraph 30 -->
+  <div class="paragraph" id="para30">
+    <p>Captain Elara looked out once more at the empty stars and felt both the weight of what they had done and the hope that, somewhere across the echoing branches, another life had been spared because they chose to act.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('para30')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- End of story -->
+</main>
+
+<!-- Overlink / navigation placed at the end (as requested) -->
+<footer>
+  <div style="max-width:980px;margin:0 auto;text-align:center">
+    <p style="margin:0 0 8px;color:var(--muted)">Navigate to other Listening modules:</p>
+    <div class="nav-links">
+      <a href="short-story-audio.html">Short Sci-Fi Story Audio</a>
+      <a href="dialogues.html">Dialogues Practice</a>
+      <a href="comprehension-questions.html">Comprehension Questions</a>
+      <a href="dictation-exercises.html">Dictation Exercises</a>
+    </div>
+    <p style="margin-top:12px;font-size:13px;color:var(--muted)">© 2025 Sci-Fi English Learning — Interactive Listening</p>
+  </div>
+</footer>
+
+<script>
+  // Text-to-Speech controller
+  const synth = window.speechSynthesis;
+  let currentUtterance = null;
+
+  function playSpeech(paragraphId) {
+    // Stop any running speech
+    stopSpeech();
+    const el = document.querySelector(`#${paragraphId} p`);
+    if (!el) return;
+    const text = el.innerText.trim();
+    if (!text) return;
+
+    currentUtterance = new SpeechSynthesisUtterance(text);
+    currentUtterance.lang = 'en-US';
+    // Slightly slower for clarity (adjust if desired)
+    currentUtterance.rate = 0.98;
+    currentUtterance.pitch = 1;
+    currentUtterance.onend = () => { currentUtterance = null; };
+    synth.speak(currentUtterance);
+  }
+
+  function stopSpeech() {
+    if (synth && synth.speaking) {
+      synth.cancel();
+      currentUtterance = null;
+    }
+  }
+
+  // Optional: pause/resume support via keyboard (Space toggles stop)
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      stopSpeech();
+    }
+  });
+</script>
+
+</body>
+</html>

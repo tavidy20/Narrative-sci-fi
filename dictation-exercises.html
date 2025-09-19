@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sci-Fi Listening — Dictation Exercises</title>
+<style>
+:root{
+  --bg:#0b0b1a;
+  --card: rgba(255,255,255,0.03);
+  --accent:#7aa2ff;
+  --text:#eef0ff;
+  --muted:#cfcfe3;
+  --correct:#28a745;
+  --wrong:#ff4b4b;
+}
+html,body{margin:0;padding:0;font-family:Inter, "Segoe UI", sans-serif;background:var(--bg);color:var(--text);}
+header{text-align:center;padding:30px 15px;background:linear-gradient(180deg,#0f1530,#0b0f26);}
+header h1{margin:0;font-size:2rem;color:var(--accent);}
+header p{margin:8px 0 0;color:var(--muted);max-width:900px;margin:auto;line-height:1.6;}
+main{max-width:980px;margin:20px auto;padding:15px;}
+.instructions{background:rgba(255,255,255,0.03);padding:20px;border-radius:12px;margin-bottom:20px;line-height:1.6;}
+.question-card{background:var(--card);padding:18px 20px;border-radius:12px;margin-bottom:18px;border-left:4px solid transparent;transition:all 0.3s;}
+.question-card:hover{border-left-color:rgba(122,162,255,0.18);}
+.input-answer{width:100%;padding:10px 12px;border-radius:8px;border:none;margin-top:10px;background:rgba(255,255,255,0.05);color:var(--text);}
+.btn{padding:8px 12px;border:none;border-radius:8px;background:var(--accent);color:#06102a;font-weight:600;cursor:pointer;margin-top:10px;}
+.btn.stop{background:#ff4b4b;color:#fff;}
+.feedback{margin-top:8px;font-weight:600;}
+.audio-controls{display:flex;gap:8px;margin-top:10px;}
+.progress{background:rgba(255,255,255,0.05);border-radius:12px;height:14px;overflow:hidden;margin-bottom:20px;}
+.progress-bar{height:100%;width:0%;background:var(--accent);transition:width 0.3s;}
+.score-display{font-size:1.2rem;font-weight:600;margin-top:12px;text-align:center;}
+footer{text-align:center;padding:18px;color:var(--muted);border-top:1px solid rgba(255,255,255,0.03);margin-top:30px;}
+.nav-links{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+.nav-links a{background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;color:var(--text);text-decoration:none;font-weight:600;}
+.nav-links a:hover{background:var(--accent);color:#06102a;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Dictation Exercises — Sci-Fi Listening</h1>
+  <p>This exercise includes <strong>20 audio-based dictation prompts</strong>. Your task is to type exactly what you hear. Carefully follow instructions before starting.</p>
+</header>
+
+<main>
+  <div class="instructions">
+    <h2>Instructions:</h2>
+    <ol>
+      <li>Click <strong>Play Audio</strong> to listen to the dictation sentence carefully. No text is provided.</li>
+      <li>Type exactly what you hear into the input box. Pay attention to spelling, punctuation, and capitalization.</li>
+      <li>Click <strong>Check Answer</strong> to submit your response. You will receive instant audio feedback: “Correct!” or “Wrong, try again.”</li>
+      <li>You can replay the audio as many times as needed before submitting.</li>
+      <li>The progress bar shows how many prompts you have completed, and the score updates dynamically.</li>
+      <li>Try to complete all 20 exercises with the highest accuracy possible.</li>
+    </ol>
+  </div>
+
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="score-display" id="scoreDisplay">Score: 0</div>
+</main>
+
+<footer>
+  <div class="nav-links">
+    <a href="sci_fi_listening_interactive.html">Listening</a>
+    <a href="short-story-audio.html">Short Sci-Fi Story Audio</a>
+    <a href="dialogues.html">Dialogues Practice</a>
+    <a href="comprehension-questions.html">Comprehension Questions</a>
+    <a href="vocabulary-audio.html">Vocabulary Pronunciation</a>
+    <a href="dictation-exercises.html">Dictation Exercises</a>
+  </div>
+  <p style="margin-top:12px;font-size:13px;color:var(--muted)">© 2025 Sci-Fi English Learning — Dictation Exercises</p>
+</footer>
+
+<script>
+const synth = window.speechSynthesis;
+let currentUtterance = null;
+let score = 0;
+let answered = 0;
+
+// 20 dictation prompts
+const dictations = [
+  "The spaceship entered the asteroid field cautiously.",
+  "Lieutenant Kael adjusted the navigation system.",
+  "Science Officer Mira recorded all sensor readings.",
+  "Captain Elara ordered the crew to monitor the anomaly.",
+  "The rift’s gravitational fluctuations increased unexpectedly.",
+  "Crew members shared observations of shifting dimensions.",
+  "The probes detected a signal from an unknown source.",
+  "Kael recalibrated the instruments before deployment.",
+  "Mira warned of potential temporal distortions.",
+  "Captain concluded the mission with strategic notes.",
+  "The alien artifact emitted a strange harmonic resonance.",
+  "Crew prepared for unexpected environmental hazards.",
+  "Data analysis may redefine our understanding of space-time.",
+  "The quantum rift displayed unusual energy fluctuations.",
+  "All findings were documented meticulously by the science team.",
+  "Sensors indicated partial interference in the communication array.",
+  "The navigation system corrected the spacecraft trajectory automatically.",
+  "Mira captured visual recordings of shifting alien structures.",
+  "Kael maintained distance while monitoring the anomaly.",
+  "Captain praised the team for their careful attention to detail."
+];
+
+const mainEl = document.querySelector("main");
+
+dictations.forEach((text, index)=>{
+  const card = document.createElement("div");
+  card.className="question-card";
+  card.id="q"+index;
+
+  const p = document.createElement("p");
+  p.innerText = "Exercise "+(index+1);
+  card.appendChild(p);
+
+  const audioDiv = document.createElement("div");
+  audioDiv.className="audio-controls";
+  const playBtn = document.createElement("button");
+  playBtn.className="btn";
+  playBtn.innerText="Play Audio";
+  playBtn.onclick = ()=>playSpeech(text);
+  const stopBtn = document.createElement("button");
+  stopBtn.className="btn stop";
+  stopBtn.innerText="Stop";
+  stopBtn.onclick = stopSpeech;
+  audioDiv.appendChild(playBtn);
+  audioDiv.appendChild(stopBtn);
+  card.appendChild(audioDiv);
+
+  const input = document.createElement("input");
+  input.className="input-answer";
+  input.placeholder="Type what you hear here...";
+  card.appendChild(input);
+
+  const checkBtn = document.createElement("button");
+  checkBtn.className="btn";
+  checkBtn.innerText="Check Answer";
+  const feedback = document.createElement("div");
+  feedback.className="feedback";
+  card.appendChild(checkBtn);
+  card.appendChild(feedback);
+
+  checkBtn.onclick = ()=>{
+    if(input.disabled) return;
+    answered++;
+    const userAnswer = input.value.trim();
+    if(userAnswer.toLowerCase() === text.toLowerCase()){
+      feedback.innerText = "Correct!";
+      feedback.style.color = "var(--correct)";
+      score++;
+      speak("Correct!");
+    } else{
+      feedback.innerText = "Wrong. Correct answer: " + text;
+      feedback.style.color = "var(--wrong)";
+      speak("Wrong, the correct answer is: " + text);
+    }
+    input.disabled = true;
+    checkBtn.disabled = true;
+    updateProgress();
+  };
+
+  mainEl.appendChild(card);
+});
+
+function updateProgress(){
+  const bar = document.getElementById("progressBar");
+  const display = document.getElementById("scoreDisplay");
+  bar.style.width = ((answered/dictations.length)*100)+"%";
+  display.innerText = "Score: "+score+"/"+dictations.length;
+}
+
+function playSpeech(text){
+  stopSpeech();
+  currentUtterance = new SpeechSynthesisUtterance(text);
+  currentUtterance.lang="en-US";
+  currentUtterance.rate=0.98;
+  currentUtterance.pitch=1;
+  synth.speak(currentUtterance);
+}
+
+function stopSpeech(){if(synth && synth.speaking)synth.cancel();currentUtterance=null;}
+function speak(text){playSpeech(text);}
+</script>
+
+</body>
+<footer>
+   Learning Module
+  </footer>
+</html>

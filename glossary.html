@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glossary - Short Sci-Fi Story</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0a0f1f;
+      color: #f1f1f1;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      border-bottom: 2px solid #2e3a59;
+    }
+    header h1 {
+      font-size: 2em;
+      color: #66ccff;
+    }
+    header p {
+      font-size: 1em;
+      color: #aaa;
+    }
+    section {
+      max-width: 900px;
+      margin: 20px auto;
+      background: #141b2d;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    }
+    h2 {
+      color: #66ccff;
+      margin-bottom: 10px;
+    }
+    .term {
+      margin-bottom: 18px;
+      padding: 12px;
+      background: #1e2742;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+    }
+    .term-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .term strong {
+      color: #ffd966;
+      font-size: 1.1em;
+    }
+    .speak-btn {
+      background: none;
+      border: none;
+      color: #66ccff;
+      cursor: pointer;
+      font-size: 1.2em;
+      margin-left: 10px;
+    }
+    .speak-btn:hover {
+      color: #99e6ff;
+    }
+    .definition {
+      margin: 6px 0;
+    }
+    .example {
+      font-style: italic;
+      color: #bbb;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #888;
+    }
+    footer a {
+      color: #66ccff;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Glossary of Terms</h1>
+    <p>Supporting Vocabulary for the Short Sci-Fi Story (Chapters 1–3)</p>
+  </header>
+
+  <section>
+    <h2>Key Terms & Vocabulary</h2>
+
+    <div class="term">
+      <div class="term-header">
+        <strong>Quantum Rift</strong>
+        <button class="speak-btn" onclick="speak('Quantum Rift')">🔊</button>
+      </div>
+      <div class="definition">A mysterious tear in the fabric of space-time, central to the story’s conflict.</div>
+      <div class="example">Example: "The crew stared at the swirling <em>Quantum Rift</em> that threatened to consume the station."</div>
+    </div>
+
+    <div class="term">
+      <div class="term-header">
+        <strong>Neural Interface</strong>
+        <button class="speak-btn" onclick="speak('Neural Interface')">🔊</button>
+      </div>
+      <div class="definition">A technology that allows direct connection between a human brain and a machine.</div>
+      <div class="example">Example: "Captain Aria tightened her <em>neural interface</em> before initiating the jump sequence."</div>
+    </div>
+
+    <div class="term">
+      <div class="term-header">
+        <strong>Stellar Outpost</strong>
+        <button class="speak-btn" onclick="speak('Stellar Outpost')">🔊</button>
+      </div>
+      <div class="definition">A remote space station located far from Earth, serving as a base of operations.</div>
+      <div class="example">Example: "They had been stationed at the <em>Stellar Outpost</em> for three months without relief."</div>
+    </div>
+
+    <div class="term">
+      <div class="term-header">
+        <strong>Temporal Echo</strong>
+        <button class="speak-btn" onclick="speak('Temporal Echo')">🔊</button>
+      </div>
+      <div class="definition">A residual distortion in time caused by interdimensional travel.</div>
+      <div class="example">Example: "The scientists recorded a <em>temporal echo</em> repeating the same sound over and over."</div>
+    </div>
+
+    <div class="term">
+      <div class="term-header">
+        <strong>Exo-suit</strong>
+        <button class="speak-btn" onclick="speak('Exo-suit')">🔊</button>
+      </div>
+      <div class="definition">A mechanical suit designed to enhance strength and protect astronauts in hostile environments.</div>
+      <div class="example">Example: "She stepped into her <em>exo-suit</em>, ready to face the unknown terrain."</div>
+    </div>
+
+    <div class="term">
+      <div class="term-header">
+        <strong>Singularity</strong>
+        <button class="speak-btn" onclick="speak('Singularity')">🔊</button>
+      </div>
+      <div class="definition">A gravitational point of infinite density, often associated with black holes.</div>
+      <div class="example">Example: "The ship’s sensors warned of an unstable <em>singularity</em> ahead."</div>
+    </div>
+
+    <div class="term">
+      <div class="term-header">
+        <strong>Chrono-beacon</strong>
+        <button class="speak-btn" onclick="speak('Chrono-beacon')">🔊</button>
+      </div>
+      <div class="definition">A futuristic device used to send signals across timelines.</div>
+      <div class="example">Example: "The crew activated the <em>chrono-beacon</em> in hopes of warning their past selves."</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Back to <a href="home.html">Intro</a> | Read the <a href="chapter1.html">Story</a></p>
+    <p>&copy; 2025 Sci-Fi Project by Nitia</p>
+  </footer>
+
+  <script>
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "en-US";
+      speechSynthesis.speak(utterance);
+    }
+  </script>
+</body>
+<footer>
+   Learning Module
+  </footer>
+</html>

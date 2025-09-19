@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Language Features (Sci-Fi) — Narrative Text</title>
+  <style>
+    :root{
+      --bg:#0e1117;
+      --panel:#151a23;
+      --muted:#9aa4b2;
+      --text:#e6e8eb;
+      --brand:#7aa2ff;
+      --accent:#9fd3c7;
+      --accent-2:#ffc88a;
+      --border:rgba(255,255,255,.08);
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, #1a2230 0%, transparent 40%),
+                  radial-gradient(900px 500px at 110% -20%, #1b1f2a 0%, transparent 45%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.7;
+    }
+    header{
+      padding:28px 20px 18px;
+      text-align:center;
+    }
+    .breadcrumbs{
+      display:inline-flex; gap:8px; align-items:center;
+      font-size: .92rem; color:var(--muted);
+      background: rgba(255,255,255,.04);
+      border:1px solid var(--border);
+      padding:6px 10px; border-radius:8px;
+    }
+    .breadcrumbs a{ color:var(--text); text-decoration:none; opacity:.9 }
+    .breadcrumbs a:hover{ color:var(--brand) }
+    h1{
+      margin:12px auto 4px;
+      font-size: clamp(1.6rem, 1.1rem + 2vw, 2.3rem);
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      color:var(--muted); margin:0 auto 18px; font-size:1rem;
+    }
+
+    .container{ max-width: 980px; margin: 0 auto; padding: 0 20px 40px; }
+
+    /* TOC */
+    .toc{
+      display:grid; gap:12px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      margin: 22px 0 28px;
+    }
+    .toc a{
+      text-decoration:none; color:var(--text);
+      background: var(--panel);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px 16px;
+      display:flex; gap:12px; align-items:center;
+      box-shadow: var(--shadow);
+      transition: transform .15s ease, border-color .2s ease, background .2s ease;
+    }
+    .toc a:hover{ transform: translateY(-2px); border-color:#2b3a55; background:#121722; }
+    .toc .ico{ font-size:1.2rem; opacity:.95 }
+
+    /* Sections */
+    section{
+      background: rgba(255,255,255,.03);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px 22px;
+      margin: 18px 0;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      display:flex; align-items:center; gap:10px;
+      margin: 0 0 8px; font-size:1.35rem;
+    }
+    section p{ margin:10px 0 }
+    .muted{ color:var(--muted) }
+
+    /* Callouts & examples */
+    .callout{
+      background: rgba(122,162,255,.08);
+      border-left:4px solid var(--brand);
+      padding:12px 14px; border-radius:10px; margin: 14px 0;
+    }
+    .example{
+      background: rgba(159,211,199,.08);
+      border-left:4px solid var(--accent);
+      padding:14px 14px; border-radius:10px; margin: 12px 0;
+      font-style: italic;
+    }
+    .mini{
+      background: rgba(255,200,138,.08);
+      border-left:4px solid var(--accent-2);
+      padding:14px; border-radius:10px; margin: 12px 0;
+    }
+    mark{
+      background: linear-gradient( to right, rgba(122,162,255,.25), rgba(122,162,255,.08) );
+      color:inherit; padding:0 .2em; border-radius:4px;
+    }
+
+    ul{ padding-left: 20px; }
+    li{ margin: 6px 0; }
+
+    /* Footer navigation */
+    footer{
+      margin: 26px auto 60px;
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
+      padding: 14px;
+    }
+    footer a{
+      text-decoration:none; color:var(--text);
+      border:1px solid var(--border);
+      background: var(--panel);
+      padding:10px 14px; border-radius: 10px;
+      transition: background .2s ease, transform .15s ease, border-color .2s ease;
+      display:inline-flex; gap:8px; align-items:center;
+    }
+    footer a:hover{ background:#121722; transform: translateY(-1px); border-color:#2b3a55; }
+
+    /* Small helper badge */
+    .badge{
+      display:inline-block; font-size:.78rem; color:var(--muted);
+      border:1px dashed var(--border); border-radius:999px;
+      padding:4px 10px; margin-top:4px;
+    }
+
+    /* Responsive spacing tweak */
+    @media (min-width: 880px){
+      .container{ padding-bottom: 80px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">🏠 Home</a>
+      <span>›</span>
+      <a href="index.html">Narrative Text</a>
+      <span>›</span>
+      <span class="muted">Language Features</span>
+    </nav>
+    <h1>Language Features in Narrative Text (Sci-Fi)</h1>
+    <p class="subtitle">Action Verbs • Adjectives • Adverbs • Conjunctions — with science-fiction examples</p>
+  </header>
+
+  <div class="container">
+    <!-- TOC -->
+    <div class="toc" aria-label="On this page">
+      <a href="#action-verbs"><span class="ico">⚡</span><div><strong>Action Verbs</strong><div class="muted">Move the plot forward</div></div></a>
+      <a href="#adjectives"><span class="ico">🎯</span><div><strong>Adjectives</strong><div class="muted">Build vivid worlds</div></div></a>
+      <a href="#adverbs"><span class="ico">🎛</span><div><strong>Adverbs</strong><div class="muted">Tune pace & mood</div></div></a>
+      <a href="#conjunctions"><span class="ico">🔗</span><div><strong>Conjunctions</strong><div class="muted">Connect ideas & causes</div></div></a>
+    </div>
+
+    <!-- ACTION VERBS -->
+    <section id="action-verbs">
+      <h2>⚡ Action Verbs</h2>
+      <p><strong>Definition.</strong> Verbs that show a character’s <em>action</em> in the story. In sci-fi, they often describe futuristic movement, combat, discovery, or operations with technology.</p>
+      <div class="callout">
+        <strong>Why they matter:</strong> make scenes dynamic, visualize events clearly, and drive the plot from one beat to the next.
+      </div>
+      <ul>
+        <li>Space/Tech: <em>launch, dock, calibrate, scan, override, deploy, warp, reprogram</em></li>
+        <li>Conflict: <em>engage, evade, strike, breach, detonate, neutralize</em></li>
+        <li>Discovery: <em>detect, uncover, isolate, synthesize, decode</em></li>
+      </ul>
+      <div class="example">
+        The astronaut <mark>activated</mark> the thrusters, the AI <mark>calibrated</mark> the shields, and the squad <mark>breached</mark> the airlock.
+      </div>
+      <div class="mini">
+        <strong>Mini-scene:</strong> As the alien cruiser <mark>approached</mark>, the defense grid <mark>locked</mark> onto its signature. The captain <mark>commanded</mark> the drones to <mark>intercept</mark>.
+      </div>
+      <span class="badge">Tip: Prefer precise verbs over generic ones (e.g., “override” &gt; “use”).</span>
+    </section>
+
+    <!-- ADJECTIVES -->
+    <section id="adjectives">
+      <h2>🎯 Adjectives</h2>
+      <p><strong>Definition.</strong> Words that describe nouns—appearance, size, condition, origin, or quality. In sci-fi, adjectives help world-building.</p>
+      <div class="callout">
+        <strong>Use them to</strong> paint settings, tech, and species: <em>metallic, luminescent, sentient, barren, synthetic, quantum</em>.
+      </div>
+      <ul>
+        <li>Setting: <em>desolate</em> moon, <em>radioactive</em> desert, <em>gargantuan</em> ringworld</li>
+        <li>Tech: <em>gleaming</em> hull, <em>experimental</em> drive, <em>self-healing</em> alloy</li>
+        <li>Beings: <em>bioluminescent</em> algae, <em>telepathic</em> envoy, <em>hostile</em> swarm</li>
+      </ul>
+      <div class="example">
+        They landed on a <mark>frozen</mark> moon under a <mark>pale</mark> sky, beside a field of <mark>crystal</mark> pillars.
+      </div>
+      <div class="mini">
+        <strong>Mini-scene:</strong> The android’s <mark>polished</mark> frame reflected the <mark>dim</mark> hangar lights as its <mark>synthetic</mark> eyes focused on the <mark>unknown</mark> signal.
+      </div>
+      <span class="badge">Tip: Don’t stack too many adjectives; pick the ones that carry new meaning.</span>
+    </section>
+
+    <!-- ADVERBS -->
+    <section id="adverbs">
+      <h2>🎛 Adverbs</h2>
+      <p><strong>Definition.</strong> Words that modify verbs, adjectives, or other adverbs—often expressing manner, time, degree, or frequency.</p>
+      <div class="callout">
+        <strong>In sci-fi:</strong> refine action intensity and mood: <em>silently, rapidly, cautiously, suddenly, precisely, barely</em>.
+      </div>
+      <ul>
+        <li>Manner: “The probe moved <em>silently</em> between debris.”</li>
+        <li>Time: “The reactor failed <em>suddenly</em> during the jump.”</li>
+        <li>Degree: “The engines were <em>barely</em> stable.”</li>
+      </ul>
+      <div class="example">
+        The shuttle drifted <mark>quietly</mark> past the outpost while scanners <mark>carefully</mark> mapped the anomaly.
+      </div>
+      <div class="mini">
+        <strong>Mini-scene:</strong> The AI <mark>instantly</mark> sealed the bulkheads; alarms <mark>loudly</mark> echoed as the crew <mark>frantically</mark> searched for the breach.
+      </div>
+      <span class="badge">Tip: If the verb is strong and clear, you may not need an adverb.</span>
+    </section>
+
+    <!-- CONJUNCTIONS -->
+    <section id="conjunctions">
+      <h2>🔗 Conjunctions</h2>
+      <p><strong>Definition.</strong> Words that link words, phrases, or clauses to show addition, contrast, cause, condition, or choice.</p>
+      <div class="callout">
+        <strong>Common sets:</strong>
+        <ul>
+          <li><em>Addition:</em> and, as well as</li>
+          <li><em>Contrast:</em> but, yet, although, whereas</li>
+          <li><em>Cause/Effect:</em> because, so, therefore, hence</li>
+          <li><em>Condition:</em> if, unless, provided that</li>
+          <li><em>Choice:</em> or, either…or, whether…or</li>
+        </ul>
+      </div>
+      <div class="example">
+        The pilot wanted to land, <mark>but</mark> the storm intensified, <mark>so</mark> the crew held orbit <mark>until</mark> the sensors cleared.
+      </div>
+      <div class="mini">
+        <strong>Mini-scene:</strong> <mark>Although</mark> the quantum gate was unstable, they jumped <mark>because</mark> Earth had sent a distress call, <mark>and</mark> there was no time left.
+      </div>
+      <span class="badge">Tip: Vary conjunctions to avoid repetitive sentence patterns.</span>
+    </section>
+
+    <!-- PRACTICE (optional, helpful for class use) -->
+    <section aria-label="Practice">
+      <h2>🧪 Quick Practice</h2>
+      <ol>
+        <li>Underline the <em>action verbs</em> in: “The scout drone quietly scanned the derelict station and transmitted the map.”</li>
+        <li>Replace the bold adjective with a stronger one: “They crossed a <strong>big</strong> asteroid field.”</li>
+        <li>Add one adverb to refine meaning: “The captain recalibrated the warp core.”</li>
+        <li>Combine two short sentences using a suitable conjunction (cause or contrast).</li>
+      </ol>
+    </section>
+  </div>
+
+  <footer>
+    <a href="home.html">🏠 Home</a>
+    <a href="past tense.html">⏳ Past Tense</a>
+    <a href="action verbs.html">💬 Action Verbs "atc"</a>
+    <a href="sci-vocab.html">🧬 Sci-Fi Vocabulary</a>
+  </footer>
+  <footer>
+   Learning Module
+  </footer>
+</body>
+</html>

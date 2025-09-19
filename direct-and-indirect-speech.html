@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Direct & Indirect Speech — Narrative Text</title>
+  <style>
+    /* Page basics */
+    :root{
+      --bg1: #0d0d1a;
+      --bg2: #1a0033;
+      --card: rgba(255,255,255,0.04);
+      --muted: #d7d7e6;
+      --accent: #c6a0ff;
+      --highlight: #ffd580;
+    }
+    html,body{height:100%; margin:0; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(180deg, var(--bg1), var(--bg2)); color:#f3f3f7;}
+    .wrap{max-width:1100px; margin:28px auto; padding:24px;}
+    header{ text-align:center; margin-bottom:18px; }
+    header h1{ margin:0; font-size:1.9rem; color:var(--accent); }
+    header p{ margin:6px 0 0; color:var(--muted); }
+
+    /* main card */
+    .card{ background:var(--card); padding:22px; border-radius:12px; box-shadow: 0 6px 20px rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.04); }
+
+    h2{ color:var(--accent); margin-top:18px; }
+    p{ color: #eaeaf2; line-height:1.65; }
+
+    /* grids */
+    .two { display:grid; grid-template-columns: 1fr 1fr; gap:18px; align-items:start; }
+    @media (max-width:780px){ .two{ grid-template-columns: 1fr; } }
+
+    /* tables */
+    table{ width:100%; border-collapse:collapse; margin-top:12px; background:rgba(255,255,255,0.02); border-radius:8px; overflow:hidden;}
+    th,td{ padding:10px 12px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--muted); font-size:0.95rem; }
+    th{ background: rgba(255,255,255,0.02); color:#fff; font-weight:600; }
+
+    /* lists */
+    ul{ margin:8px 0 12px 20px; color:#e9e9ee; }
+
+    /* examples box */
+    .example{ background: rgba(255,255,255,0.03); border-left:4px solid var(--accent); padding:12px 14px; border-radius:6px; font-style:normal; color:#f7f7fb; margin:10px 0; }
+
+    /* interactive converter */
+    .demo { margin-top:18px; background: rgba(255,255,255,0.02); padding:14px; border-radius:10px; }
+    .demo select, .demo button { padding:10px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:transparent; color: #fff; font-weight:600; }
+    .demo .out { margin-top:12px; padding:12px; background: rgba(0,0,0,0.4); border-radius:8px; color:#fff; }
+
+    /* footer nav */
+    footer{ margin-top:22px; text-align:center; padding:14px 10px; background: rgba(255,255,255,0.03); border-radius:10px; }
+    footer a { margin:0 10px; text-decoration:none; color:var(--highlight); font-weight:700; transition: transform .18s ease, color .18s ease; }
+    footer a:hover{ color:#fff; transform: scale(1.06); }
+
+    /* small note */
+    .note{ color:var(--muted); font-size:0.95rem; margin-top:8px; }
+    code { background: rgba(255,255,255,0.03); padding:2px 6px; border-radius:6px; color:#fff; font-weight:600; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Direct & Indirect (Reported) Speech</h1>
+      <p>Clear rules, tables, lots of sci-fi examples, and a tiny interactive demo to practise converting Direct → Indirect.</p>
+    </header>
+
+    <div class="card">
+      <h2>1. What they are</h2>
+      <p><strong>Direct speech</strong> reports someone's exact words and is written inside quotation marks: <code>He said, "I am reading."</code></p>
+      <p><strong>Indirect (reported) speech</strong> paraphrases the words without quotation marks and often shifts tense, pronouns, and time expressions: <code>He said (that) he was reading.</code></p>
+
+      <h2>2. Main changes when you transform Direct → Indirect</h2>
+      <div class="two">
+        <div>
+          <h3 style="color:var(--accent)">a) Tense changes (typical)</h3>
+          <table>
+            <thead><tr><th>Direct</th><th>Indirect</th></tr></thead>
+            <tbody>
+              <tr><td>"I <strong>am</strong> reading."</td><td>He said (that) he <strong>was</strong> reading.</td></tr>
+              <tr><td>"I <strong>read</strong> the book."</td><td>She said (that) she <strong>had read</strong> the book.</td></tr>
+              <tr><td>"I <strong>will</strong> go tomorrow."</td><td>He said (that) he <strong>would</strong> go the next day.</td></tr>
+              <tr><td>"I <strong>have</strong> finished."</td><td>They said (that) they <strong>had</strong> finished.</td></tr>
+            </tbody>
+          </table>
+          <p class="note">If the reporting verb is in present or future (e.g., <em>says</em>, <em>will say</em>), tense shift is optional or not required.</p>
+        </div>
+
+        <div>
+          <h3 style="color:var(--accent)">b) Pronoun & perspective</h3>
+          <p>Pronouns change to match the new speaker/listener perspective.</p>
+          <ul>
+            <li>"She said, 'I will help you.'" → <strong>She said that she would help me.</strong></li>
+            <li>If the speaker stays the same in context, sometimes pronouns remain—consider who "I"/"you" refer to.</li>
+          </ul>
+
+          <h3 style="color:var(--accent); margin-top:14px">c) Time/place expressions</h3>
+          <table>
+            <thead><tr><th>Direct</th><th>Indirect</th></tr></thead>
+            <tbody>
+              <tr><td>today</td><td>that day</td></tr>
+              <tr><td>tomorrow</td><td>the next day / the following day</td></tr>
+              <tr><td>yesterday</td><td>the day before / the previous day</td></tr>
+              <tr><td>now</td><td>then</td></tr>
+              <tr><td>last night</td><td>the night before</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h2>3. Reporting verbs (common patterns)</h2>
+      <ul>
+        <li><strong>said / told</strong> — for statements. (She said that... / He told me that...)</li>
+        <li><strong>asked / wanted to know</strong> — for questions. (He asked if/whether... / She wanted to know when...)</li>
+        <li><strong>ordered / told / advised / suggested</strong> — for commands & suggestions (use <code>to + infinitive</code>).</li>
+      </ul>
+
+      <h2>4. Forms: statements, questions, commands</h2>
+      <div class="two">
+        <div>
+          <h3 style="color:var(--accent)">a) Statements</h3>
+          <p>Direct: <code>She said, "I love sci-fi movies."</code><br>
+          Indirect: <code>She said (that) she loved sci-fi movies.</code></p>
+        </div>
+        <div>
+          <h3 style="color:var(--accent)">b) Yes/No questions</h3>
+          <p>Use <code>if</code> or <code>whether</code>:</p>
+          <p>Direct: <code>He asked, "Do you like Interstellar?"</code><br>
+          Indirect: <code>He asked if I liked Interstellar.</code></p>
+
+          <h3 style="color:var(--accent); margin-top:12px">c) Wh-questions</h3>
+          <p>Kata tanya tetap digunakan — tanpa tanda tanya pada akhir:</p>
+          <p>Direct: <code>She asked, "Where are the astronauts now?"</code><br>
+          Indirect: <code>She asked where the astronauts were.</code></p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:18px; color:var(--accent)">d) Commands / Requests</h3>
+      <p>Gunakan <code>to + infinitive</code> setelah reporting verb:</p>
+      <p>Direct: <code>The captain said, "Open the spaceship door!"</code><br>
+      Indirect: <code>The captain told them to open the spaceship door.</code></p>
+
+      <h2>5. Sci-fi contextual examples (short)</h2>
+      <div class="example">
+        <strong>Direct:</strong> The robot said, "I can detect alien life forms."<br>
+        <strong>Indirect:</strong> The robot said that it could detect alien life forms.
+      </div>
+
+      <div class="example">
+        <strong>Direct:</strong> The astronaut asked, "When will the spaceship land?"<br>
+        <strong>Indirect:</strong> The astronaut asked when the spaceship would land.
+      </div>
+
+      <div class="example">
+        <strong>Direct:</strong> The scientist said, "We discovered a new galaxy yesterday."<br>
+        <strong>Indirect:</strong> The scientist said that they had discovered a new galaxy the day before.
+      </div>
+
+      <h2>6. Handy quick-reference summary</h2>
+      <ul>
+        <li>Tense: usually shift back (present → past, past → past perfect, will → would).</li>
+        <li>Pronouns: change to match new speaker/listener.</li>
+        <li>Time/Place words: adjust (today → that day, tomorrow → the next day).</li>
+        <li>Questions: yes/no → use if/whether; wh-questions → keep wh-word.</li>
+        <li>Commands: use <code>to + infinitive</code> with verbs like <em>told</em>, <em>ordered</em>.</li>
+      </ul>
+
+      <h2>7. Small interactive demo (Direct → Indirect)</h2>
+      <div class="demo">
+        <label for="exampleSelect" style="font-weight:700;">Choose a direct sentence:</label>
+        <div style="margin-top:8px;">
+          <select id="exampleSelect" aria-label="Direct sentence selector">
+            <option value="1">1) The robot said, "I can detect alien life forms."</option>
+            <option value="2">2) The astronaut asked, "When will the spaceship land?"</option>
+            <option value="3">3) The captain said, "Open the airlock now!"</option>
+            <option value="4">4) The scientist said, "We discovered a new galaxy yesterday."</option>
+            <option value="5">5) She said, "I will send the coordinates tomorrow."</option>
+          </select>
+          <button id="convertBtn" style="margin-left:10px;">Convert → Indirect</button>
+        </div>
+
+        <div class="out" id="demoOut" aria-live="polite">
+          Choose a sentence and click <strong>Convert → Indirect</strong>.
+        </div>
+      </div>
+
+      <h2 style="margin-top:22px">8. Tips for students</h2>
+      <ul>
+        <li>First find the reporting verb (said/asked/told) and its tense.</li>
+        <li>Identify the speaker & listener to fix pronouns.</li>
+        <li>Adjust tense and any time words (today → that day, etc.).</li>
+        <li>For questions, keep the question word but remove the question mark in indirect form.</li>
+        <li>When in doubt, rewrite the sentence in natural English — clarity beats literal swapping.</li>
+      </ul>
+
+      <p class="note">If you want, I can also create a printable worksheet with 20 Direct→Indirect exercises (with answers) formatted for class.</p>
+    </div>
+
+    <footer>
+      <a href="orientation.html">🌍 Orientation</a>
+      <a href="complication.html">🔥 Complication</a>
+      <a href="resolution.html">🌟 Resolution</a>
+      <a href="reorientation.html">🔁 Re-orientation</a>
+      <a href="index.html" style="margin-left:18px;">🏠 Back to Home</a>
+    </footer>
+  </div>
+
+  <script>
+    // Interactive demo converter (simple mapping for the provided examples)
+    const demoOut = document.getElementById('demoOut');
+    const select = document.getElementById('exampleSelect');
+    const btn = document.getElementById('convertBtn');
+
+    const conversions = {
+      "1": {
+        direct: 'The robot said, "I can detect alien life forms."',
+        indirect: 'The robot said that it could detect alien life forms.'
+      },
+      "2": {
+        direct: 'The astronaut asked, "When will the spaceship land?"',
+        indirect: 'The astronaut asked when the spaceship would land.'
+      },
+      "3": {
+        direct: 'The captain said, "Open the airlock now!"',
+        indirect: 'The captain ordered them to open the airlock immediately.'
+      },
+      "4": {
+        direct: 'The scientist said, "We discovered a new galaxy yesterday."',
+        indirect: 'The scientist said that they had discovered a new galaxy the day before.'
+      },
+      "5": {
+        direct: 'She said, "I will send the coordinates tomorrow."',
+        indirect: 'She said that she would send the coordinates the next day.'
+      }
+    };
+
+    function showConversion() {
+      const key = select.value;
+      const item = conversions[key];
+      demoOut.innerHTML = '<strong>Direct:</strong> ' + item.direct + '<br><br><strong>Indirect:</strong> ' + item.indirect;
+    }
+
+    btn.addEventListener('click', showConversion);
+    // Allow enter key on select (accessibility)
+    select.addEventListener('keydown', function(e){ if(e.key === 'Enter') showConversion(); });
+  </script>
+</body>
+<footer>
+   Learning Module
+  </footer>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Crossword — Sci-Fi Narrative Text (20×20)</title>
+<style>
+  :root{
+    --bg:#f6f8fa; --card:#ffffff; --accent:#0b66c3; --muted:#5b6b72;
+    --cell:36px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background: linear-gradient(180deg,#eef3f8 0%, #f6f8fa 100%);
+    color:#073642; display:flex; flex-direction:column; align-items:center; padding:20px;
+  }
+  header{ text-align:center; margin-bottom:12px; }
+  h1{ margin:0; color:var(--accent); font-size:24px; }
+  p.lead{ color:var(--muted); margin:8px 0 0; max-width:1000px; font-size:14px; }
+
+  .wrap{ width:100%; max-width:1180px; display:grid; grid-template-columns: 1fr 420px; gap:18px; margin-top:18px; }
+  @media (max-width:980px){ .wrap{ grid-template-columns: 1fr; } }
+
+  .card{ background:var(--card); padding:14px; border-radius:10px; box-shadow: 0 6px 20px rgba(15,30,45,0.06); }
+
+  /* grid */
+  .grid{ display:grid; grid-template-columns: repeat(20, var(--cell)); grid-auto-rows: var(--cell); gap:4px; justify-content:center; }
+  .cell{ width:var(--cell); height:var(--cell); background:#fff; border:1px solid #d0d7de; position:relative; display:flex; align-items:center; justify-content:center; }
+  .cell.black{ background:#263238; border:1px solid #263238; }
+  .cell input{ width:100%; height:100%; border:0; background:transparent; color:#073642; text-align:center; font-weight:800; font-size:15px; text-transform:uppercase; outline:none; }
+  .cell input:disabled{ color:#0b66c3; background:linear-gradient(90deg, rgba(11,102,195,0.06), rgba(11,102,195,0.02)); cursor:default; }
+  .num{ position:absolute; top:2px; left:3px; font-size:10px; color:#6b7780; pointer-events:none; }
+
+  /* controls & clues */
+  .controls{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+  button{ background:var(--accent); color:#fff; border:0; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; }
+  button.ghost{ background:transparent; color:var(--accent); border:1px solid rgba(11,102,195,0.12); }
+  .clues{ display:flex; gap:14px; margin-top:6px; }
+  .clue-list{ max-height:520px; overflow:auto; padding-right:6px; }
+  .clue{ margin:8px 0; font-size:14px; color:#0b3340; display:flex; align-items:center; gap:8px; }
+  .play{ background:transparent; border:1px solid rgba(11,102,195,0.10); color:var(--accent); padding:6px 8px; border-radius:6px; cursor:pointer; font-weight:700; }
+
+  .status{ margin-top:12px; color:var(--muted); font-weight:600; }
+  #score{ font-size:16px; margin-top:10px; font-weight:800; color:#b38f00; }
+
+  /* highlights */
+  .cell.correct input{ background: linear-gradient(90deg, rgba(46,204,113,0.12), rgba(46,204,113,0.03)); color:#0b6b3e; }
+  .cell.wrong input{ background: linear-gradient(90deg, rgba(255,107,107,0.06), rgba(255,107,107,0.02)); color:#b33a3a; }
+
+  .small{ font-size:12px; color:var(--muted); margin-top:8px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>CROSSWORD PUZZLE — Sci-Fi Narrative Text</h1>
+  <p class="lead">Complete the crossword using the clues below (theme: narrative text & sci-fi vocabulary). Click the 🔊 button next to a clue to hear it. Some boxes include helpful letters (first / middle / last).</p>
+</header>
+
+<div class="wrap">
+  <!-- LEFT: grid -->
+  <section class="card" aria-label="Crossword grid">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <div>
+        <div style="font-weight:800;color:var(--accent)">20 × 20 Grid — fill letters in white boxes</div>
+        <div class="small">Use Arrow keys to navigate. Prefilled letters are disabled and shown in blue.</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:12px;color:var(--muted)">Author: Generated — interactive version</div>
+      </div>
+    </div>
+
+    <div id="grid" class="grid" role="grid" aria-label="Crossword grid"></div>
+
+    <div class="small">Tip: Click a clue to hear it (TTS). When done, press <strong>Check Answers</strong>.</div>
+  </section>
+
+  <!-- RIGHT: clues & controls -->
+  <aside class="card" aria-label="Clues and controls">
+    <div class="controls">
+      <button id="checkBtn">Check Answers</button>
+      <button id="resetBtn" class="ghost">Reset</button>
+      <button id="revealBtn" class="ghost">Reveal Answers</button>
+    </div>
+
+    <div style="display:flex;gap:12px;">
+      <div style="flex:1">
+        <h3 style="margin:4px 0 8px;color:var(--accent)">Across</h3>
+        <div id="acrossList" class="clue-list"></div>
+      </div>
+      <div style="flex:1">
+        <h3 style="margin:4px 0 8px;color:var(--accent)">Down</h3>
+        <div id="downList" class="clue-list"></div>
+      </div>
+    </div>
+
+    <div id="score" aria-live="polite"></div>
+    <div class="status" id="message">Good luck — listen to clues if you need help.</div>
+  </aside>
+</div>
+
+<script>
+/* FINAL PLACEMENTS (these are the ANSWERS used by the puzzle) 
+   words are uppercase. We'll render grid 20x20 and mark cells.
+   placements: {word, row, col, dir}
+*/
+const gridRows = 20, gridCols = 20;
+const placements = [
+  {word:"ORIENTATION", row:6, col:3, dir:"A"},
+  {word:"COMPLICATION", row:1, col:5, dir:"D"},
+  {word:"RESOLUTION", row:2, col:2, dir:"A"},
+  {word:"REORIENTATION", row:6, col:4, dir:"D"},
+  {word:"ACTIONVERB", row:1, col:4, dir:"A"},
+  {word:"TIMECONJUNCTION", row:3, col:3, dir:"A"},
+  {word:"PASTTENSE", row:0, col:14, dir:"D"},
+  {word:"CHARACTER", row:4, col:8, dir:"A"},
+  {word:"SETTING", row:5, col:6, dir:"D"},
+  {word:"SCIENCEFICTION", row:1, col:15, dir:"D"}
+];
+
+// CLUE TEXTS (do not include answers) — these will be shown in Across & Down lists
+const cluesText = {
+  "ORIENTATION":     {type:"Across", text:"The beginning of a narrative that introduces characters and setting. (Hint: first letter given)"},
+  "COMPLICATION":    {type:"Down",   text:"The problem or conflict that makes the story interesting."},
+  "RESOLUTION":      {type:"Across", text:"The solution to the problem; how the conflict is solved. (Hint: last letter given)"},
+  "REORIENTATION":   {type:"Down",   text:"An optional ending that shows the new situation after resolution. (Hint: middle letter given)"},
+  "ACTIONVERB":      {type:"Across", text:"A verb that shows physical or mental action in the story."},
+  "TIMECONJUNCTION": {type:"Across", text:"A conjunction that shows sequence (e.g., 'after', 'then')."},
+  "PASTTENSE":       {type:"Down",   text:"Verb tense often used in recount/narrative texts to describe past events."},
+  "CHARACTER":       {type:"Across", text:"A person, animal, or entity who participates in the story."},
+  "SETTING":         {type:"Down",   text:"Where and when a story takes place (place or time)."},
+  "SCIENCEFICTION":  {type:"Down",   text:"A genre imagining advanced technology, aliens, or future worlds. (Hint: first letter given)"}
+};
+
+// Which cells to prefill as hints (row,col with letter). We'll give helpful letters (first/middle/last)
+const prefilled = [
+  // ORIENTATION: first letter 'O' at (6,3)
+  {r:6, c:3, ch:'O', note:'first'},
+  // RESOLUTION: last letter 'N' at (2,11)
+  {r:2, c:11, ch:'N', note:'last'},
+  // REORIENTATION: middle letter at index 6 -> row 6+6 = 12, col 4
+  {r:12, c:4, ch:'N', note:'middle'},
+  // TIMECONJUNCTION: middle index 7 -> row3 col3+7=10
+  {r:3, c:10, ch:'J', note:'middle'},
+  // SCIENCEFICTION: first letter 'S' at (1,15)
+  {r:1, c:15, ch:'S', note:'first'}
+];
+
+// Build matrix char map and inputs
+const matrix = [];
+for(let r=0;r<gridRows;r++){
+  const row = [];
+  for(let c=0;c<gridCols;c++){
+    row.push({char:null, inputs:[]});
+  }
+  matrix.push(row);
+}
+
+// place words characters in matrix
+placements.forEach(p=>{
+  const W = p.word.toUpperCase();
+  for(let i=0;i<W.length;i++){
+    const r = p.dir === 'A' ? p.row : p.row + i;
+    const c = p.dir === 'A' ? p.col + i : p.col;
+    matrix[r][c].char = W[i];
+  }
+});
+
+// create grid DOM
+const gridEl = document.getElementById('grid');
+function renderGrid(){
+  gridEl.innerHTML = '';
+  for(let r=0;r<gridRows;r++){
+    for(let c=0;c<gridCols;c++){
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      if(matrix[r][c].char === null){
+        cell.classList.add('black');
+        gridEl.appendChild(cell);
+        continue;
+      }
+      // number will be filled later if this cell is a start
+      const numDiv = document.createElement('div');
+      numDiv.className = 'num';
+      numDiv.textContent = '';
+      cell.appendChild(numDiv);
+
+      const input = document.createElement('input');
+      input.maxLength = 1;
+      input.dataset.r = r; input.dataset.c = c;
+      input.autocomplete = "off";
+      // check prefill
+      const pref = prefilled.find(pf => pf.r===r && pf.c===c);
+      if(pref){
+        input.value = pref.ch;
+        input.disabled = true;
+        input.title = `Hint: ${pref.note} letter`;
+        input.classList.add('prefill');
+      } else {
+        input.addEventListener('input', e=>{
+          e.target.value = e.target.value.replace(/[^a-zA-Z]/g,'').toUpperCase();
+        });
+      }
+      // keyboard navigation arrows
+      input.addEventListener('keydown', e=>{
+        const rr = parseInt(input.dataset.r,10), cc = parseInt(input.dataset.c,10);
+        if(e.key === 'ArrowRight'){ e.preventDefault(); focusNext(rr,cc,'right'); }
+        else if(e.key === 'ArrowLeft'){ e.preventDefault(); focusNext(rr,cc,'left'); }
+        else if(e.key === 'ArrowDown'){ e.preventDefault(); focusNext(rr,cc,'down'); }
+        else if(e.key === 'ArrowUp'){ e.preventDefault(); focusNext(rr,cc,'up'); }
+      });
+
+      cell.appendChild(input);
+      matrix[r][c].inputs.push(input);
+      gridEl.appendChild(cell);
+    }
+  }
+}
+
+// helper to focus neighbor cell that has letter (not black)
+function focusNext(r,c, dir){
+  let nr=r, nc=c;
+  const step = ()=> {
+    if(dir==='right') nc++;
+    else if(dir==='left') nc--;
+    else if(dir==='down') nr++;
+    else if(dir==='up') nr--;
+  };
+  step();
+  while(nr>=0 && nr<gridRows && nc>=0 && nc<gridCols){
+    if(matrix[nr][nc].char !== null){
+      const inp = matrix[nr][nc].inputs[0];
+      if(inp){ inp.focus(); inp.select(); }
+      return;
+    }
+    step();
+  }
+}
+
+// compute numbering: scan by rows/cols and assign number when a placement starts here
+let numbering = 0;
+const startMap = {}; // key "r,c" => number
+placements.forEach(p=>{ p.number = null; }); // init
+
+for(let r=0;r<gridRows;r++){
+  for(let c=0;c<gridCols;c++){
+    // if this cell is the start of ANY placement (match a placement.row/col)
+    const startsHere = placements.some(p => p.row===r && p.col===c);
+    if(matrix[r][c].char !== null && startsHere){
+      numbering++;
+      startMap[`${r},${c}`] = numbering;
+      // set number to any placement that begins here
+      placements.forEach(p => { if(p.row===r && p.col===c) p.number = numbering; });
+      // set DOM num later after render
+    }
+  }
+}
+
+// build clues lists (sort placements by number for across and down)
+function buildClues(){
+  const acrossListEl = document.getElementById('acrossList');
+  const downListEl = document.getElementById('downList');
+  acrossListEl.innerHTML = '';
+  downListEl.innerHTML = '';
+
+  const across = placements.filter(p=>p.dir==='A').sort((a,b)=>a.number - b.number);
+  const down = placements.filter(p=>p.dir==='D').sort((a,b)=>a.number - b.number);
+
+  across.forEach(p=>{
+    const text = cluesText[p.word].text || '';
+    const el = document.createElement('div');
+    el.className = 'clue';
+    el.innerHTML = `<strong>${p.number}.</strong>&nbsp; ${escapeHtml(text)} <button class="play" data-num="${p.number}" data-word="${p.word}">🔊</button>`;
+    acrossListEl.appendChild(el);
+  });
+  down.forEach(p=>{
+    const text = cluesText[p.word].text || '';
+    const el = document.createElement('div');
+    el.className = 'clue';
+    el.innerHTML = `<strong>${p.number}.</strong>&nbsp; ${escapeHtml(text)} <button class="play" data-num="${p.number}" data-word="${p.word}">🔊</button>`;
+    downListEl.appendChild(el);
+  });
+
+  // play listeners
+  document.querySelectorAll('.play').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const num = btn.dataset.num;
+      const w = btn.dataset.word;
+      const txt = cluesText[w].text.replace(/\(Hint:.*\)$/i,'').trim();
+      speak(`${num}. ${txt}`);
+      // also highlight the word on grid briefly
+      highlightWordByNumber(parseInt(num,10));
+    });
+  });
+}
+
+// highlight a word by its number (brief)
+function highlightWordByNumber(num){
+  // find placement(s) with this number
+  const targets = placements.filter(p=>p.number===num);
+  if(!targets.length) return;
+  // add a subtle background for a moment
+  targets.forEach(p=>{
+    for(let i=0;i<p.word.length;i++){
+      const r = p.dir==='A' ? p.row : p.row + i;
+      const c = p.dir==='A' ? p.col + i : p.col;
+      const idx = r*gridCols + c;
+      const cell = gridEl.children[idx];
+      if(cell && !cell.classList.contains('black')){
+        cell.style.boxShadow = '0 0 0 2px rgba(11,102,195,0.12) inset';
+      }
+    }
+  });
+  setTimeout(()=> {
+    // remove highlight
+    for(let i=0;i<gridRows*gridCols;i++){ const e = gridEl.children[i]; if(e) e.style.boxShadow=''; }
+  }, 900);
+}
+
+// render grid & numbers
+renderGrid();
+// set numbers into DOM cells
+for(const key in startMap){
+  const [r,c] = key.split(',').map(x=>parseInt(x,10));
+  const num = startMap[key];
+  const idx = r*gridCols + c;
+  const cell = gridEl.children[idx];
+  if(cell){
+    const numDiv = cell.querySelector('.num');
+    if(numDiv) numDiv.textContent = num;
+  }
+}
+
+// build clues
+buildClues();
+
+// scoring / check
+const scoreEl = document.getElementById('score');
+const messageEl = document.getElementById('message');
+function checkAnswers(){
+  let correctCount = 0;
+  // clear styles
+  document.querySelectorAll('.cell').forEach(c=> c.classList.remove('correct','wrong'));
+  placements.forEach(p=>{
+    const W = p.word.toUpperCase();
+    let ok = true;
+    for(let i=0;i<W.length;i++){
+      const r = p.dir==='A' ? p.row : p.row + i;
+      const c = p.dir==='A' ? p.col + i : p.col;
+      const inp = matrix[r][c].inputs[0];
+      const val = (inp && inp.value) ? inp.value.toUpperCase() : '';
+      if(val !== W[i]) { ok = false; }
+    }
+    if(ok){
+      correctCount++;
+      // mark cells correct
+      for(let i=0;i<W.length;i++){
+        const r = p.dir==='A' ? p.row : p.row + i;
+        const c = p.dir==='A' ? p.col + i : p.col;
+        const idx = r*gridCols + c;
+        const cell = gridEl.children[idx];
+        if(cell) cell.classList.add('correct');
+      }
+    } else {
+      for(let i=0;i<W.length;i++){
+        const r = p.dir==='A' ? p.row : p.row + i;
+        const c = p.dir==='A' ? p.col + i : p.col;
+        const idx = r*gridCols + c;
+        const cell = gridEl.children[idx];
+        if(cell) cell.classList.add('wrong');
+      }
+    }
+  });
+
+  const total = placements.length;
+  let msg = '';
+  if(correctCount === total){
+    msg = `Excellent! You solved all ${total} clues. Well done!`;
+    speak(msg);
+  } else if(correctCount >= Math.ceil(total * 0.7)){
+    msg = `Good job! You got ${correctCount} out of ${total}. Keep practicing!`;
+    speak(msg);
+  } else {
+    msg = `You scored ${correctCount} out of ${total}. Try again and pay attention to the clues.`;
+    speak(msg);
+  }
+  scoreEl.textContent = `Score: ${correctCount} / ${total}`;
+  messageEl.textContent = msg;
+}
+
+// reset (clear non-prefilled)
+function resetGrid(){
+  if(!confirm('Reset all non-prefilled letters?')) return;
+  for(let r=0;r<gridRows;r++){
+    for(let c=0;c<gridCols;c++){
+      if(matrix[r][c].char !== null){
+        const input = matrix[r][c].inputs[0];
+        if(input && !input.disabled) input.value = '';
+        const idx = r*gridCols + c;
+        const cell = gridEl.children[idx];
+        if(cell){ cell.classList.remove('correct','wrong'); }
+      }
+    }
+  }
+  scoreEl.textContent = '';
+  messageEl.textContent = 'Grid cleared. Good luck!';
+}
+
+// reveal all answers
+function revealAnswers(){
+  if(!confirm('Reveal all answers? This will fill the grid with correct letters.')) return;
+  placements.forEach(p=>{
+    const W = p.word.toUpperCase();
+    for(let i=0;i<W.length;i++){
+      const r = p.dir==='A' ? p.row : p.row + i;
+      const c = p.dir==='A' ? p.col + i : p.col;
+      const input = matrix[r][c].inputs[0];
+      if(input){ input.value = W[i]; input.disabled = false; input.classList.remove('prefill'); }
+      const idx = r*gridCols + c;
+      const cell = gridEl.children[idx];
+      if(cell){ cell.classList.remove('wrong'); cell.classList.add('correct'); }
+    }
+  });
+  scoreEl.textContent = `Score: ${placements.length} / ${placements.length}`;
+  messageEl.textContent = 'All answers revealed.';
+  speak('All answers revealed.');
+}
+
+// speak helper
+function speak(text){
+  if(!('speechSynthesis' in window)) return; // silently fail
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = 0.98;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+// small helpers
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+// wire buttons
+document.getElementById('checkBtn').addEventListener('click', checkAnswers);
+document.getElementById('resetBtn').addEventListener('click', resetGrid);
+document.getElementById('revealBtn').addEventListener('click', revealAnswers);
+
+// autofocus first writable cell
+(function focusFirst(){
+  for(let r=0;r<gridRows;r++){
+    for(let c=0;c<gridCols;c++){
+      if(matrix[r][c].char !== null){
+        const inpt = matrix[r][c].inputs[0];
+        if(inpt && !inpt.disabled){ inpt.focus(); return; }
+      }
+    }
+  }
+})();
+</script>
+
+</body>
+</html>

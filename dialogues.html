@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dialogue Practice — Sci-Fi Listening</title>
+<style>
+  :root{
+    --bg:#0b0b1a;
+    --card: rgba(255,255,255,0.03);
+    --accent:#7aa2ff;
+    --text:#eef0ff;
+    --muted:#cfcfe3;
+  }
+  html,body{height:100%;margin:0;font-family:Inter, "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;}
+  body{
+    background: radial-gradient(circle at 10% 10%, #0d1330 0%, var(--bg) 40%);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    display:flex;flex-direction:column;
+  }
+  header{
+    text-align:center;padding:28px 18px 12px;border-bottom:1px solid rgba(255,255,255,0.04);
+    background:linear-gradient(180deg,#0f1530,#0b0f26);
+  }
+  header h1{margin:0;font-size:1.6rem;color:var(--accent);}
+  header p{margin:8px 0 0;color:var(--muted);max-width:900px;margin-left:auto;margin-right:auto}
+
+  main{flex:1;max-width:980px;margin:20px auto;padding:18px;width:100%}
+  .dialogue{
+    background:var(--card);padding:14px 16px;border-radius:10px;margin-bottom:18px;border-left:4px solid transparent;
+  }
+  .dialogue:hover{border-left-color:rgba(122,162,255,0.18)}
+  .dialogue p{margin:0 0 8px;line-height:1.65}
+  .audio-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  .btn{background:var(--accent);border:none;color:#06102a;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+  .btn.stop{background:#ff6b6b;color:#fff}
+  .btn:hover{opacity:0.95}
+  .vocab{background:rgba(255,255,255,0.05);padding:4px 8px;border-radius:6px;margin:2px;display:inline-block;}
+  .comprehension{margin-top:8px;padding:8px;background:rgba(255,255,255,0.05);border-radius:8px;}
+  .discussion{margin-top:6px;padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;font-style:italic;}
+  footer{padding:18px;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg,#07071a,transparent)}
+  .nav-links{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+  .nav-links a{background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;color:var(--text);text-decoration:none;font-weight:600}
+  .nav-links a:hover{background:var(--accent);color:#06102a}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Dialogue Practice — Sci-Fi Listening</h1>
+  <p>Interactive dialogues for Sci-Fi learning. Click <strong>Play</strong> to hear each line, <strong>Stop</strong> to halt playback. Practice pronunciation, comprehension, and discussion based on each dialogue.</p>
+</header>
+
+<main>
+  <!-- Dialogue 1 -->
+  <div class="dialogue" id="dlg1">
+    <p><strong>Captain Elara:</strong> Kael, are the probes ready for deployment near the quantum rift? I need full confirmation before we proceed.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('dlg1')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+    <div class="comprehension">
+      <strong>Comprehension:</strong> What is Captain Elara asking Kael to do?
+    </div>
+    <div class="discussion">
+      <strong>Discussion:</strong> How would you respond if you were in Kael’s position?
+    </div>
+    <div>
+      <span class="vocab">Probes</span>
+      <span class="vocab">Quantum Rift</span>
+      <span class="vocab">Deployment</span>
+    </div>
+  </div>
+
+  <!-- Dialogue 2 -->
+  <div class="dialogue" id="dlg2">
+    <p><strong>Lieutenant Kael:</strong> Affirmative, Captain. All probes are calibrated and awaiting launch coordinates. Sensors indicate stable conditions for deployment.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('dlg2')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+    <div class="comprehension">
+      <strong>Comprehension:</strong> What does Kael mean by “calibrated probes”?
+    </div>
+    <div class="discussion">
+      <strong>Discussion:</strong> Why is it important to ensure probes are calibrated before launch?
+    </div>
+    <div>
+      <span class="vocab">Calibrated</span>
+      <span class="vocab">Launch coordinates</span>
+      <span class="vocab">Sensors</span>
+    </div>
+  </div>
+
+  <!-- Dialogue 3 -->
+  <div class="dialogue" id="dlg3">
+    <p><strong>Science Officer Mira:</strong> Sensors are detecting strange harmonics. Captain, these frequencies are unlike anything recorded before. The readings are fluctuating unpredictably.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('dlg3')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+    <div class="comprehension">
+      <strong>Comprehension:</strong> What is unusual about the harmonics Mira is reporting?
+    </div>
+    <div class="discussion">
+      <strong>Discussion:</strong> How could unpredictable fluctuations affect the mission?
+    </div>
+    <div>
+      <span class="vocab">Harmonics</span>
+      <span class="vocab">Frequencies</span>
+      <span class="vocab">Fluctuating</span>
+    </div>
+  </div>
+
+  <!-- Dialogue 4 -->
+  <div class="dialogue" id="dlg4">
+    <p><strong>Captain Elara:</strong> Keep me updated, Mira. Kael, proceed with caution but do not halt the mission. We need this data to understand space-time anomalies.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('dlg4')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+    <div class="comprehension">
+      <strong>Comprehension:</strong> What is the captain emphasizing in her instructions?
+    </div>
+    <div class="discussion">
+      <strong>Discussion:</strong> Why might it be risky to halt the mission at this stage?
+    </div>
+    <div>
+      <span class="vocab">Anomalies</span>
+      <span class="vocab">Proceed with caution</span>
+      <span class="vocab">Space-time</span>
+    </div>
+  </div>
+
+    <!-- Dialogue 5 -->
+  <div class="dialogue" id="dlg5">
+    <p><strong>Lieutenant Kael:</strong> Understood, Captain. Deploying probes now. We should monitor for any immediate feedback from the rift and log every anomaly for analysis.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('dlg5')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+    <div class="comprehension">
+      <strong>Comprehension:</strong> What is Kael’s priority while deploying the probes?
+    </div>
+    <div class="discussion">
+      <strong>Discussion:</strong> How can logging anomalies help in scientific missions?
+    </div>
+    <div>
+      <span class="vocab">Deploying</span>
+      <span class="vocab">Immediate feedback</span>
+      <span class="vocab">Anomaly</span>
+    </div>
+  </div>
+
+  <!-- Dialogue 6 -->
+  <div class="dialogue" id="dlg6">
+    <p><strong>Science Officer Mira:</strong> Incoming data. Captain, the probes are picking up what appears to be structural anomalies—some form of alien architecture embedded in space-time. Analysis suggests non-linear spatial formations.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('dlg6')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+    <div class="comprehension">
+      <strong>Comprehension:</strong> What unusual discovery did the probes detect?
+    </div>
+    <div class="discussion">
+      <strong>Discussion:</strong> What challenges might scientists face when studying non-linear structures?
+    </div>
+    <div>
+      <span class="vocab">Structural anomalies</span>
+      <span class="vocab">Embedded</span>
+      <span class="vocab">Non-linear</span>
+      <span class="vocab">Space-time</span>
+    </div>
+  </div>
+
+  <!-- Dialogue 7 -->
+  <div class="dialogue" id="dlg7">
+    <p><strong>Captain Elara:</strong> Fascinating… Keep analyzing, Mira. Kael, maintain distance but be ready to adjust trajectory at a moment’s notice. We cannot risk damaging the probes or losing data.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('dlg7')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+    <div class="comprehension">
+      <strong>Comprehension:</strong> Why does Captain Elara emphasize careful distance and readiness?
+    </div>
+    <div class="discussion">
+      <strong>Discussion:</strong> How would you balance caution and urgency in a space mission scenario?
+    </div>
+    <div>
+      <span class="vocab">Trajectory</span>
+      <span class="vocab">Moment’s notice</span>
+      <span class="vocab">Risk</span>
+    </div>
+  </div>
+
+  <!-- Dialogue 8 -->
+  <div class="dialogue" id="dlg8">
+    <p><strong>Lieutenant Kael:</strong> Adjusting course, Captain. The rift’s gravitational fluctuations are more extreme than simulations predicted. The probes report minor distortions in temporal alignment.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('dlg8')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+    <div class="comprehension">
+      <strong>Comprehension:</strong> What unexpected conditions is Kael reporting?
+    </div>
+    <div class="discussion">
+      <strong>Discussion:</strong> How can simulations be improved to anticipate extreme space-time events?
+    </div>
+    <div>
+      <span class="vocab">Gravitational fluctuations</span>
+      <span class="vocab">Distortions</span>
+      <span class="vocab">Temporal alignment</span>
+    </div>
+  </div>
+
+  <!-- Dialogue 9 -->
+  <div class="dialogue" id="dlg9">
+    <p><strong>Science Officer Mira:</strong> Capturing visual readings. The structures seem to shift in and out of alignment, almost like they exist partially in another dimension. This could indicate higher-dimensional physics at play.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('dlg9')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+    <div class="comprehension">
+      <strong>Comprehension:</strong> What does Mira mean by “higher-dimensional physics” in this context?
+    </div>
+    <div class="discussion">
+      <strong>Discussion:</strong> How might observing higher-dimensional phenomena impact our understanding of reality?
+    </div>
+    <div>
+      <span class="vocab">Higher-dimensional</span>
+      <span class="vocab">Visual readings</span>
+      <span class="vocab">Dimension</span>
+      <span class="vocab">Alignment</span>
+    </div>
+  </div>
+
+  <!-- Dialogue 10 -->
+  <div class="dialogue" id="dlg10">
+    <p><strong>Captain Elara:</strong> Excellent work, team. Document everything meticulously. These insights may redefine our understanding of space-time. Prepare a preliminary report for the Science Council upon return.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('dlg10')">Play</button>
+      <button class="btn stop" onclick="stopSpeech()">Stop</button>
+    </div>
+    <div class="comprehension">
+      <strong>Comprehension:</strong> What is the captain instructing the team to do next?
+    </div>
+    <div class="discussion">
+      <strong>Discussion:</strong> Why is meticulous documentation important in scientific missions?
+    </div>
+    <div>
+      <span class="vocab">Meticulously</span>
+      <span class="vocab">Insights</span>
+      <span class="vocab">Preliminary report</span>
+      <span class="vocab">Science Council</span>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div style="max-width:980px;margin:0 auto;text-align:center">
+    <p style="margin:0 0 8px;color:var(--muted)">Navigate to other Listening modules:</p>
+    <div class="nav-links">
+      <a href="sci_fi_listening_interactive.html">Listening</a>
+      <a href="short-story-audio.html">Short Sci-Fi Story Audio</a>
+      <a href="dialogues.html">Dialogues Practice</a>
+      <a href="comprehension-questions.html">Comprehension Questions</a>
+      <a href="vocabulary-audio.html">Vocabulary Pronunciation</a>
+      <a href="dictation-exercises.html">Dictation Exercises</a>
+    </div>
+    <p style="margin-top:12px;font-size:13px;color:var(--muted)">© 2025 Sci-Fi English Learning — Dialogue Listening</p>
+  </div>
+</footer>
+
+<script>
+  const synth = window.speechSynthesis;
+  let currentUtterance = null;
+
+  function playSpeech(dialogueId) {
+    stopSpeech();
+    const el = document.querySelector(`#${dialogueId} p`);
+    if (!el) return;
+    const text = el.innerText.trim();
+    if (!text) return;
+    currentUtterance = new SpeechSynthesisUtterance(text);
+    currentUtterance.lang = 'en-US';
+    currentUtterance.rate = 0.98;
+    currentUtterance.pitch = 1;
+    synth.speak(currentUtterance);
+  }
+
+  function stopSpeech() {
+    if (synth && synth.speaking) synth.cancel();
+    currentUtterance = null;
+  }
+</script>
+
+</body>
+<footer>
+   Learning Module
+  </footer>
+</html>

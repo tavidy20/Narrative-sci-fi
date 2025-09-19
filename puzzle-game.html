@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drag & Drop Sci-Fi Puzzle</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #0b1e3a;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  h1 {
+    color: #00ffea;
+    text-align: center;
+  }
+  #puzzle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 800px;
+  }
+  #instructions {
+    background-color: #0a3d62;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  #word-bank {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .word {
+    background-color: #2196F3;
+    color: white;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: grab;
+    user-select: none;
+  }
+  #sentence {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  .drop-box {
+    width: 120px;
+    height: 40px;
+    margin: 5px;
+    border: 2px dashed #999;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1e272e;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .drop-box.correct {
+    background-color: #0fbcf9;
+    border-color: #10ac84;
+  }
+  .drop-box.incorrect {
+    background-color: #ff6b6b;
+    border-color: #ee5253;
+  }
+  button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  #play-sentence {
+    background-color: #1dd1a1;
+    color: #fff;
+  }
+  #check-btn {
+    background-color: #576574;
+    color: #fff;
+  }
+  #next-btn {
+    background-color: #ff9f43;
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+
+<h1>Drag & Drop Sci-Fi Puzzle</h1>
+
+<div id="puzzle-container">
+  <div id="instructions">
+    <p>Listen to the correct Sci-Fi sentence first, then drag the words from the word bank into the boxes to form the correct sentence.</p>
+    <button id="play-sentence">🔊 Play Sentence</button>
+  </div>
+
+  <div id="word-bank"></div>
+  <div id="sentence"></div>
+  <button id="check-btn">Check Answer</button>
+  <button id="next-btn">Next Sentence</button>
+</div>
+
+<audio id="correct-audio" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
+<audio id="wrong-audio" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
+
+<script>
+// Multi-sentence Sci-Fi examples
+const sentences = [
+  {
+    text: "The robot discovered a strange device on Mars.",
+    words: ["The", "robot", "discovered", "a", "strange", "device", "on", "Mars", "the", "."]
+  },
+  {
+    text: "Aliens landed their spaceship near the desert colony.",
+    words: ["Aliens", "landed", "their", "spaceship", "near", "the", "desert", "colony", "."]
+  },
+  {
+    text: "The scientist activated the teleportation machine quickly.",
+    words: ["The", "scientist", "activated", "the", "teleportation", "machine", "quickly", "."]
+  }
+];
+
+let currentIndex = 0;
+
+const wordBank = document.getElementById('word-bank');
+const sentenceContainer = document.getElementById('sentence');
+const correctAudio = document.getElementById('correct-audio');
+const wrongAudio = document.getElementById('wrong-audio');
+
+function shuffle(array) {
+  for (let i = array.length -1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+let draggedWord = null;
+
+function dragStart(e) { draggedWord = e.target; }
+function dragOver(e) { e.preventDefault(); }
+function drop(e) {
+  e.preventDefault();
+  if (e.target.classList.contains('drop-box') && !e.target.textContent) {
+    e.target.textContent = draggedWord.textContent;
+    draggedWord.style.visibility = 'hidden';
+  }
+}
+
+function initPuzzle() {
+  wordBank.innerHTML = "";
+  sentenceContainer.innerHTML = "";
+  const sentenceData = sentences[currentIndex];
+  const shuffledWords = shuffle([...sentenceData.words]);
+
+  shuffledWords.forEach(word => {
+    const wordDiv = document.createElement('div');
+    wordDiv.className = 'word';
+    wordDiv.draggable = true;
+    wordDiv.textContent = word;
+    wordDiv.addEventListener('dragstart', dragStart);
+    wordBank.appendChild(wordDiv);
+  });
+
+  sentenceData.words.forEach(() => {
+    const dropBox = document.createElement('div');
+    dropBox.className = 'drop-box';
+    dropBox.addEventListener('dragover', dragOver);
+    dropBox.addEventListener('drop', drop);
+    sentenceContainer.appendChild(dropBox);
+  });
+}
+
+// Check answer
+document.getElementById('check-btn').addEventListener('click', () => {
+  const boxes = document.querySelectorAll('.drop-box');
+  const correctWords = sentences[currentIndex].words;
+  let allCorrect = true;
+
+  boxes.forEach((box, index) => {
+    if (box.textContent === correctWords[index]) {
+      box.classList.add('correct');
+      box.classList.remove('incorrect');
+    } else {
+      box.classList.add('incorrect');
+      box.classList.remove('correct');
+      allCorrect = false;
+    }
+  });
+
+  if (allCorrect) {
+    correctAudio.play();
+    speak("Congratulations! You arranged the sentence correctly!");
+  } else {
+    wrongAudio.play();
+    speak("Some words are in the wrong place. Try again!");
+  }
+});
+
+// Play sentence TTS
+document.getElementById('play-sentence').addEventListener('click', () => {
+  speak(sentences[currentIndex].text);
+});
+
+// Next sentence
+document.getElementById('next-btn').addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % sentences.length;
+  initPuzzle();
+  speak(sentences[currentIndex].text);
+});
+
+// Web Speech API TTS
+function speak(text) {
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'en-US';
+  speechSynthesis.speak(utter);
+}
+
+initPuzzle();
+</script>
+
+</body>
+<footer>
+   Learning Module
+  </footer>
+</html>

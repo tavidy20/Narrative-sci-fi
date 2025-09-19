@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sci-Fi Listening — Comprehension Questions</title>
+<style>
+:root{
+  --bg:#0b0b1a;
+  --card: rgba(255,255,255,0.03);
+  --accent:#7aa2ff;
+  --text:#eef0ff;
+  --muted:#cfcfe3;
+  --correct:#28a745;
+  --wrong:#ff4b4b;
+}
+html,body{margin:0;padding:0;font-family:Inter, "Segoe UI", sans-serif;background:var(--bg);color:var(--text);}
+header{text-align:center;padding:30px 15px;background:linear-gradient(180deg,#0f1530,#0b0f26);}
+header h1{margin:0;font-size:2rem;color:var(--accent);}
+header p{margin:8px 0 0;color:var(--muted);max-width:900px;margin:auto;line-height:1.6;}
+main{max-width:980px;margin:20px auto;padding:15px;}
+.instructions{background:rgba(255,255,255,0.03);padding:20px;border-radius:12px;margin-bottom:20px;line-height:1.6;}
+.question-card{background:var(--card);padding:18px 20px;border-radius:12px;margin-bottom:18px;border-left:4px solid transparent;transition:all 0.3s;}
+.question-card:hover{border-left-color:rgba(122,162,255,0.18);}
+.options{display:flex;flex-direction:column;gap:10px;margin-top:12px;}
+.btn-option{padding:10px 14px;border-radius:10px;border:none;font-weight:600;background:rgba(255,255,255,0.05);color:var(--text);cursor:pointer;transition:0.2s;}
+.btn-option:hover{opacity:0.9;}
+.btn-option.correct{background:var(--correct);color:#fff;}
+.btn-option.wrong{background:var(--wrong);color:#fff;}
+.audio-controls{display:flex;gap:8px;margin-top:10px;}
+.btn{padding:8px 12px;border:none;border-radius:8px;background:var(--accent);color:#06102a;font-weight:600;cursor:pointer;}
+.btn.stop{background:#ff4b4b;color:#fff;}
+footer{text-align:center;padding:18px;color:var(--muted);border-top:1px solid rgba(255,255,255,0.03);margin-top:30px;}
+.nav-links{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+.nav-links a{background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;color:var(--text);text-decoration:none;font-weight:600;}
+.nav-links a:hover{background:var(--accent);color:#06102a;}
+.progress{background:rgba(255,255,255,0.05);border-radius:12px;height:14px;overflow:hidden;margin-bottom:20px;}
+.progress-bar{height:100%;width:0%;background:var(--accent);transition:width 0.3s;}
+.score-display{font-size:1.2rem;font-weight:600;margin-top:12px;text-align:center;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Comprehension Questions — Sci-Fi Listening</h1>
+  <p>This interactive exercise contains <strong>20 audio-based multiple-choice questions</strong>. You will hear a Sci-Fi scenario and must answer based only on what you hear. Carefully follow the instructions below before starting.</p>
+</header>
+
+<main>
+  <div class="instructions">
+    <h2>Instructions:</h2>
+    <ol>
+      <li>Click <strong>Play Audio</strong> to listen to each question carefully. <strong>Do not read any text</strong>; all prompts are audio-only.</li>
+      <li>Pay attention to keywords, numbers, actions, and important details mentioned in the audio to understand the context and determine the correct answer.</li>
+      <li>After listening, select the answer you think is correct by clicking one of the multiple-choice buttons.</li>
+      <li>Once an option is selected, you cannot change it. The correct answer will be highlighted automatically, and audio feedback will announce “Correct!” or “Wrong, keep trying the next one.”</li>
+      <li>The <strong>progress bar</strong> shows how many questions you have completed, and your <strong>score</strong> will update dynamically after each question.</li>
+      <li>You may replay the audio as many times as needed before choosing your answer, but you cannot change your selection after clicking.</li>
+      <li>Try to answer all 20 questions and aim for the highest score possible.</li>
+      <li>Use headphones or quiet environment for best comprehension.</li>
+      <li>After completing, review any feedback and take note of areas to improve your listening skills.</li>
+    </ol>
+  </div>
+
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="score-display" id="scoreDisplay">Score: 0</div>
+</main>
+
+<footer>
+  <div class="nav-links">
+    <a href="sci_fi_listening_interactive.html">Listening</a>
+    <a href="short-story-audio.html">Short Sci-Fi Story Audio</a>
+    <a href="dialogues.html">Dialogues Practice</a>
+    <a href="comprehension-questions.html">Comprehension Questions</a>
+    <a href="vocabulary-audio.html">Vocabulary Pronunciation</a>
+    <a href="dictation-exercises.html">Dictation Exercises</a>
+  </div>
+  <p style="margin-top:12px;font-size:13px;color:var(--muted)">© 2025 Sci-Fi English Learning — Comprehension Listening</p>
+</footer>
+
+<script>
+const synth = window.speechSynthesis;
+let currentUtterance = null;
+let score = 0;
+let answered = 0;
+
+// 20 audio-only questions
+const questions = [
+  {audio:"The Captain orders the crew to monitor the quantum rift carefully.", options:["They ignore the rift","They monitor carefully","They leave immediately","They panic"], answer:1},
+  {audio:"The probes detect anomalies in the alien structure.", options:["No anomalies detected","Probes malfunction","Anomalies detected","They are lost"], answer:2},
+  {audio:"Lieutenant Kael adjusts the trajectory of the spacecraft.", options:["He sleeps","He adjusts trajectory","He shuts down","He communicates"], answer:1},
+  {audio:"Science Officer Mira reports unusual frequencies.", options:["Frequencies normal","Unusual frequencies detected","Nothing detected","Frequencies offline"], answer:1},
+  {audio:"Captain Elara emphasizes documenting all findings.", options:["Skip documentation","Document findings","Report only to crew","Ignore data"], answer:1},
+  {audio:"The rift’s gravitational fluctuations are more extreme than expected.", options:["Normal gravity","Extreme fluctuations","Stable environment","Rift closed"], answer:1},
+  {audio:"Mira captures visual readings showing structures shifting dimensions.", options:["Structures static","Structures shift","Structures destroyed","Structures hidden"], answer:1},
+  {audio:"Kael maintains distance but is ready to adjust trajectory.", options:["He stays put","Maintains distance and ready","He ignores orders","He approaches directly"], answer:1},
+  {audio:"The team is instructed to deploy all probes cautiously.", options:["Deploy immediately","Deploy cautiously","Do nothing","Deploy randomly"], answer:1},
+  {audio:"Captain Elara praises the team for meticulous work.", options:["Scolds team","Ignores work","Praises team","Demotes team"], answer:2},
+  {audio:"Alien signals are partially incomprehensible.", options:["Signals clear","Partially incomprehensible","No signals","Signals hostile"], answer:1},
+  {audio:"Crew prepares for unexpected anomalies.", options:["Ignore anomalies","Prepare","Leave area","Shut down ship"], answer:1},
+  {audio:"The data collected may redefine space-time understanding.", options:["No impact","Redefine space-time","Confirm old theories","Data irrelevant"], answer:1},
+  {audio:"Sensors detect harmonic resonances.", options:["No resonance","Harmonic resonances detected","Resonance lost","Sensors offline"], answer:1},
+  {audio:"Crew members share observations and analyze carefully.", options:["Ignore sharing","Share and analyze","Argue","Leave post"], answer:1},
+  {audio:"Captain reminds team to be vigilant at all times.", options:["Forget vigilance","Be vigilant","Leave post","Ignore rift"], answer:1},
+  {audio:"Data shows evidence of advanced alien architecture.", options:["No evidence","Evidence found","Data corrupted","Architecture missing"], answer:1},
+  {audio:"Kael recalibrates instruments before further deployment.", options:["Skip calibration","Recalibrates instruments","Shuts instruments","Destroy probes"], answer:1},
+  {audio:"Mira warns of potential temporal distortions.", options:["No warning","Warns distortions","Ignore distortions","Distortions impossible"], answer:1},
+  {audio:"Captain concludes the mission with strategic notes.", options:["Concludes mission","Aborts mission","Delegates mission","Mission ignored"], answer:0},
+];
+
+const mainEl = document.querySelector("main");
+
+// Generate question cards
+questions.forEach((q, index)=>{
+  const card = document.createElement("div");
+  card.className="question-card";
+  card.id="q"+index;
+
+  const p = document.createElement("p");
+  p.innerText = "Question "+(index+1);
+  card.appendChild(p);
+
+  const audioDiv = document.createElement("div");
+  audioDiv.className="audio-controls";
+  const playBtn = document.createElement("button");
+  playBtn.className="btn";
+  playBtn.innerText="Play Audio";
+  playBtn.onclick = ()=>playSpeech(q.audio);
+  const stopBtn = document.createElement("button");
+  stopBtn.className="btn stop";
+  stopBtn.innerText="Stop";
+  stopBtn.onclick = stopSpeech;
+  audioDiv.appendChild(playBtn);
+  audioDiv.appendChild(stopBtn);
+  card.appendChild(audioDiv);
+
+  const optDiv = document.createElement("div");
+  optDiv.className="options";
+  q.options.forEach((opt,i)=>{
+    const btn = document.createElement("button");
+    btn.className="btn-option";
+    btn.innerText=opt;
+    btn.onclick = ()=>{
+      if(btn.disabled) return;
+      btn.disabled=true;
+      answered++;
+      if(i===q.answer){
+        btn.classList.add("correct");
+        score++;
+        speak("Correct! Good job.");
+      } else {
+        btn.classList.add("wrong");
+        speak("Wrong. Keep trying the next one.");
+      }
+      [...optDiv.children].forEach(b=>{
+        b.disabled=true;
+        if([...optDiv.children].indexOf(b)===q.answer)b.classList.add("correct");
+      });
+      updateProgress();
+    };
+    optDiv.appendChild(btn);
+  });
+  card.appendChild(optDiv);
+  mainEl.appendChild(card);
+});
+
+function updateProgress(){
+  const bar = document.getElementById("progressBar");
+  const display = document.getElementById("scoreDisplay");
+  bar.style.width = ((answered/questions.length)*100)+"%";
+  display.innerText = "Score: "+score+"/"+questions.length;
+}
+
+function playSpeech(text){
+  stopSpeech();
+  currentUtterance = new SpeechSynthesisUtterance(text);
+  currentUtterance.lang="en-US";
+  currentUtterance.rate=0.98;
+  currentUtterance.pitch=1;
+  synth.speak(currentUtterance);
+}
+function stopSpeech(){if(synth && synth.speaking)synth.cancel();currentUtterance=null;}
+function speak(text){playSpeech(text);}
+</script>
+
+</body>
+<footer>
+   Learning Module
+  </footer>
+</html>

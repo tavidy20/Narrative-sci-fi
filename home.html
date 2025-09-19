@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Narrative Text: Science Fiction</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      background: #0d0d0d;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(to right, #3a0ca3, #4361ee, #7209b7);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    header h1 { font-size: 2.2rem; margin-bottom: 0.3rem; }
+    header h2 { font-size: 1rem; color: #ddd; }
+    header a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+    header a:hover { background: rgba(0,255,255,0.25); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 15px rgba(0, 255, 255, 0.4);
+      border: 1px solid cyan;
+    }
+    .icon { font-size: 2rem; margin-bottom: 0.7rem; }
+    h3 { margin: 0; font-size: 1.2rem; margin-bottom: .5rem; }
+    p { font-size: .9rem; color: #ddd; }
+
+    /* Submenu styling */
+    .submenu {
+      display: none;
+      margin-top: 1rem;
+      text-align: left;
+      background: rgba(0,0,0,0.4);
+      border-radius: 10px;
+      padding: 0.8rem;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+    .submenu ul {
+      list-style: none;
+      margin: 0; padding: 0;
+    }
+    .submenu li {
+      margin: 0.4rem 0;
+      padding: 0.4rem;
+      border-left: 3px solid cyan;
+      transition: background 0.3s;
+    }
+    .submenu li:hover {
+      background: rgba(0,255,255,0.1);
+    }
+    .submenu a {
+      text-decoration: none;
+      color: #fff;
+      display: block;
+    }
+    .submenu a:hover {
+      color: cyan;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Interactive Learning Media</h1>
+    <h2>Narrative Text: Science Fiction</h2>
+  
+  </header>
+
+  <main class="grid">
+    <!-- Home -->
+    <div class="card" onclick="toggleMenu('home-sub')">
+      <div class="icon">🏠</div>
+      <h3>Home</h3>
+      <p>Overview, learning objectives, competencies, and indicators.</p>
+      <div class="submenu" id="home-sub">
+        <ul>
+          <li><a href="learning-objectives.html">Learning Objectives</a></li>
+          <li><a href="basic-competencies.html">Basic Competencies</a></li>
+          <li><a href="achievement-indicators.html">Achievement Indicators</a></li>
+        </ul>
+      </div>
+    </div>
+<!-- Narrative Text -->
+<div class="card" onclick="toggleMenu('narrative-sub')">
+  <div class="icon">📘</div>
+  <h3>Narrative Text</h3>
+  <p>Introduction, purpose, and examples of narrative texts.</p>
+  <div class="submenu" id="narrative-sub">
+    <ul>
+      <li><a href="introduction.html">Introduction</a></li>
+      <li><a href="purpose.html">Purpose</a></li>
+      <li><a href="examples.html">Examples</a></li>
+    </ul>
+  </div>
+</div>
+    <!-- Generic Structure -->
+    <div class="card" onclick="toggleMenu('structure-sub')">
+      <div class="icon">📖</div>
+      <h3>Generic Structure</h3>
+      <p>To make the story flow well, narrative text has a generic structure.
+
+In general, a narrative text consists of four main parts, namely:</p>
+      <div class="submenu" id="structure-sub">
+        <ul>
+          <li><a href="orientation.html">Orientation</a></li>
+          <li><a href="complication.html">Complication</a></li>
+          <li><a href="resolution.html">Resolution</a></li>
+          <li><a href="reorientation.html">Re-orientation</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Language Features -->
+    <div class="card" onclick="toggleMenu('lang-sub')">
+      <div class="icon">✍</div>
+      <h3>Language Features</h3>
+      <p>Past tense, verbs, adjectives, direct speech, sci-fi vocabulary.</p>
+      <div class="submenu" id="lang-sub">
+        <ul>
+          <li><a href="past tense.html">Past Tense</a></li>
+          <li><a href="action verbs.html">Action Verbs "atc"</a></li>
+          <li><a href="direct-and-indirect-speech.html">Direct-and-Indirect-Speech</a></li>
+          <li><a href="sci-vocab.html">Science Fiction Vocabulary</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Science Fiction -->
+    <div class="card" onclick="toggleMenu('sci-sub')">
+      <div class="icon">🚀</div>
+      <h3>What is Science Fiction?</h3>
+      <p>Definition, characteristics, comparisons, and examples.</p>
+      <div class="submenu" id="sci-sub">
+        <ul>
+          <li><a href="sci-fi_kajian_lengkap.html">Definition & Characteristics</a></li>
+          <li><a href="sci-differences.html">Differences from Other Genres</a></li>
+          <li><a href="sci-examples.html">Examples of Sci-Fi Films/Novels</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Reading -->
+    <div class="card" onclick="toggleMenu('read-sub')">
+      <div class="icon">📚</div>
+      <h3>Reading Section</h3>
+      <p>Short texts, glossary, and comprehension questions.</p>
+      <div class="submenu" id="read-sub">
+        <ul>
+          <li><a href="short-story.html">Short Sci-Fi Story</a></li>
+          <li><a href="glossary.html">Glossary</a></li>
+          <li><a href="comprehension.html">Comprehension Questions</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Speaking -->
+    <div class="card" onclick="toggleMenu('speak-sub')">
+      <div class="icon">🗣</div>
+      <h3>Speaking Practice</h3>
+      <p>Retelling and role play.</p>
+      <div class="submenu" id="speak-sub">
+        <ul>
+          <li><a href="retelling.html">Retelling a Story</a></li>
+          <li><a href="roleplay.html">Role Play (Human vs Robot/Alien)</a></li>
+      
+        </ul>
+      </div>
+    </div>
+
+    <!-- Listening -->
+    <div class="card" onclick="toggleMenu('listen-sub')">
+      <div class="icon">🎧</div>
+      <h3>Listening Practice</h3>
+      <div class="submenu" id="listen-sub">
+        <ul>
+          <li><a href="sci_fi_listening_interactive.html">Listening</a></li>
+          <li><a href="short-story-audio.html">Short Sci-Fi Story Audio</a></li>
+          <li><a href="dialogues.html">Dialogues Practice</a></li>
+          <li><a href="comprehension-questions.html">Comprehension Questions</a></li>
+          <li><a href="dictation-exercises.html">Dictation Exercises</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Writing -->
+    <div class="card" onclick="toggleMenu('write-sub')">
+      <div class="icon">📝</div>
+      <h3>Writing Practice</h3>
+      <p>Write an orientation, continue a story, or create sci-fi narratives.</p>
+      <div class="submenu" id="write-sub">
+        <ul>
+          <li><a href="write-orientation.html">Write the Orientation</a></li>
+          <li><a href="continue-story.html">Continue the Story</a></li>
+          <li><a href="short-narrative.html">Create a Short Sci-Fi Narrative</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Games -->
+    <div class="card" onclick="toggleMenu('quiz-sub')">
+      <div class="icon">🎯</div>
+      <h3>Games</h3>
+      <div class="submenu" id="quiz-sub">
+        <ul>
+          <li><a href="adventure-game.html">Adventure Game</a></li>
+          <li><a href="puzzle-game.html">Puzzle Game</a></li>
+          <li><a href="tts_crossword_sci-fi.html">Crossword Game</a></li>
+        </ul>
+      </div>
+    </div>
+
+
+
+  <script>
+    function toggleMenu(id) {
+      const menu = document.getElementById(id);
+      const isVisible = menu.style.display === "block";
+      document.querySelectorAll(".submenu").forEach(sm => sm.style.display = "none"); 
+      menu.style.display = isVisible ? "none" : "block";
+    }
+  </script>
+</body>
+<footer>
+   Learning Module
+  </footer>
+</html>

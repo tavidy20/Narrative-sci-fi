@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Machine Stops - Short Sci-Fi Story</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+      background: #f5f7fa;
+    }
+    .container {
+      max-width: 850px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h1, h2, h3 {
+      color: #222;
+    }
+    .intro {
+      background: #eef5ff;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+    button {
+      margin: 10px 5px 0 0;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #007bff;
+      color: white;
+      font-size: 14px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .nav {
+      margin: 20px 0;
+    }
+    .nav a {
+      margin-right: 12px;
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+    }
+    .chapter {
+      margin-bottom: 50px;
+    }
+    .para {
+      margin-bottom: 15px;
+      padding: 12px;
+      background: #fafafa;
+      border-left: 4px solid #007bff;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- INTRO -->
+    <div class="intro">
+      <h1>🌌 Short Sci-Fi Story: <i>The Machine Stops</i></h1>
+      <p><b>Author:</b> E. M. Forster (first published in 1909)</p>
+      <p><b>Genre:</b> Science Fiction – Dystopia, Technology, Future Society</p>
+      <p><b>Summary:</b> 
+        This novella envisions a future where humanity lives underground, 
+        entirely dependent on a giant Machine that provides all necessities. 
+        Human relationships weaken, curiosity about the outside world fades, 
+        and the Machine is worshipped as infallible. 
+        The story follows Vashti and her son Kuno, 
+        whose longing for freedom and connection to the Earth 
+        foreshadows the Machine’s inevitable collapse.
+      </p>
+
+      <h3>📖 Instructions for Readers</h3>
+      <ul>
+        <li>Read each chapter carefully, or use the audio buttons to listen to the narration.</li>
+        <li>Identify the characters, setting, conflict, and themes in each part.</li>
+        <li>Pay attention to the use of <i>direct</i> and <i>indirect speech</i> in the dialogues.</li>
+        <li>After reading, write your own reflection: 
+            What warning does this story give about over-reliance on technology?</li>
+      </ul>
+
+      <p>🔗 <a href="https://www.cs.ucdavis.edu/~koehl/Teaching/ECS188/PDF_files/Machine_stops.pdf" target="_blank">Read the full original text (PDF)</a></p>
+
+      <div class="nav">
+        <a href="chapter1.html">🚀 Go to Chapter 1</a>
+        <a href="chapter2.html">🌍 Go to Chapter 2</a>
+        <a href="chapter3.html">⚡ Go to Chapter 3</a>
+      </div>
+    </div>
+
+    <!-- CHAPTER 1 -->
+    <div id="chapter1" class="chapter">
+      <h2>Chapter I – The Airship</h2>
+
+      <div class="para" id="c1p1">
+        Imagine, if you can, a small room, hexagonal in shape, like the cell of a bee. 
+        It is lighted neither by window nor by lamp, yet it is filled with a soft radiance. 
+        There are no apertures for ventilation, yet the air is fresh. 
+        There are no musical instruments, yet, at the moment that my meditation opens, 
+        this room is throbbing with melodious sounds.
+      </div>
+      <button onclick="speakText('c1p1')">🔊 Play</button>
+      <button onclick="stopSpeech()">⏹ Stop</button>
+
+      <div class="para" id="c1p2">
+        An armchair is in the centre, by its side a reading-desk—that is all the furniture. 
+        And in the armchair sits a swaddled lump of flesh—a woman, about five feet high, 
+        with a face as white as a fungus. It is to her that the little room belongs.
+      </div>
+      <button onclick="speakText('c1p2')">🔊 Play</button>
+      <button onclick="stopSpeech()">⏹ Stop</button>
+
+      <!-- Add more paragraphs here for full Chapter 1 -->
+    </div>
+
+    <!-- CHAPTER 2 -->
+    <div id="chapter2" class="chapter">
+      <h2>Chapter II – The Mending Apparatus</h2>
+      <div class="para" id="c2p1">
+        Kuno, in defiance of the Machine, admits that he has tried to explore the surface of the Earth. 
+        He speaks to Vashti about the vast silence and open air, which both terrify and fascinate him. 
+        His rebellion highlights a longing for freedom that the Machine cannot provide.
+      </div>
+      <button onclick="speakText('c2p1')">🔊 Play</button>
+      <button onclick="stopSpeech()">⏹ Stop</button>
+      <!-- Add more Chapter 2 content -->
+    </div>
+
+    <!-- CHAPTER 3 -->
+    <div id="chapter3" class="chapter">
+      <h2>Chapter III – The Homeless</h2>
+      <div class="para" id="c3p1">
+        At last, the Machine begins to fail. Lights go out, air circulation stops, 
+        and terror spreads among the people who have long forgotten self-reliance. 
+        In the chaos, Vashti realizes the truth of Kuno’s warnings: 
+        the Machine is not eternal, and humanity must face the Earth again.
+      </div>
+      <button onclick="speakText('c3p1')">🔊 Play</button>
+      <button onclick="stopSpeech()">⏹ Stop</button>
+      <!-- Add more Chapter 3 content -->
+    </div>
+
+  </div>
+
+  <script>
+    let speechSynthesisUtterance;
+
+    function speakText(elementId) {
+      stopSpeech();
+      const text = document.getElementById(elementId).innerText;
+      speechSynthesisUtterance = new SpeechSynthesisUtterance(text);
+      speechSynthesisUtterance.lang = 'en-US';
+      window.speechSynthesis.speak(speechSynthesisUtterance);
+    }
+
+    function stopSpeech() {
+      window.speechSynthesis.cancel();
+    }
+  </script>
+</body>
+</html>

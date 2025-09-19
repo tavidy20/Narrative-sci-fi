@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sci-Fi Adventure — Epic Interactive Game</title>
+<style>
+:root{
+  --bg:#0b0b1a; --card: rgba(255,255,255,0.03); --accent:#7aa2ff;
+  --text:#eef0ff; --muted:#cfcfe3; --highlight:#ffcd38;
+}
+body{margin:0;padding:0;font-family:Inter, "Segoe UI", sans-serif;background:var(--bg);color:var(--text);}
+header{text-align:center;padding:30px;background:linear-gradient(180deg,#0f1530,#0b0f26);}
+header h1{color:var(--accent);margin:0;font-size:2rem;}
+main{max-width:900px;margin:20px auto;padding:15px;}
+.card{background:var(--card);padding:18px;border-radius:12px;margin-bottom:18px;}
+.options{display:flex;flex-direction:column;gap:12px;margin-top:12px;}
+.option-btn{padding:12px 14px;border-radius:10px;border:none;font-weight:600;background:rgba(255,255,255,0.05);color:var(--text);cursor:pointer;transition:0.2s;}
+.option-btn:hover{opacity:0.9;}
+footer{text-align:center;padding:18px;color:var(--muted);border-top:1px solid rgba(255,255,255,0.03);}
+.nav-links{display:flex;gap:10px;justify-content:center;margin-top:12px;}
+.nav-links a{background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;color:var(--text);text-decoration:none;font-weight:600;}
+.nav-links a:hover{background:var(--accent);color:#06102a;}
+.audio-btn{padding:8px 12px;border-radius:8px;border:none;background:var(--accent);color:#06102a;font-weight:600;cursor:pointer;margin-top:12px;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Sci-Fi Adventure Game — Epic Edition</h1>
+  <p>Take command of Captain Elara, explore Planet Xythera, make bold choices, and see how your story unfolds. Every decision matters!</p>
+</header>
+
+<main>
+  <div class="card" id="gameContainer">
+    <h2>Mission: Planet Xythera</h2>
+    <p id="storyText">You are Captain Elara orbiting the mysterious planet Xythera. A strange signal has been detected. What is your first move?</p>
+    <div class="options" id="optionsContainer"></div>
+    <button class="audio-btn" id="playAudioBtn">Play Audio</button>
+  </div>
+</main>
+
+<footer>
+  <div class="nav-links">
+    <a href="adventure-game.html">Back to Game Home</a>
+  </div>
+  <p>© 2025 Sci-Fi English Learning — Epic Adventure Game</p>
+</footer>
+
+<script>
+const synth = window.speechSynthesis;
+let currentUtterance = null;
+
+const storyNodes = [
+  { //0
+    text: "You detect a mysterious signal. Do you investigate or continue mapping the planet?",
+    options: [
+      { text: "Investigate the signal", next: 1 },
+      { text: "Continue mapping", next: 2 }
+    ]
+  },
+  { //1
+    text: "Descending towards the surface, you see a glowing alien structure.",
+    options: [
+      { text: "Enter the structure", next: 3 },
+      { text: "Scan from outside", next: 4 }
+    ]
+  },
+  { //2
+    text: "While mapping, sensors detect sudden energy spikes. You can attempt to stabilize remotely or ignore.",
+    options: [
+      { text: "Stabilize remotely", next: 4 },
+      { text: "Ignore", next: 5 }
+    ]
+  },
+  { //3
+    text: "Inside the structure, you find advanced tech and strange inscriptions.",
+    options: [
+      { text: "Decode inscriptions", next: 6 },
+      { text: "Take artifacts and leave", next: 7 }
+    ]
+  },
+  { //4
+    text: "Your scans reveal dangerous energy fluctuations and possible temporal distortions.",
+    options: [
+      { text: "Abort mission", ending: "fail1" },
+      { text: "Attempt stabilization", next: 8 }
+    ]
+  },
+  { //5
+    text: "Ignoring anomalies, you continue orbiting. Suddenly, a storm damages sensors.",
+    options: [
+      { text: "Attempt emergency landing", next: 9 },
+      { text: "Retreat to safe orbit", ending: "fail2" }
+    ]
+  },
+  { //6
+    text: "The inscriptions reveal a hidden alien message about the planet's history.",
+    options: [
+      { text: "Transmit message to Earth", ending: "success1" },
+      { text: "Keep secret and explore more", next: 10 }
+    ]
+  },
+  { //7
+    text: "Artifacts are collected. You feel uneasy as the structure begins to shake.",
+    options: [
+      { text: "Escape immediately", ending: "success2" },
+      { text: "Investigate the shaking", ending: "fail3" }
+    ]
+  },
+  { //8
+    text: "You stabilize the fields and prevent catastrophic energy surges.",
+    options: [
+      { text: "Send a report to headquarters", ending: "success3" },
+      { text: "Continue exploring independently", next: 10 }
+    ]
+  },
+  { //9
+    text: "Emergency landing is rough but safe. You discover a hidden alien device nearby.",
+    options: [
+      { text: "Investigate the device", next: 10 },
+      { text: "Mark location and leave", ending: "fail4" }
+    ]
+  },
+  { //10
+    text: "You approach a central chamber. Strange lights fill the room and unknown technology hums around.",
+    options: [
+      { text: "Interact with tech", ending: "success4" },
+      { text: "Observe quietly", ending: "success5" }
+    ]
+  }
+];
+
+const endings = {
+  success1: "Transmitting the message to Earth reveals the ancient history of Planet Xythera. You and your crew are hailed as pioneers of interstellar diplomacy. The mission is a resounding success with crucial data safely shared.",
+  success2: "Escaping with the artifacts, your crew marvels at the discoveries, though the alien message remains hidden. You return as heroes with tangible proof of alien technology, leaving a mystery unsolved.",
+  success3: "Stabilizing the dangerous energy fields earns you acclaim from headquarters. The planet remains intact, and vital data about the anomalies is safely gathered. Mission success with high strategic value.",
+  success4: "Interacting with the alien technology triggers a holographic archive revealing the planet's secrets. You carefully document everything, providing unprecedented knowledge for future missions. Adventure complete!",
+  success5: "Observing quietly, you witness phenomena never before recorded. Though you gather less physical evidence, the data and observations revolutionize scientific understanding. Mission considered highly successful.",
+  fail1: "Aborting the mission leaves the crew safe, but all data about alien presence is lost. The planet remains a mystery, and the opportunity for discoveries is missed.",
+  fail2: "Retreating too early caused a loss of crucial information. The mission is deemed incomplete, leaving your crew frustrated and questions unanswered.",
+  fail3: "Investigating the shaking triggers a collapse in the alien structure. Your team barely escapes, but some members are injured and artifacts are lost. Mission ends in disaster.",
+  fail4: "Marking the device location and leaving deprives the crew of potential insights. The alien technology remains unexplored and the opportunity is lost."
+};
+
+let currentNode = 0;
+
+function renderNode(nodeIndex){
+  const node = storyNodes[nodeIndex];
+  document.getElementById("storyText").innerText = node.text;
+  const optionsContainer = document.getElementById("optionsContainer");
+  optionsContainer.innerHTML = "";
+  // Shuffle options to make game less predictable
+  const shuffledOptions = node.options.sort(()=>Math.random()-0.5);
+  shuffledOptions.forEach(opt=>{
+    const btn = document.createElement("button");
+    btn.className="option-btn";
+    btn.innerText = opt.text;
+    btn.onclick = ()=>handleChoice(opt);
+    optionsContainer.appendChild(btn);
+  });
+  playSpeech(node.text);
+}
+
+function handleChoice(option){
+  if(option.next !== undefined){
+    currentNode = option.next;
+    renderNode(currentNode);
+  } else if(option.ending){
+    showEnding(option.ending);
+  }
+}
+
+function showEnding(endingKey){
+  const container = document.getElementById("gameContainer");
+  const endingText = endings[endingKey];
+  container.innerHTML = `<h2>Adventure Outcome</h2><p>${endingText}</p><button class="audio-btn" onclick="playSpeech(\`${endingText}\`)">Play Ending Audio</button>`;
+  playSpeech(endingText);
+}
+
+function playSpeech(text){
+  stopSpeech();
+  currentUtterance = new SpeechSynthesisUtterance(text);
+  currentUtterance.lang='en-US';
+  currentUtterance.rate=0.95;
+  currentUtterance.pitch=1;
+  synth.speak(currentUtterance);
+}
+
+function stopSpeech(){
+  if(synth && synth.speaking) synth.cancel();
+  currentUtterance=null;
+}
+
+renderNode(currentNode);
+
+document.getElementById("playAudioBtn").onclick = ()=>{
+  const node = storyNodes[currentNode];
+  playSpeech(node.text);
+};
+</script>
+<footer>
+   Learning Module
+  </footer>
+</body>
+</html>

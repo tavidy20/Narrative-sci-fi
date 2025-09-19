@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speaking Practice - Sci-Fi Narrative</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #0d0d1a, #260040);
+      color: #f5f5f5;
+      line-height: 1.8;
+      padding: 30px 15px;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #ffb347;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #ffcc70;
+      margin-top: 25px;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    ul {
+      margin: 10px 0 20px 25px;
+    }
+
+    .step {
+      background: rgba(255, 255, 255, 0.07);
+      padding: 15px;
+      border-left: 4px solid #ffcc70;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+
+    button {
+      background: #ffb347;
+      border: none;
+      padding: 7px 15px;
+      margin-left: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #222;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff9933;
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 35px;
+      text-align: center;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px 10px 0 0;
+    }
+
+    footer a {
+      margin: 0 12px;
+      text-decoration: none;
+      color: #ffd580;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    footer a:hover {
+      color: #ffffff;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🗣 Speaking Practice</h1>
+
+    <p id="intro">
+      Speaking is one of the most important skills in learning English. 
+      In this section, you will practice speaking through different activities: 
+      <strong>Retelling</strong>, <strong>Role Play</strong>, <strong>Mini Presentation</strong>, <strong>Pronunciation Practice</strong>, and <strong>Creative Speaking</strong>. 
+      All activities are based on our <em>Sci-Fi Story (Chapter 1–3)</em>. 
+      The goal is to help you speak confidently, fluently, and clearly in English.
+    </p>
+    <button onclick="speakText('intro')">🔊 Listen</button>
+
+    <h2>📌 Step-by-Step Guide to Speaking Practice</h2>
+
+    <div class="step" id="step1">
+      <strong>Step 1: Warm-Up</strong><br>
+      - Start by reading aloud short sentences from the Sci-Fi story.<br>
+      - Focus on pronunciation, stress, and intonation.<br>
+      - Example: "Humans lived inside giant glass domes on Mars."  
+    </div>
+    <button onclick="speakText('step1')">🔊 Listen</button>
+
+    <div class="step" id="step2">
+      <strong>Step 2: Retelling</strong><br>
+      - Summarize the story from Chapter 1–3 in your own words.<br>
+      - Try to use past tense verbs and connect ideas smoothly.<br>
+      - Example starter: "In the beginning, Lira lived under a glass dome on Mars. One day, she discovered a mysterious cave..."
+    </div>
+    <button onclick="speakText('step2')">🔊 Listen</button>
+
+    <div class="step" id="step3">
+      <strong>Step 3: Role Play</strong><br>
+      - Choose a character (Lira, the AI, or the crystals).<br>
+      - Act out a short dialogue or scene from the story.<br>
+      - Example: Lira talking to the crystals about their hidden knowledge.
+    </div>
+    <button onclick="speakText('step3')">🔊 Listen</button>
+
+    <div class="step" id="step4">
+      <strong>Step 4: Mini Presentation</strong><br>
+      - Prepare a 1–2 minute presentation about the main theme of the story.<br>
+      - Suggested topics: "The importance of listening to voices beyond ourselves" or "What Sci-Fi stories teach us about the future."<br>
+      - Use formal English and clear structure: Introduction → Main Points → Conclusion.
+    </div>
+    <button onclick="speakText('step4')">🔊 Listen</button>
+
+    <div class="step" id="step5">
+      <strong>Step 5: Pronunciation & Intonation</strong><br>
+      - Practice difficult words from the story: "atmosphere," "crystals," "dimension," "survival."<br>
+      - Repeat sentences with rising and falling intonation.<br>
+      - Example: "The crystals pulsed like beating hearts."
+    </div>
+    <button onclick="speakText('step5')">🔊 Listen</button>
+
+    <div class="step" id="step6">
+      <strong>Step 6: Creative Speaking</strong><br>
+      - Imagine you are the author of the story.<br>
+      - Add a new ending or a new character (for example, an alien explorer from another galaxy).<br>
+      - Share your version in front of the class.
+    </div>
+    <button onclick="speakText('step6')">🔊 Listen</button>
+
+    <h2>🎤 Practice Tips</h2>
+    <ul id="tips">
+      <li>Speak slowly and clearly. Don’t rush.</li>
+      <li>Use body language and facial expressions to make your story lively.</li>
+      <li>Practice with a partner or in small groups.</li>
+      <li>Record your voice and listen to improve pronunciation.</li>
+      <li>Don’t be afraid of mistakes — focus on communication.</li>
+    </ul>
+    <button onclick="speakText('tips')">🔊 Listen</button>
+
+    <footer>
+      <a href="speaking.html">🎙 Speaking Home</a>
+      <a href="retelling.html">📚 Retelling</a>
+      <a href="roleplay.html">🎭 Role Play</a>
+      <a href="presentation.html">📝 Presentation</a>
+      <a href="pronunciation.html">🔊 Pronunciation</a>
+      <a href="creative.html">✨ Creative Speaking</a>
+      <a href="home.html">🏠 Back to Home</a>
+    </footer>
+  </div>
+
+  <script>
+    let speechSynthesisUtterance;
+
+    function speakText(elementId) {
+      stopSpeech();
+      const text = document.getElementById(elementId).innerText;
+      speechSynthesisUtterance = new SpeechSynthesisUtterance(text);
+      speechSynthesisUtterance.lang = 'en-US';
+      speechSynthesisUtterance.rate = 1;
+      window.speechSynthesis.speak(speechSynthesisUtterance);
+    }
+
+    function stopSpeech() {
+      window.speechSynthesis.cancel();
+    }
+  </script>
+</body>
+</html>

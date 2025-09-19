@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Role Play — Sci-Fi Speaking Module</title>
+<meta name="description" content="Interactive role play module (Sci-Fi) for speaking practice — sample dialogues, per-line TTS, recorder, script editor, rubric, and teacher notes.">
+<style>
+  :root{
+    --bg1:#071129; --bg2:#24123f; --card:rgba(255,255,255,0.03);
+    --accent:#ffd580; --muted:#c9d1e8; --cta:#ffb347; --glass: rgba(255,255,255,0.04);
+    --maxw:1100px; --glass-2: rgba(255,255,255,0.02);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    background: linear-gradient(180deg,var(--bg1),var(--bg2)); color:#eef3ff; -webkit-font-smoothing:antialiased;
+    line-height:1.6; padding:20px;
+  }
+  .wrap{ max-width:var(--maxw); margin:0 auto; }
+  header{ display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom:18px; flex-wrap:wrap }
+  header h1{ margin:0; color:var(--accent); font-size:1.6rem; }
+  header p.small{ margin:0; color:var(--muted); font-size:0.95rem; }
+  nav.top{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  a.btn { text-decoration:none; color:#08101a; background:var(--cta); padding:8px 12px; border-radius:8px; font-weight:700; }
+  .card{ background:var(--card); border-radius:12px; padding:18px; margin:14px 0; border:1px solid rgba(255,255,255,0.03); }
+  h2{ color:#ffdca6; margin-top:0; }
+  h3{ color:#fff2c6; margin-bottom:6px; }
+  p.lead{ color:var(--muted); margin:8px 0 12px 0; }
+  .grid{ display:grid; gap:14px; grid-template-columns:1fr; }
+  @media(min-width:980px){ .grid{ grid-template-columns: 1fr 420px; } }
+  .controls{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  button.play, button.action { background:var(--cta); color:#08101a; border:none; padding:8px 12px; border-radius:10px; font-weight:700; cursor:pointer; }
+  button.ghost { background:transparent; color:var(--muted); border:1px solid rgba(255,255,255,0.06); padding:8px 12px; border-radius:10px; cursor:pointer; }
+  .script-block{ background: rgba(0,0,0,0.18); padding:12px; border-radius:8px; color:#fff; font-family: Georgia, "Times New Roman", serif; }
+  .script-line{ margin:6px 0; display:flex; gap:8px; align-items:flex-start; }
+  .role { min-width:90px; font-weight:800; color:var(--accent); }
+  .line-text{ flex:1; }
+  .expressions{ display:flex; flex-direction:column; gap:6px; }
+  table.expr{ width:100%; border-collapse:collapse; margin-top:10px; color:#08101a; background:#fffef2; border-radius:6px; overflow:hidden; }
+  table.expr th, table.expr td{ padding:8px; border:1px solid #eee; text-align:left; }
+  .editor textarea{ width:100%; min-height:160px; background:rgba(255,255,255,0.02); color:#fff; border:none; padding:10px; border-radius:8px; resize:vertical; }
+  .small-muted{ color:var(--muted); font-size:0.95rem; }
+  .recorder{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px; }
+  .recordings-list{ margin-top:12px; display:flex; flex-direction:column; gap:10px; }
+  .rubric table{ width:100%; border-collapse:collapse; margin-top:8px; background:#fffef2; color:#000; border-radius:6px; overflow:hidden; }
+  .rubric th, .rubric td{ padding:10px; border:1px solid #eee; text-align:center; }
+  footer{ margin-top:16px; color:var(--muted); text-align:center; font-size:0.95rem; }
+  .teacher-note{ background:rgba(255,255,255,0.02); padding:10px; border-radius:8px; color:var(--muted); margin-top:8px; }
+  .kpi{ background:rgba(255,255,255,0.02); padding:8px; border-radius:8px; color:var(--muted); display:inline-block; }
+  .btn-sm{ padding:6px 10px; border-radius:8px; font-weight:700; }
+  .danger{ background:#ff6b6b; color:#fff; }
+  .success{ background:#6bffb3; color:#08101a; }
+  /* subtle responsive tweaks */
+  @media(max-width:600px){
+    header{ flex-direction:column; align-items:flex-start; gap:6px; }
+    .role{ min-width:75px; font-size:0.9rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Role Play — Sci-Fi Speaking Module</h1>
+        <p class="small-muted">Interactive lesson: scenarios, sample dialogues, per-line TTS, script editor, recorder, rubric, and teacher notes.</p>
+      </div>
+      <nav class="top" aria-label="top navigation">
+        <a class="btn" href="#" onclick="scrollToSection('overview')">Overview</a>
+        <a class="btn" href="#" onclick="scrollToSection('scenarios')">Scenarios</a>
+        <a class="btn" href="#" onclick="scrollToSection('dialogues')">Dialogues</a>
+        <a class="btn" href="#" onclick="scrollToSection('editor')">Script Editor</a>
+        <a class="btn" href="#" onclick="scrollToSection('recorder')">Recorder</a>
+      </nav>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="card" id="overview">
+      <h2>Overview</h2>
+      <p class="lead">
+        This role play module is designed to develop learners' spoken English through authentic, communicative tasks.
+        The Sci-Fi theme encourages creativity and higher-order thinking while practising interactional language, negotiation, persuasion, and emotional expression.
+      </p>
+      <div class="controls">
+        <button class="play" onclick="readText('overview')">🔊 Play Overview</button>
+        <button class="ghost" onclick="stopSpeech()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- STEP-BY-STEP + EXPRESSIONS -->
+    <section class="card grid" id="guide">
+      <div>
+        <h2>Step-by-step Guide (Teacher → Students)</h2>
+
+        <h3>1. Preparation</h3>
+        <p class="small-muted">
+          • Assign roles and distribute the chosen scenario. <br>
+          • Students read the short context and clarify the communicative goal (e.g. persuade, negotiate, warn). <br>
+          • Brainstorm key vocabulary and useful expressions.
+        </p>
+
+        <h3>2. Rehearsal</h3>
+        <p class="small-muted">
+          • Practice lines focusing on stress, intonation, and natural phrasing. <br>
+          • Encourage two approaches: (A) accurate reading, (B) imaginative improvisation. <br>
+          • Pair students for peer feedback before recording.
+        </p>
+
+        <h3>3. Performance & Feedback</h3>
+        <p class="small-muted">
+          • Students perform live or record their performance. <br>
+          • Use the rubric to give constructive feedback (one strength + one suggestion). <br>
+          • Rehearse again and re-record to improve.
+        </p>
+
+        <div style="margin-top:12px;">
+          <strong>Teacher tips:</strong>
+          <div class="teacher-note">
+            Rotate roles so every student speaks. Time performances (2–4 minutes). Provide focused feedback: highlight one strength and one specific improvement area.
+          </div>
+        </div>
+      </div>
+
+      <aside>
+        <h3>Useful Expressions & Language Frames</h3>
+        <div class="expressions">
+          <small class="small-muted">Functional language for role play — suggest these to students:</small>
+          <table class="expr" role="table" aria-label="Useful expressions">
+            <thead><tr><th>Function</th><th>Examples</th></tr></thead>
+            <tbody>
+              <tr><td>Requesting</td><td>"Could you...?", "Would you consider...?", "Can you explain why...?"</td></tr>
+              <tr><td>Persuading</td><td>"I strongly suggest that...", "If we don't act, then...", "Consider the consequences."</td></tr>
+              <tr><td>Warning/Refusing</td><td>"I can't allow that.", "It's too risky.", "You must not proceed."</td></tr>
+              <tr><td>Agreeing/Supporting</td><td>"I agree. We should...", "That's a good point.", "I will help."</td></tr>
+              <tr><td>Expressing Emotion</td><td>"I'm terrified!", "I feel hopeful.", "This is wonderful/terrible."</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin-top:10px;">
+          <strong class="small-muted">Direct → Indirect speech</strong>
+          <div class="small-muted" style="margin-top:6px;">
+            Direct: <em>"I will shut down the reactor."</em><br>
+            Indirect: <em>He said that he would shut down the reactor.</em>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- SCENARIOS -->
+    <section class="card" id="scenarios">
+      <h2>Ready Sci-Fi Role-Play Scenarios</h2>
+      <p class="small-muted">Select a scenario, assign 2–4 roles, and prepare a 2–4 minute interaction.</p>
+
+      <div class="script-block" style="margin-top:10px;">
+        <h3>Scenario 1 — Alien Encounter</h3>
+        <p class="small-muted">A research team meets an unfamiliar, non-hostile intelligence that communicates via images. The task: build trust while maintaining safety.</p>
+        <div style="margin-top:8px;">
+          <button class="play btn-sm" onclick="readText('scenario1')">🔊 Play scenario</button>
+        </div>
+      </div>
+
+      <div class="script-block" style="margin-top:12px;">
+        <h3>Scenario 2 — Reactor Crisis</h3>
+        <p class="small-muted">A colony reactor begins to fail. An engineer proposes a risky manual fix. The task: negotiate the plan balancing safety and survival.</p>
+        <div style="margin-top:8px;">
+          <button class="play btn-sm" onclick="readText('scenario2')">🔊 Play scenario</button>
+        </div>
+      </div>
+
+      <div class="script-block" style="margin-top:12px;">
+        <h3>Scenario 3 — Time Door Dilemma</h3>
+        <p class="small-muted">A portal to the past appears. One character wants to change history; another insists on preserving it. The task: reach a decision and justify it.</p>
+        <div style="margin-top:8px;">
+          <button class="play btn-sm" onclick="readText('scenario3')">🔊 Play scenario</button>
+        </div>
+      </div>
+
+      <div class="script-block" style="margin-top:12px;">
+        <h3>Scenario 4 — Robot Rights Negotiation</h3>
+        <p class="small-muted">Autonomous maintenance robots request rights. The human commander negotiates terms. The task: create a fair, pragmatic agreement.</p>
+        <div style="margin-top:8px;">
+          <button class="play btn-sm" onclick="readText('scenario4')">🔊 Play scenario</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAMPLE DIALOGUES with per-line audio -->
+    <section class="card" id="dialogues">
+      <h2>Sample Dialogues (Per-line TTS)</h2>
+      <p class="small-muted">Click the speaker icon to listen to each line. Use the "Play Scene" button to listen sequentially for pacing and expression practice.</p>
+
+      <div class="script-block" id="dialogA">
+        <h3>Sample — The Crystal Speaks (Short)</h3>
+        <div class="script-line">
+          <div class="role">LIRA</div>
+          <div class="line-text">Do you hear that humming? The cave is alive.</div>
+          <div><button class="play btn-sm" onclick="playLine('Do you hear that humming? The cave is alive.')">🔊</button></div>
+        </div>
+
+        <div class="script-line">
+          <div class="role">CRYSTAL</div>
+          <div class="line-text">We remember the sky. We will teach you if you listen.</div>
+          <div><button class="play btn-sm" onclick="playLine('We remember the sky. We will teach you if you listen.')">🔊</button></div>
+        </div>
+
+        <div class="script-line">
+          <div class="role">LIRA</div>
+          <div class="line-text">Teach us then — what must we do first?</div>
+          <div><button class="play btn-sm" onclick="playLine('Teach us then — what must we do first?')">🔊</button></div>
+        </div>
+
+        <div class="controls" style="margin-top:10px;">

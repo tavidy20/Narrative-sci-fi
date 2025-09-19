@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comprehension Questions – The Machine Stops (Ch. 1–3)</title>
+  <style>
+    :root{
+      --bg1:#0d0d1a;
+      --bg2:#260040;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.08);
+      --accent:#ffcc70;
+      --accent2:#ffb347;
+      --text:#f5f5f5;
+      --muted:#cfcfe6;
+      --ok:#19c37d;
+      --bad:#f44336;
+      --link:#ffd580;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background:linear-gradient(to bottom,var(--bg1),var(--bg2));
+      color:var(--text);
+      line-height:1.7;
+      padding:24px 16px 80px;
+    }
+    .wrap{
+      max-width:980px;
+      margin:0 auto;
+    }
+    header{
+      background:var(--card);
+      padding:22px 20px;
+      border-radius:14px;
+      box-shadow:0 0 24px rgba(0,0,0,.2);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    h1{
+      margin:0 0 8px;
+      text-align:center;
+      font-size:2.2rem;
+      color:var(--accent2);
+    }
+    .subtitle{
+      text-align:center;
+      color:var(--muted);
+      margin:0 0 10px;
+    }
+    .nav{
+      display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:10px
+    }
+    .nav a{
+      color:var(--link);text-decoration:none;font-weight:600;border:1px solid rgba(255,255,255,.15);
+      padding:6px 10px;border-radius:10px;background:rgba(255,255,255,.05)
+    }
+    .card{
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;
+      padding:18px;
+      margin:16px 0;
+      box-shadow:0 0 14px rgba(0,0,0,.18);
+    }
+    h2{color:var(--accent);margin:0 0 12px}
+    .small{color:var(--muted);font-size:.95rem}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    button{
+      background:#3f51b5;border:none;color:white;cursor:pointer;border-radius:10px;
+      padding:8px 12px;font-weight:600
+    }
+    button:hover{opacity:.95}
+    .btn-soft{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.15)}
+    .btn-ok{background:var(--ok)}
+    .btn-bad{background:var(--bad)}
+    .grid{display:grid;gap:14px}
+    @media(min-width:740px){ .grid{grid-template-columns:1fr 1fr} }
+    .question{
+      background:var(--card2);
+      border:1px solid rgba(255,255,255,.1);
+      border-left:4px solid var(--accent);
+      border-radius:10px;
+      padding:14px;
+    }
+    .q-head{display:flex;align-items:center;gap:8px;justify-content:space-between;margin-bottom:6px}
+    .q-id{font-weight:700;color:var(--accent2)}
+    .q-text{margin:.2rem 0 .4rem}
+    .options label{
+      display:block;margin:6px 0;padding:8px;border-radius:8px;
+      border:1px solid transparent;background:rgba(255,255,255,.03);cursor:pointer
+    }
+    .options input{margin-right:8px}
+    .feedback{margin-top:6px;font-weight:600}
+    .correct{border-color:rgba(25,195,125,.6);background:rgba(25,195,125,.12)}
+    .incorrect{border-color:rgba(244,67,54,.6);background:rgba(244,67,54,.12)}
+    .key{border-color:rgba(25,195,125,.6);background:rgba(25,195,125,.08)}
+    .score{
+      font-size:1.1rem;font-weight:800;margin-top:8px
+    }
+    footer{
+      position:fixed;left:0;right:0;bottom:0;background:rgba(0,0,0,.35);
+      border-top:1px solid rgba(255,255,255,.12);backdrop-filter:blur(6px);
+      padding:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap
+    }
+    footer a{color:var(--link);text-decoration:none;font-weight:700}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Comprehension Questions</h1>
+      <p class="subtitle">The Machine Stops — Chapters 1–3</p>
+      <div class="nav">
+        <a href="index.html">Intro</a>
+        <a href="chapter1.html">Chapter I</a>
+        <a href="chapter2.html">Chapter II</a>
+        <a href="chapter3.html">Chapter III</a>
+        <a href="glossary.html">Glossary</a>
+      </div>
+    </header>
+
+    <!-- Instructions -->
+    <section class="card" id="instructions">
+      <h2>Instructions</h2>
+      <p class="small">
+        Read each question carefully. Select the best answer (A–D). Click <b>Check Answers</b> to see your score.
+        You can tap the speaker icon to hear the question and options read aloud. You may retry using <b>Reset</b>.
+      </p>
+      <ul class="small" style="margin-top:6px">
+        <li><b>Coverage:</b> Plot & theme (Ch.1–3), generic structure (Orientation–Complication–Resolution), language features (past tense, adjectives, action verbs, direct/indirect speech), conflict types.</li>
+        <li><b>Scoring:</b> 1 point per correct answer (total 20). 80%+ = Excellent, 65–79% = Proficient, 50–64% = Developing, &lt;50% = Needs Review.</li>
+        <li><b>Tip:</b> If unsure, revisit the chapter pages from navigation above.</li>
+      </ul>
+      <div class="controls">
+        <button onclick="speakElement('instructions')" title="Read Instructions">🔊 Read Instructions</button>
+        <button class="btn-soft" onclick="stopSpeech()" title="Stop Audio">⏹ Stop Audio</button>
+      </div>
+    </section>
+
+    <!-- Questions -->
+    <section class="card">
+      <h2>Multiple Choice (20 items)</h2>
+
+      <div class="grid" id="quiz">
+        <!-- Q1 -->
+        <div class="question" data-id="q1">
+          <div class="q-head">
+            <span class="q-id">1</span>
+            <div>
+              <button class="btn-soft" onclick="speakQuestion('q1')" title="Read this question">🔊</button>
+              <button class="btn-soft" onclick="stopSpeech()" title="Stop">⏹</button>
+            </div>
+          </div>
+          <p class="q-text">In Chapter I, where does Vashti live?</p>
+          <div class="options">
+            <label><input type="radio" name="q1" value="a"> On the open surface beneath the stars</label>
+            <label><input type="radio" name="q1" value="b"> In an underground hexagonal cell run by the Machine</label>
+            <label><input type="radio" name="q1" value="c"> In a floating city above the ocean</label>
+            <label><input type="radio" name="q1" value="d"> In a remote mountain village</label>
+          </div>
+          <div class="feedback" id="fb-q1"></div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question" data-id="q2">
+          <div class="q-head"><span class="q-id">2</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q2')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">What does the Machine provide that makes people stop valuing the natural world?</p>
+          <div class="options">
+            <label><input type="radio" name="q2" value="a"> Only entertainment</label>
+            <label><input type="radio" name="q2" value="b"> Light, air, food, music, and communication</label>
+            <label><input type="radio" name="q2" value="c"> Government and religion</label>
+            <label><input type="radio" name="q2" value="d"> Money and trade routes</label>
+          </div>
+          <div class="feedback" id="fb-q2"></div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question" data-id="q3">
+          <div class="q-head"><span class="q-id">3</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q3')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">Why does Kuno ask Vashti to visit him “in the flesh”?</p>
+          <div class="options">
+            <label><input type="radio" name="q3" value="a"> He needs her to fix his machinery</label>
+            <label><input type="radio" name="q3" value="b"> He wants a face-to-face connection beyond the Machine’s screens</label>
+            <label><input type="radio" name="q3" value="c"> He plans to travel by air-ship with her</label>
+            <label><input type="radio" name="q3" value="d"> He wants to introduce her to the Committee</label>
+          </div>
+          <div class="feedback" id="fb-q3"></div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question" data-id="q4">
+          <div class="q-head"><span class="q-id">4</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q4')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">What experience does Kuno long for most?</p>
+          <div class="options">
+            <label><input type="radio" name="q4" value="a"> To teach a global lecture</label>
+            <label><input type="radio" name="q4" value="b"> To see the stars from the Earth’s surface</label>
+            <label><input type="radio" name="q4" value="c"> To design a new Book of the Machine</label>
+            <label><input type="radio" name="q4" value="d"> To repair the Mending Apparatus</label>
+          </div>
+          <div class="feedback" id="fb-q4"></div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question" data-id="q5">
+          <div class="q-head"><span class="q-id">5</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q5')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">What is the Book of the Machine to Vashti and many others?</p>
+          <div class="options">
+            <label><input type="radio" name="q5" value="a"> A collection of poems</label>
+            <label><input type="radio" name="q5" value="b"> A manual revered almost like scripture</label>
+            <label><input type="radio" name="q5" value="c"> A travel diary</label>
+            <label><input type="radio" name="q5" value="d"> A law code written by Kuno</label>
+          </div>
+          <div class="feedback" id="fb-q5"></div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="question" data-id="q6">
+          <div class="q-head"><span class="q-id">6</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q6')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">Which transport does Vashti reluctantly use to visit Kuno?</p>
+          <div class="options">
+            <label><input type="radio" name="q6" value="a"> A surface train</label>
+            <label><input type="radio" name="q6" value="b"> An air-ship</label>
+            <label><input type="radio" name="q6" value="c"> A sea vessel</label>
+            <label><input type="radio" name="q6" value="d"> A horse carriage</label>
+          </div>
+          <div class="feedback" id="fb-q6"></div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="question" data-id="q7">
+          <div class="q-head"><span class="q-id">7</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q7')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">When Vashti glimpses the stars from the air-ship, her reaction is best described as…</p>
+          <div class="options">
+            <label><input type="radio" name="q7" value="a"> Joyful and inspired</label>
+            <label><input type="radio" name="q7" value="b"> Indifferent</label>
+            <label><input type="radio" name="q7" value="c"> Terrified and repelled</label>
+            <label><input type="radio" name="q7" value="d"> Curious but calm</label>
+          </div>
+          <div class="feedback" id="fb-q7"></div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="question" data-id="q8">
+          <div class="q-head"><span class="q-id">8</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q8')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">In Chapter II, what punishment is Kuno threatened with?</p>
+          <div class="options">
+            <label><input type="radio" name="q8" value="a"> Solitary confinement</label>
+            <label><input type="radio" name="q8" value="b"> Homelessness</label>
+            <label><input type="radio" name="q8" value="c"> Manual labor</label>
+            <label><input type="radio" name="q8" value="d"> Exile to another city underground</label>
+          </div>
+          <div class="feedback" id="fb-q8"></div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="question" data-id="q9">
+          <div class="q-head"><span class="q-id">9</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q9')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">How does Kuno reach the surface?</p>
+          <div class="options">
+            <label><input type="radio" name="q9" value="a"> By official permit and elevator</label>
+            <label><input type="radio" name="q9" value="b"> By climbing a ventilation shaft without a permit</label>
+            <label><input type="radio" name="q9" value="c"> By air-ship</label>
+            <label><input type="radio" name="q9" value="d"> Through a natural cave opened by an earthquake</label>
+          </div>
+          <div class="feedback" id="fb-q9"></div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="question" data-id="q10">
+          <div class="q-head"><span class="q-id">10</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q10')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">What brings Kuno back underground from the surface?</p>
+          <div class="options">
+            <label><input type="radio" name="q10" value="a"> A rescue team</label>
+            <label><input type="radio" name="q10" value="b"> The Mending Apparatus</label>
+            <label><input type="radio" name="q10" value="c"> A sudden storm</label>
+            <label><input type="radio" name="q10" value="d"> His respirator failure</label>
+          </div>
+          <div class="feedback" id="fb-q10"></div>
+        </div>
+
+        <!-- Q11 -->
+        <div class="question" data-id="q11">
+          <div class="q-head"><span class="q-id">11</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q11')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">Which example shows <b>direct speech</b>?</p>
+          <div class="options">
+            <label><input type="radio" name="q11" value="a"> Kuno asked his mother to visit him.</label>
+            <label><input type="radio" name="q11" value="b"> “I want to see you,” Kuno said.</label>
+            <label><input type="radio" name="q11" value="c"> Kuno said that he wanted to see her.</label>
+            <label><input type="radio" name="q11" value="d"> Kuno wished his mother would come.</label>
+          </div>
+          <div class="feedback" id="fb-q11"></div>
+        </div>
+
+        <!-- Q12 -->
+        <div class="question" data-id="q12">
+          <div class="q-head"><span class="q-id">12</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q12')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">Which sentence correctly uses the <b>simple past tense</b>?</p>
+          <div class="options">
+            <label><input type="radio" name="q12" value="a"> Vashti is fearing the stars.</label>
+            <label><input type="radio" name="q12" value="b"> Vashti feared the stars when the blinds opened.</label>
+            <label><input type="radio" name="q12" value="c"> Vashti fears the stars now.</label>
+            <label><input type="radio" name="q12" value="d"> Vashti was fears the stars.</label>
+          </div>
+          <div class="feedback" id="fb-q12"></div>
+        </div>
+
+        <!-- Q13 -->
+        <div class="question" data-id="q13">
+          <div class="q-head"><span class="q-id">13</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q13')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">Kuno’s conflict with the Machine’s rules is best labeled as…</p>
+          <div class="options">
+            <label><input type="radio" name="q13" value="a"> Man vs. Nature</label>
+            <label><input type="radio" name="q13" value="b"> Man vs. Society</label>
+            <label><input type="radio" name="q13" value="c"> Man vs. Self</label>
+            <label><input type="radio" name="q13" value="d"> Man vs. Fate</label>
+          </div>
+          <div class="feedback" id="fb-q13"></div>
+        </div>
+
+        <!-- Q14 -->
+        <div class="question" data-id="q14">
+          <div class="q-head"><span class="q-id">14</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q14')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">The abolition of respirators mainly suggests that society has…</p>
+          <div class="options">
+            <label><input type="radio" name="q14" value="a"> Improved surface safety</label>
+            <label><input type="radio" name="q14" value="b"> Severed its last link with the surface world</label>
+            <label><input type="radio" name="q14" value="c"> Encouraged outdoor exploration</label>
+            <label><input type="radio" name="q14" value="d"> Reduced travel costs</label>
+          </div>
+          <div class="feedback" id="fb-q14"></div>
+        </div>
+
+        <!-- Q15 -->
+        <div class="question" data-id="q15">
+          <div class="q-head"><span class="q-id">15</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q15')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">What major event occurs in Chapter III?</p>
+          <div class="options">
+            <label><input type="radio" name="q15" value="a"> The Machine expands worldwide</label>
+            <label><input type="radio" name="q15" value="b"> The Machine stops and civilization collapses</label>
+            <label><input type="radio" name="q15" value="c"> Vashti becomes a Committee leader</label>
+            <label><input type="radio" name="q15" value="d"> Kuno moves to the surface permanently</label>
+          </div>
+          <div class="feedback" id="fb-q15"></div>
+        </div>
+
+        <!-- Q16 -->
+        <div class="question" data-id="q16">
+          <div class="q-head"><span class="q-id">16</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q16')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">Which sentence contains an <b>adjective</b> describing a noun?</p>
+          <div class="options">
+            <label><input type="radio" name="q16" value="a"> People communicated instantly.</label>
+            <label><input type="radio" name="q16" value="b"> The <em>stale</em> air bothered Vashti.</label>
+            <label><input type="radio" name="q16" value="c"> They traveled underground.</label>
+            <label><input type="radio" name="q16" value="d"> Kuno climbed carefully.</label>
+          </div>
+          <div class="feedback" id="fb-q16"></div>
+        </div>
+
+        <!-- Q17 -->
+        <div class="question" data-id="q17">
+          <div class="q-head"><span class="q-id">17</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q17')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">Identify the <b>action verb</b> in the sentence: “Kuno <u>climbed</u> the shaft.”</p>
+          <div class="options">
+            <label><input type="radio" name="q17" value="a"> Kuno</label>
+            <label><input type="radio" name="q17" value="b"> climbed</label>
+            <label><input type="radio" name="q17" value="c"> the</label>
+            <label><input type="radio" name="q17" value="d"> shaft</label>
+          </div>
+          <div class="feedback" id="fb-q17"></div>
+        </div>
+
+        <!-- Q18 -->
+        <div class="question" data-id="q18">
+          <div class="q-head"><span class="q-id">18</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q18')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">Which option best states the <b>theme</b> of the story?</p>
+          <div class="options">
+            <label><input type="radio" name="q18" value="a"> The joy of scientific discovery</label>
+          <label><input type="radio" name="q18" value="b"> The dangers of absolute dependence on technology</label>
+            <label><input type="radio" name="q18" value="c"> The superiority of surface life</label>
+            <label><input type="radio" name="q18" value="d"> The power of democratic voting</label>
+          </div>
+          <div class="feedback" id="fb-q18"></div>
+        </div>
+
+        <!-- Q19 -->
+        <div class="question" data-id="q19">
+          <div class="q-head"><span class="q-id">19</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q19')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">Which event best represents the story’s <b>climax</b>?</p>
+          <div class="options">
+            <label><input type="radio" name="q19" value="a"> Vashti begins a lecture</label>
+            <label><input type="radio" name="q19" value="b"> Kuno phones his mother</label>
+            <label><input type="radio" name="q19" value="c"> The Machine fails and tunnels collapse</label>
+            <label><input type="radio" name="q19" value="d"> People sign the Book of the Machine</label>
+          </div>
+          <div class="feedback" id="fb-q19"></div>
+        </div>
+
+        <!-- Q20 -->
+        <div class="question" data-id="q20">
+          <div class="q-head"><span class="q-id">20</span>
+            <div><button class="btn-soft" onclick="speakQuestion('q20')">🔊</button><button class="btn-soft" onclick="stopSpeech()">⏹</button></div>
+          </div>
+          <p class="q-text">Who are the “Homeless” mentioned in Chapter III?</p>
+          <div class="options">
+            <label><input type="radio" name="q20" value="a"> People who refuse to read the Book</label>
+            <label><input type="radio" name="q20" value="b"> Those expelled from the underground who learn to live on the surface</label>
+            <label><input type="radio" name="q20" value="c"> Nomads traveling by air-ship</label>
+            <label><input type="radio" name="q20" value="d"> Engineers of the Mending Apparatus</label>
+          </div>
+          <div class="feedback" id="fb-q20"></div>
+        </div>
+      </div>
+
+      <div class="controls" style="margin-top:10px">
+        <button class="btn-ok" onclick="gradeQuiz()">✅ Check Answers</button>
+        <button class="btn-soft" onclick="resetQuiz()">🔄 Reset</button>
+        <button class="btn-bad" onclick="stopSpeech()">⏹ Stop All Audio</button>
+      </div>
+      <div id="total-score" class="score"></div>
+    </section>
+  </div>
+
+  <footer>
+    <a href="index.html">Intro</a>
+    <a href="chapter1.html">Chapter I</a>
+    <a href="chapter2.html">Chapter II</a>
+    <a href="chapter3.html">Chapter III</a>
+    <a href="glossary.html">Glossary</a>
+  </footer>
+
+  <script>
+    // ====== Speech ======
+    let currentUtterance = null;
+    function stopSpeech(){
+      if (speechSynthesis && speechSynthesis.speaking) speechSynthesis.cancel();
+      currentUtterance = null;
+    }
+    function speak(text){
+      stopSpeech();
+      currentUtterance = new SpeechSynthesisUtterance(text);
+      currentUtterance.lang = "en-US";
+      currentUtterance.rate = 1;
+      speechSynthesis.speak(currentUtterance);
+    }
+    function speakElement(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      const text = el.innerText.replace(/\s+/g,' ').trim();
+      speak(text);
+    }
+    function speakQuestion(qid){
+      const q = document.querySelector(`.question[data-id="${qid}"]`);
+      if(!q) return;
+      const qText = q.querySelector('.q-text')?.innerText?.trim() || '';
+      const opts = [...q.querySelectorAll('.options label')].map((lb,i)=>{
+        const letter = String.fromCharCode(65+i);
+        return `${letter}. ${lb.innerText.trim()}`;
+      }).join('. ');
+      speak(`${qText}. Options: ${opts}.`);
+    }
+
+    // ====== Quiz Logic ======
+    const answerKey = {
+      q1:'b', q2:'b', q3:'b', q4:'b', q5:'b',
+      q6:'b', q7:'c', q8:'b', q9:'b', q10:'b',
+      q11:'b', q12:'b', q13:'b', q14:'b', q15:'b',
+      q16:'b', q17:'b', q18:'b', q19:'c', q20:'b'
+    };
+
+    function gradeQuiz(){
+      // Clear previous highlights
+      document.querySelectorAll('.question .options label').forEach(lb=>{
+        lb.classList.remove('correct','incorrect','key');
+      });
+      document.querySelectorAll('.feedback').forEach(fb=>fb.textContent='');
+
+      let score = 0;
+      Object.keys(answerKey).forEach(qid=>{
+        const correct = answerKey[qid];
+        const q = document.querySelector(`.question[data-id="${qid}"]`);
+        if(!q) return;
+        const chosen = q.querySelector(`input[name="${qid}"]:checked`);
+        const fb = q.querySelector(`#fb-${qid}`);
+        if(!fb){
+          // build fallback id if not present
+        }
+        if(chosen){
+          const val = chosen.value;
+          const chosenLabel = chosen.closest('label');
+          if(val === correct){
+            score++;
+            chosenLabel.classList.add('correct');
+            (q.querySelector('.feedback')||{}).textContent = 'Correct ✅';
+          }else{
+            chosenLabel.classList.add('incorrect');
+            const correctInput = q.querySelector(`input[value="${correct}"]`);
+            if(correctInput) correctInput.closest('label').classList.add('key');
+            (q.querySelector('.feedback')||{}).textContent = 'Incorrect ❌';
+          }
+        }else{
+          // No answer selected: show key lightly
+          const correctInput = q.querySelector(`input[value="${correct}"]`);
+          if(correctInput) correctInput.closest('label').classList.add('key');
+          (q.querySelector('.feedback')||{}).textContent = 'Not answered • Key highlighted';
+        }
+      });
+
+      const percent = Math.round((score/20)*100);
+      let band = '';
+      if(percent>=80) band='Excellent';
+      else if(percent>=65) band='Proficient';
+      else if(percent>=50) band='Developing';
+      else band='Needs Review';
+
+      const msg = `Score: ${score}/20 • ${percent}% — ${band}`;
+      document.getElementById('total-score').textContent = msg;
+      // Speak the result for accessibility
+      speak(msg);
+    }
+
+    function resetQuiz(){
+      stopSpeech();
+      document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
+      document.querySelectorAll('.question .options label').forEach(lb=>{
+        lb.classList.remove('correct','incorrect','key');
+      });
+      document.querySelectorAll('.feedback').forEach(fb=>fb.textContent='');
+      document.getElementById('total-score').textContent='';
+    }
+  </script>
+</body>
+</html>

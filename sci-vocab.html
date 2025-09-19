@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sci-Fi Vocabulary — Interactive List (with Speech)</title>
+<style>
+  :root{
+    --bg1:#080712;
+    --bg2:#111028;
+    --card: rgba(255,255,255,0.04);
+    --accent:#7aa2ff;
+    --muted:#cfcfe3;
+    --glass: rgba(255,255,255,0.03);
+    --highlight: #c9b6ff;
+    --tts-button-bg: rgba(255,255,255,0.04);
+    --tts-button-hover: rgba(122,162,255,0.12);
+  }
+  html,body{height:100%;margin:0;font-family:Inter, "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;}
+  body{
+    background: radial-gradient(circle at 10% 10%, #101030 0%, var(--bg1) 40%, var(--bg2) 100%);
+    color:#eef0ff;
+    -webkit-font-smoothing:antialiased;
+    display:flex;flex-direction:column;
+  }
+
+  header{
+    text-align:center;padding:28px 18px 8px;border-bottom:1px solid rgba(255,255,255,0.03);
+  }
+  header h1{margin:0;font-size:1.6rem;color:var(--highlight);}
+  header p{margin:6px 0 0;color:var(--muted);font-size:0.95rem}
+
+  .controls{
+    max-width:1100px;margin:18px auto 0;padding:12px 16px;display:flex;gap:12px;align-items:center;justify-content:center;
+  }
+  .search{
+    flex:1;max-width:640px;
+    background:var(--glass);border:1px solid rgba(255,255,255,0.04);
+    padding:10px 12px;border-radius:10px;color:var(--muted);
+    display:flex;gap:8px;align-items:center;
+  }
+  .search input{flex:1;background:transparent;border:0;outline:none;color:inherit;font-size:0.95rem}
+  .tag-filter{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:10px auto 0}
+  .tag{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:6px 10px;border-radius:999px;color:var(--muted);cursor:pointer}
+  .tag.active{background:var(--accent);border-color:rgba(122,162,255,0.25);color:#06102a;font-weight:600}
+
+  main{flex:1;padding:20px 18px 120px;max-width:1100px;margin:0 auto;width:100%;}
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;
+  }
+
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.03);
+    padding:14px;border-radius:12px;backdrop-filter: blur(4px);
+  }
+  .card h3{margin:0 0 10px;color:var(--highlight);display:flex;align-items:center;gap:8px;font-size:1.05rem}
+  .word-list{display:flex;flex-direction:column;gap:10px}
+  .term{
+    display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start;padding:10px;border-radius:10px;background:transparent;border-left:4px solid transparent;
+  }
+  .term .left{}
+  .term .term-word{font-weight:700;color:#fff;font-size:0.98rem}
+  .term .term-def{font-size:0.92rem;color:var(--muted);margin-top:4px}
+  .term .term-ex{margin-top:6px;font-size:0.9rem;color:#d7e9ff}
+  .term .badge{font-size:0.82rem;color:var(--muted);padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02)}
+  .term:hover{background:rgba(255,255,255,0.02);border-left-color:var(--accent)}
+
+  /* TTS buttons */
+  .tts-buttons{display:flex;gap:8px;align-items:center}
+  .tts-btn{
+    background:var(--tts-button-bg);
+    border:1px solid rgba(255,255,255,0.04);
+    padding:6px 8px;border-radius:8px;color:var(--muted);cursor:pointer;font-size:0.95rem;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .tts-btn:hover{background:var(--tts-button-hover);color:#fff}
+  .tts-btn.stop{background:transparent;border:1px solid rgba(255,80,80,0.12);color:#ffb3b3}
+  .tts-icon{font-size:1rem;line-height:1}
+
+  footer{
+    position:fixed;left:0;right:0;bottom:0;background:linear-gradient(180deg, rgba(2,2,10,0.3), rgba(2,2,10,0.6));
+    padding:12px 8px;border-top:1px solid rgba(255,255,255,0.03);display:flex;justify-content:center;gap:12px;backdrop-filter: blur(6px)
+  }
+  footer a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+  footer a:hover{color:#fff;border-color:rgba(122,162,255,0.15)}
+
+  /* responsive */
+  @media (max-width:520px){
+    header h1{font-size:1.25rem}
+    .controls{padding:6px}
+    .search{padding:8px}
+    .tts-btn{padding:6px}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Sci-Fi Vocabulary — 60 words</h1>
+    <p>Six categories • 10 words each • definitions + example sentences — interactive & searchable</p>
+  </header>
+
+  <div class="controls">
+    <div class="search" title="Type to filter words">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="opacity:.9" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="#dfe8ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="6" stroke="#dfe8ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <input id="searchInput" placeholder="Search word or example (e.g. 'wormhole' or 'space')" aria-label="Search vocabulary" />
+    </div>
+  </div>
+
+  <main>
+    <div class="grid" id="cards">
+
+      <!-- Category 1: Space & Universe -->
+      <section class="card" data-category="Space & Universe">
+        <h3>🚀 Space & Universe</h3>
+        <div class="word-list">
+          <div class="term" data-speech="Planet. Example: The colony ship set course for an Earth-like planet in the Kepler system.">
+            <div class="left">
+              <div class="term-word">Planet</div>
+              <div class="term-def">A large celestial body orbiting a star.</div>
+              <div class="term-ex">Example: "The colony ship set course for an Earth-like planet in the Kepler system."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)" aria-label="Play Planet">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()" aria-label="Stop">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Star. Example: They watched the red star rise over the alien horizon.">
+            <div class="left">
+              <div class="term-word">Star</div>
+              <div class="term-def">A luminous ball of gas producing energy by nuclear fusion.</div>
+              <div class="term-ex">Example: "They watched the red star rise over the alien horizon."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Galaxy. Example: Our galaxy is only one among billions in the visible universe.">
+            <div class="left">
+              <div class="term-word">Galaxy</div>
+              <div class="term-def">A massive system of stars, gas, dust, and dark matter.</div>
+              <div class="term-ex">Example: "Our galaxy is only one among billions in the visible universe."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Asteroid. Example: The miners dodged a shower of asteroids while navigating the belt.">
+            <div class="left">
+              <div class="term-word">Asteroid</div>
+              <div class="term-def">A small rocky body orbiting a star; often found in belts.</div>
+              <div class="term-ex">Example: "The miners dodged a shower of asteroids while navigating the belt."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Comet. Example: The comet's tail lit up the night sky as the ship passed.">
+            <div class="left">
+              <div class="term-word">Comet</div>
+              <div class="term-def">An icy body that develops a tail when near a star.</div>
+              <div class="term-ex">Example: "The comet's tail lit up the night sky as the ship passed."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Orbit. Example: The satellite entered a stable orbit above the colony.">
+            <div class="left">
+              <div class="term-word">Orbit</div>
+              <div class="term-def">The curved path of an object around a star or planet.</div>
+              <div class="term-ex">Example: "The satellite entered a stable orbit above the colony."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Nebula. Example: They drifted through a glowing nebula filled with ionized gases.">
+            <div class="left">
+              <div class="term-word">Nebula</div>
+              <div class="term-def">A cloud of gas and dust in space, birthplace of stars.</div>
+              <div class="term-ex">Example: "They drifted through a glowing nebula filled with ionized gases."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Black Hole. Example: The probe collected data up to the accretion disk of the black hole.">
+            <div class="left">
+              <div class="term-word">Black Hole</div>
+              <div class="term-def">A region of space with gravity so strong not even light can escape.</div>
+              <div class="term-ex">Example: "The probe collected data up to the accretion disk of the black hole."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Exoplanet. Example: They discovered an exoplanet with a breathable atmosphere.">
+            <div class="left">
+              <div class="term-word">Exoplanet</div>
+              <div class="term-def">A planet located outside our solar system.</div>
+              <div class="term-ex">Example: "They discovered an exoplanet with a breathable atmosphere."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Asteroid Belt. Example: The freighter skirted the inner edge of the asteroid belt to avoid collisions.">
+            <div class="left">
+              <div class="term-word">Asteroid Belt</div>
+              <div class="term-def">A region containing many asteroids, often between planets.</div>
+              <div class="term-ex">Example: "The freighter skirted the inner edge of the asteroid belt to avoid collisions."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Category 2: Technology & AI -->
+      <section class="card" data-category="Technology & AI">
+        <h3>🤖 Technology & AI</h3>
+        <div class="word-list">
+          <div class="term" data-speech="Android. Example: The android assistant greeted them with perfect courtesy.">
+            <div class="left">
+              <div class="term-word">Android</div>
+              <div class="term-def">A humanoid robot designed to look and act like a human.</div>
+              <div class="term-ex">Example: "The android assistant greeted them with perfect courtesy."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Cyborg. Example: After the accident, he became a cyborg with enhanced vision.">
+            <div class="left">
+              <div class="term-word">Cyborg</div>
+              <div class="term-def">A being with both organic and biomechanical parts.</div>
+              <div class="term-ex">Example: "After the accident, he became a cyborg with enhanced vision."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Neural Network. Example: The neural network learned to predict weather patterns on Mars.">
+            <div class="left">
+              <div class="term-word">Neural Network</div>
+              <div class="term-def">A computing system inspired by biological brains used in AI.</div>
+              <div class="term-ex">Example: "The neural network learned to predict weather patterns on Mars."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Quantum Computer. Example: They used a quantum computer to simulate the alien DNA.">
+            <div class="left">
+              <div class="term-word">Quantum Computer</div>
+              <div class="term-def">A machine using quantum bits to perform certain computations far faster.</div>
+              <div class="term-ex">Example: "They used a quantum computer to simulate the alien DNA."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Hologram. Example: A hologram of the captain materialized in the briefing room.">
+            <div class="left">
+              <div class="term-word">Hologram</div>
+              <div class="term-def">A three-dimensional projection of light used for display or communication.</div>
+              <div class="term-ex">Example: "A hologram of the captain materialized in the briefing room."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Nanotechnology. Example: Nanobots repaired the microfractures in the starship's hull.">
+            <div class="left">
+              <div class="term-word">Nanotechnology</div>
+              <div class="term-def">Technology that manipulates matter at the molecular or atomic scale.</div>
+              <div class="term-ex">Example: "Nanobots repaired the microfractures in the starship's hull."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Drone. Example: Survey drones mapped the crater's interior.">
+            <div class="left">
+              <div class="term-word">Drone</div>
+              <div class="term-def">An unmanned vehicle used for exploration or tasks.</div>
+              <div class="term-ex">Example: "Survey drones mapped the crater's interior."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Algorithm. Example: The navigation algorithm adjusted course to avoid debris.">
+            <div class="left">
+              <div class="term-word">Algorithm</div>
+              <div class="term-def">A set of rules or calculations used by computers to solve problems.</div>
+              <div class="term-ex">Example: "The navigation algorithm adjusted course to avoid debris."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Synthetic Intelligence. Example: The ship's synthetic intelligence negotiated with the alien envoy.">
+            <div class="left">
+              <div class="term-word">Synthetic Intelligence</div>
+              <div class="term-def">An artificial intelligence created to mimic or surpass human intelligence.</div>
+              <div class="term-ex">Example: "The ship's synthetic intelligence negotiated with the alien envoy."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Augmented Reality. Example: Her AR display annotated the ancient wreck in real time.">
+            <div class="left">
+              <div class="term-word">Augmented Reality</div>
+              <div class="term-def">A technology that overlays digital information onto the physical world.</div>
+              <div class="term-ex">Example: "Her AR display annotated the ancient wreck in real time."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Category 3: Time & Dimension -->
+      <section class="card" data-category="Time & Dimension">
+        <h3>🌌 Time & Dimension</h3>
+        <div class="word-list">
+          <div class="term" data-speech="Time Dilation. Example: Near the black hole, time dilation meant years passed on the ship while minutes passed on Earth.">
+            <div class="left">
+              <div class="term-word">Time Dilation</div>
+              <div class="term-def">A difference in elapsed time between observers due to high speed or gravity.</div>
+              <div class="term-ex">Example: "Near the black hole, time dilation meant years passed on the ship while minutes passed on Earth."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Wormhole. Example: They used a wormhole to cross the galaxy in hours instead of centuries.">
+            <div class="left">
+              <div class="term-word">Wormhole</div>
+              <div class="term-def">A hypothetical shortcut through spacetime connecting distant points.</div>
+              <div class="term-ex">Example: "They used a wormhole to cross the galaxy in hours instead of centuries."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Time Loop. Example: The crew was trapped in a time loop and had to find the cause.">
+            <div class="left">
+              <div class="term-word">Time Loop</div>
+              <div class="term-def">A repeating period where events recur until broken.</div>
+              <div class="term-ex">Example: "The crew was trapped in a time loop and had to find the cause."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Parallel Universe. Example: In a parallel universe, their ship never left the solar system.">
+            <div class="left">
+              <div class="term-word">Parallel Universe</div>
+              <div class="term-def">A separate universe that exists alongside our own with different history.</div>
+              <div class="term-ex">Example: "In a parallel universe, their ship never left the solar system."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Hyperspace. Example: Engage hyperspace — we're leaving this system behind.">
+            <div class="left">
+              <div class="term-word">Hyperspace</div>
+              <div class="term-def">A theoretical higher-dimensional space used for faster-than-light travel.</div>
+              <div class="term-ex">Example: "Engage hyperspace — we're leaving this system behind."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Temporal Anomaly. Example: The probe recorded a strange temporal anomaly near the star.">
+            <div class="left">
+              <div class="term-word">Temporal Anomaly</div>
+              <div class="term-def">An event or region where normal time flows are disrupted.</div>
+              <div class="term-ex">Example: "The probe recorded a strange temporal anomaly near the star."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Chronology. Example: The historian reconstructed the colony's chronology from scattered logs.">
+            <div class="left">
+              <div class="term-word">Chronology</div>
+              <div class="term-def">The sequence of events in time; timeline of events.</div>
+              <div class="term-ex">Example: "The historian reconstructed the colony's chronology from scattered logs."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Timestream. Example: Tampering with the timestream can have unpredictable effects.">
+            <div class="left">
+              <div class="term-word">Timestream</div>
+              <div class="term-def">A metaphorical flow of time; often used in sci-fi to mean a timeline.</div>
+              <div class="term-ex">Example: "Tampering with the timestream can have unpredictable effects."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Singularity. Example: Many feared the technological singularity when machines surpassed human control.">
+            <div class="left">
+              <div class="term-word">Singularity</div>
+              <div class="term-def">Either a gravitational singularity (black hole center) or AI superintelligence point.</div>
+              <div class="term-ex">Example: "Many feared the technological singularity when machines surpassed human control."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Dimensional Rift. Example: The dimensional rift released strange creatures into the city.">
+            <div class="left">
+              <div class="term-word">Dimensional Rift</div>
+              <div class="term-def">A tear or gap between dimensions allowing passage or leaks of matter/energy.</div>
+              <div class="term-ex">Example: "The dimensional rift released strange creatures into the city."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Category 4: Aliens & Extraterrestrial -->
+      <section class="card" data-category="Aliens & Extraterrestrial">
+        <h3>🛸 Aliens & Extraterrestrial</h3>
+        <div class="word-list">
+          <div class="term" data-speech="Extraterrestrial. Example: They found signs of extraterrestrial microbial life in the soil sample.">
+            <div class="left">
+              <div class="term-word">Extraterrestrial</div>
+              <div class="term-def">Any life or object originating beyond Earth.</div>
+              <div class="term-ex">Example: "They found signs of extraterrestrial microbial life in the soil sample."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Xenobiology. Example: Xenobiology revealed the creature's metabolism glowed blue.">
+            <div class="left">
+              <div class="term-word">Xenobiology</div>
+              <div class="term-def">The study of alien life forms and their biology.</div>
+              <div class="term-ex">Example: "Xenobiology revealed the creature's metabolism glowed blue."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Probe. Example: The alien probe transmitted an image before going dark.">
+            <div class="left">
+              <div class="term-word">Probe</div>
+              <div class="term-def">An unmanned device sent to explore or collect data.</div>
+              <div class="term-ex">Example: "The alien probe transmitted an image before going dark."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="First Contact. Example: First contact triggered a global effort to communicate peacefully.">
+            <div class="left">
+              <div class="term-word">First Contact</div>
+              <div class="term-def">The initial meeting between humans and an alien species.</div>
+              <div class="term-ex">Example: "First contact triggered a global effort to communicate peacefully."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Mothership. Example: The mothership hovered silently above the capital.">
+            <div class="left">
+              <div class="term-word">Mothership</div>
+              <div class="term-def">A large vessel that carries smaller craft or resources.</div>
+              <div class="term-ex">Example: "The mothership hovered silently above the capital."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Alien Civilization. Example: Archaeologists uncovered ruins of an ancient alien civilization.">
+            <div class="left">
+              <div class="term-word">Alien Civilization</div>
+              <div class="term-def">A structured society belonging to a non-human species.</div>
+              <div class="term-ex">Example: "Archaeologists uncovered ruins of an ancient alien civilization."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Telepathy. Example: The alien leader communicated through telepathy, bypassing language.">
+            <div class="left">
+              <div class="term-word">Telepathy</div>
+              <div class="term-def">The ability to communicate thoughts or feelings mentally.</div>
+              <div class="term-ex">Example: "The alien leader communicated through telepathy, bypassing language."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Alien Artifact. Example: The alien artifact hummed when touched, as if alive.">
+            <div class="left">
+              <div class="term-word">Alien Artifact</div>
+              <div class="term-def">An object made by an alien culture with unknown function.</div>
+              <div class="term-ex">Example: "The alien artifact hummed when touched, as if alive."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Bio-form. Example: The lab studied a bio-form that regenerated after injury.">
+            <div class="left">
+              <div class="term-word">Bio-form</div>
+              <div class="term-def">A living organism with a biological structure, often alien.</div>
+              <div class="term-ex">Example: "The lab studied a bio-form that regenerated after injury."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Exobiology. Example: Exobiology teams analyzed the planet's methane lakes.">
+            <div class="left">
+              <div class="term-word">Exobiology</div>
+              <div class="term-def">Field researching life in outer space and its origins.</div>
+              <div class="term-ex">Example: "Exobiology teams analyzed the planet's methane lakes."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Category 5: Energy & Power -->
+      <section class="card" data-category="Energy & Power">
+        <h3>⚡ Energy & Power</h3>
+        <div class="word-list">
+          <div class="term" data-speech="Fusion Reactor. Example: The colony's fusion reactor provided clean, abundant power.">
+            <div class="left">
+              <div class="term-word">Fusion Reactor</div>
+              <div class="term-def">A device that generates energy by fusing atomic nuclei.</div>
+              <div class="term-ex">Example: "The colony's fusion reactor provided clean, abundant power."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Antimatter. Example: Antimatter fuel produced a burst of thrust when carefully contained.">
+            <div class="left">
+              <div class="term-word">Antimatter</div>
+              <div class="term-def">Particles with opposite charge to ordinary matter; highly energetic on annihilation.</div>
+              <div class="term-ex">Example: "Antimatter fuel produced a burst of thrust when carefully contained."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Plasma. Example: The ship's plasma thrusters glowed like liquid fire.">
+            <div class="left">
+              <div class="term-word">Plasma</div>
+              <div class="term-def">An ionized state of matter often used in futuristic engines and weapons.</div>
+              <div class="term-ex">Example: "The ship's plasma thrusters glowed like liquid fire."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Energy Shield. Example: The station raised its energy shield just in time.">
+            <div class="left">
+              <div class="term-word">Energy Shield</div>
+              <div class="term-def">A protective barrier made of energy to block attacks or debris.</div>
+              <div class="term-ex">Example: "The station raised its energy shield just in time."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Power Core. Example: Technicians replaced the power core before the mission.">
+            <div class="left">
+              <div class="term-word">Power Core</div>
+              <div class="term-def">The central unit that stores or generates a vessel's energy.</div>
+              <div class="term-ex">Example: "Technicians replaced the power core before the mission."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Zero-Point Energy. Example: Zero-point energy, if harnessed, could change civilization forever.">
+            <div class="left">
+              <div class="term-word">Zero-Point Energy</div>
+              <div class="term-def">A hypothetical energy source derived from quantum vacuum fluctuations.</div>
+              <div class="term-ex">Example: "Zero-point energy, if harnessed, could change civilization forever."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Power Grid. Example: The orbital power grid distributed energy across the colony.">
+            <div class="left">
+              <div class="term-word">Power Grid</div>
+              <div class="term-def">A network for distributing generated energy to users.</div>
+              <div class="term-ex">Example: "The orbital power grid distributed energy across the colony."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Reactor Core. Example: The reactor core's temperature spiked during the test.">
+            <div class="left">
+              <div class="term-word">Reactor Core</div>
+              <div class="term-def">Central component of a power-generating reactor.</div>
+              <div class="term-ex">Example: "The reactor core's temperature spiked during the test."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Energy Conduit. Example: The ship's energy conduits hummed with power.">
+            <div class="left">
+              <div class="term-word">Energy Conduit</div>
+              <div class="term-def">A channel or cable carrying energy between systems.</div>
+              <div class="term-ex">Example: "The ship's energy conduits hummed with power."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Category 6: Society & Culture -->
+      <section class="card" data-category="Society & Culture">
+        <h3>🏛 Society & Culture</h3>
+        <div class="word-list">
+          <div class="term" data-speech="Colony. Example: The human colony on Europa celebrated its founding day.">
+            <div class="left">
+              <div class="term-word">Colony</div>
+              <div class="term-def">A community settled in an environment away from Earth.</div>
+              <div class="term-ex">Example: "The human colony on Europa celebrated its founding day."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Terraforming. Example: Terraforming transformed the barren planet into a habitable world.">
+            <div class="left">
+              <div class="term-word">Terraforming</div>
+              <div class="term-def">The process of modifying a planet's environment to support life.</div>
+              <div class="term-ex">Example: "Terraforming transformed the barren planet into a habitable world."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Colony Council. Example: The Colony Council issued new resource allocations.">
+            <div class="left">
+              <div class="term-word">Colony Council</div>
+              <div class="term-def">The governing body of a settlement or colony.</div>
+              <div class="term-ex">Example: "The Colony Council issued new resource allocations."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Cultural Artifact. Example: The cultural artifact revealed ancient cosmic myths.">
+            <div class="left">
+              <div class="term-word">Cultural Artifact</div>
+              <div class="term-def">An object that holds historical or cultural significance.</div>
+              <div class="term-ex">Example: "The cultural artifact revealed ancient cosmic myths."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Colonist. Example: The colonist learned to farm alien crops.">
+            <div class="left">
+              <div class="term-word">Colonist</div>
+              <div class="term-def">A person living in a colony away from Earth.</div>
+              <div class="term-ex">Example: "The colonist learned to farm alien crops."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Interstellar Law. Example: Interstellar law regulated trade between systems.">
+            <div class="left">
+              <div class="term-word">Interstellar Law</div>
+              <div class="term-def">Legal frameworks governing interactions across star systems.</div>
+              <div class="term-ex">Example: "Interstellar law regulated trade between systems."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Trade Hub. Example: The trade hub connected merchants from dozens of worlds.">
+            <div class="left">
+              <div class="term-word">Trade Hub</div>
+              <div class="term-def">A central location for commerce between locations or species.</div>
+              <div class="term-ex">Example: "The trade hub connected merchants from dozens of worlds."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Spaceport. Example: The spaceport bustled with travelers and cargo.">
+            <div class="left">
+              <div class="term-word">Spaceport</div>
+              <div class="term-def">A facility for launching and receiving spacecraft.</div>
+              <div class="term-ex">Example: "The spaceport bustled with travelers and cargo."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Cultural Exchange. Example: Cultural exchange programs helped humans and aliens understand each other.">
+            <div class="left">
+              <div class="term-word">Cultural Exchange</div>
+              <div class="term-def">The sharing of traditions, ideas, and practices between groups.</div>
+              <div class="term-ex">Example: "Cultural exchange programs helped humans and aliens understand each other."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+          <div class="term" data-speech="Diplomacy. Example: Diplomacy averted a war between two star systems.">
+            <div class="left">
+              <div class="term-word">Diplomacy</div>
+              <div class="term-def">Negotiation between groups to resolve conflicts peacefully.</div>
+              <div class="term-ex">Example: "Diplomacy averted a war between two star systems."</div>
+            </div>
+            <div class="tts-buttons">
+              <button class="tts-btn" onclick="speakText(this.closest('.term').dataset.speech)">🔊 Play</button>
+              <button class="tts-btn stop" onclick="stopSpeech()">⏹ Stop</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <a href="#" onclick="stopSpeech(); return false;">Stop All Speech</a>
+    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">Back to Top</a>
+  </footer>
+
+<script>
+  // Speech synthesis controller
+  const synth = window.speechSynthesis;
+  let currentUtterance = null;
+  let defaultVoice = null;
+
+  // Try to pick a good English voice when available
+  function pickVoice() {
+    const voices = synth.getVoices();
+    if (!voices || voices.length === 0) return null;
+    // Prefer English (US or GB) voices
+    const enVoices = voices.filter(v => /en(-|_)?/i.test(v.lang) || /english/i.test(v.name));
+    if (enVoices.length) {
+      // prefer 'en-US' if available
+      const us = enVoices.find(v => /en-?US/i.test(v.lang));
+      return us || enVoices[0];
+    }
+    return voices[0];
+  }
+
+  // speak provided text (word + example)
+  function speakText(text) {
+    if (!text) return;
+    stopSpeech(); // stop any existing speech first
+    currentUtterance = new SpeechSynthesisUtterance(text);
+    // set voice and lang
+    if (!defaultVoice) {
+      // voices might not be loaded yet; pick when available
+      defaultVoice = pickVoice();
+      if (!defaultVoice) {
+        // wait shortly and retry
+        setTimeout(() => { defaultVoice = pickVoice(); if (defaultVoice) currentUtterance.voice = defaultVoice; }, 200);
+      }
+    }
+    if (defaultVoice) currentUtterance.voice = defaultVoice;
+    // set language to en-US as fallback
+    currentUtterance.lang = currentUtterance.lang || 'en-US';
+    // adjust rate/pitch if you want (students benefit from slightly slower)
+    currentUtterance.rate = 0.95; // slightly slower for clarity
+    currentUtterance.pitch = 1;
+    synth.speak(currentUtterance);
+  }
+
+  // stop any speech
+  function stopSpeech() {
+    if (synth.speaking) synth.cancel();
+    currentUtterance = null;
+  }
+
+  // ensure voices are loaded (Chrome may load asynchronously)
+  if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = () => {
+      defaultVoice = pickVoice();
+    };
+  } else {
+    // attempt to load voices after short delay
+    setTimeout(() => { defaultVoice = pickVoice(); }, 500);
+  }
+
+  // Simple client-side search/filter
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    const terms = document.querySelectorAll('.term');
+    terms.forEach(term => {
+      const text = (term.textContent || '').toLowerCase();
+      term.style.display = text.includes(q) ? '' : 'none';
+    });
+  });
+</script>
+</body>
+</html>

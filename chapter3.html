@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Machine Stops — Chapter III (The Homeless)</title>
+  <style>
+    :root{
+      --primary:#0b63d6;
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --ink:#1f2937;
+      --border:#e6edf3;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Georgia, "Times New Roman", serif;
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.75;
+      padding:28px;
+    }
+    .container{
+      max-width:980px;
+      margin:0 auto;
+      background:var(--card);
+      border-radius:12px;
+      padding:28px;
+      box-shadow:0 10px 30px rgba(16,24,40,0.06);
+    }
+    header{text-align:center}
+    h1{margin:0;font-size:1.9rem}
+    h2{margin:6px 0 18px;font-weight:500;color:#374151}
+    .intro{
+      margin:14px 0 18px;
+      padding:12px 14px;
+      border-radius:10px;
+      background:#f3f7ff;
+      border:1px solid var(--border);
+      color:var(--muted);
+    }
+    .controls{display:flex;justify-content:center;gap:10px;margin:10px 0 22px}
+    .btn{
+      background:var(--primary);
+      color:#fff;
+      border:none;
+      padding:9px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:0.95rem;
+    }
+    .para{
+      position:relative;
+      margin:16px 0;
+      padding:16px 18px 56px 18px;
+      border-left:4px solid var(--primary);
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:10px;
+    }
+    .para .text{white-space:pre-wrap}
+    .para-controls{
+      position:absolute;
+      right:14px;
+      bottom:12px;
+      display:flex;
+      gap:8px;
+    }
+    nav{margin-top:24px;padding:12px;text-align:center;background:#f0f6ff;border-radius:10px;border:1px solid var(--border)}
+    nav a{text-decoration:none;color:var(--primary);font-weight:700;margin:0 12px}
+    nav a:hover{text-decoration:underline}
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:0.95rem}
+    @media (max-width:640px){
+      .para-controls{position:static;margin-top:10px;justify-content:flex-end}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🌌 The Machine Stops</h1>
+      <h2>Chapter III — The Homeless</h2>
+    </header>
+
+
+    <div class="controls">
+      <button class="btn" onclick="stopAll()">⏹ Stop All</button>
+    </div>
+
+    <!-- Paragraph 1 -->
+    <section class="para" id="p1">
+      <div class="text">
+For a long while the troubles are small and deniable: a pipe that squeaks here, a light that stutters there. Citizens murmur the usual consolation—“the defect is not important”—and the committees dispatch routine messages about temporary repairs. Yet the small failures multiply and deepen: the music loses its tunefulness, the beds rise unevenly, the food drops arrive late, and the air feels heavier in those far-off wings people rarely enter. In places where maintenance cables once hummed, now there is a brittle silence that sounds like an omission.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p1')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 2 -->
+    <section class="para" id="p2">
+      <div class="text">
+Kuno, who years earlier had returned from the surface and sounded an urgent alarm, watches these changes with a grim patience. He has always insisted that living entirely by the Machine deadens capacities that belong to flesh—muscle, lung, courage. Now the evidence accumulates. Whereas others still attempt ritualized responses—prayers to the Machine, consulting the Book—Kuno urges practical movement: clearing tunnels, finding pockets of fresh air, and locating survivors who know how to work with real tools.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p2')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 3 -->
+    <section class="para" id="p3">
+      <div class="text">
+Vashti remains resistant for a long time. Her life is woven from plates and lectures: she can address thousands without rising from her chair, and the bookish forms of comfort have carved habits so deep they function as identity. She will later recall Kuno’s plea in a different register—she will say that he had been romantic and rash—but in the present, deep in the quiet of her cell, she hears a new, frightening possibility: the very system she worshipped might not be eternal.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p3')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 4 -->
+    <section class="para" id="p4">
+      <div class="text">
+The failures escalate. Communication plates flicker into static; voices cut out mid-sentence; entire wings of the underground complex find themselves isolated as routers die like exhausted beasts. It becomes difficult to coordinate even basic services. When supplies stop arriving on time, panic finds its way into polite conversations. People who had always relied on the Machine to schedule their emotions now discover that fear can be scheduled too—until the schedule itself collapses.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p4')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 5 -->
+    <section class="para" id="p5">
+      <div class="text">
+At first the response is procedural: committees meet (or attempt to meet), spokespeople read carefully crafted reassurances, and technicians are summoned. But many technicians have only ever followed protocols; the deep engineering knowledge that once kept complex systems running has atrophied under automation. They press buttons, consult the Book of the Machine, repeat arcane sequences, and achieve nothing. The rituals reveal their hollowness when outcomes no longer respond.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p5')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 6 -->
+    <section class="para" id="p6">
+      <div class="text">
+As conditions worsen, ordinary life becomes a contest of improvisation. In corridors where lights have failed, people hold up plates to shade or warm children; in places where air is stale, neighbors group together, learning to share scarce clean pockets. Some recall techniques their grandparents might have learned—making fires, sealing doors—even though such practices seem strange and primitive. These small acts are the first stitches of a new, precarious competency.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p6')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 7 -->
+    <section class="para" id="p7">
+      <div class="text">
+In the midst of this deterioration, Kuno moves with intent. He uses knowledge gleaned from his brief time on the surface and skills learned by necessity afterward. He scales service shafts, locates caches of equipment, and instructs groups in rudimentary repair—not of the Machine (which they can no longer master) but of habitable spaces: sealing a ruptured shaft, rigging a crude pump, finding a pocket of breathable air. His leadership is practical, embodied, and infectious.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p7')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 8 -->
+    <section class="para" id="p8">
+      <div class="text">
+Vashti, confronted by failure on a scale she cannot intellectualize away, finally leaves her cell in search of Kuno. The journey is terrifying: darkened galleries, the smell of dust and ozone, and people reduced to animal cries for air. At last she finds him among a cluster of survivors. Their reunion is not genteel; it is raw and physical. Kuno embraces her, and in that touch something of ritual and of redemption occurs—direct, unmediated, and irreducible.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p8')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 9 -->
+    <section class="para" id="p9">
+      <div class="text">
+Their exchange contains both the immediacy of direct speech and the distance of later recollection. Kuno says plainly: <em>“The Machine is stopping. We cannot rely on it any longer.”</em> Vashti, who had once mocked his yearning for the surface, answers with a voice that cracks: <em>“I thought you were wrong. I see now I was right that something had to be known by touch.”</em> Later, in quieter rumination, she will render his warning as she once renders most uncomfortable facts—into a remembered verdict that is less disruptive than the live utterance.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p9')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 10 -->
+    <section class="para" id="p10">
+      <div class="text">
+As the Machine’s death-throes intensify, whole neighborhoods go dark and silent. The Mending Apparatus—once a symbol of the Machine’s restorative will—lies inert in many sectors, its long pale bodies stopped by a failure they cannot repair. Where these devices had masked and erased the evidence of the surface, now the evidence returns: cracked tiles, blown stoppers, and bundles of displaced earth. The subterranean order shows seams it can no longer hide.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p10')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 11 -->
+    <section class="para" id="p11">
+      <div class="text">
+Panic breeds cruelty and heroism in equal measure. Some push aside the weak to secure air masks; others share scant rations. A crowd prays to the Machine in a last act of faith while nearby someone who remembers how to hammer a seal calmly rigs a siphon and saves a dozen lives. In this chaos the old social hierarchies blur: status means little; skills and stubbornness mean everything.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p11')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 12 -->
+    <section class="para" id="p12">
+      <div class="text">
+Kuno leads small parties to the surface where possible. They find not only wreckage but small signs of life: fields of shifted turf, hollows where people had once contrived shelter, and traces of those who did not die outright but learned to live in harshness. These were the Homeless—outsiders in the old sense, whom the Machine had labeled as failures. Now it is they who possess the practical knowledge of survival, mending, and slow cultivation.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p12')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 13 -->
+    <section class="para" id="p13">
+      <div class="text">
+Vashti, witnessing the resilience of those on the surface and the collapse of the underground conveniences, confronts her own vanity and timidity. She had always believed that civilization meant comfort; now she learns that civilization also requires craft and memory. In indirect speech she will later tell herself that she had been slow to understand, but at the moment the lesson burns: comfort had blinded her to the means of survival.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p13')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 14 -->
+    <section class="para" id="p14">
+      <div class="text">
+The final collapse is terrible and swift. Power generators groan and fail; air ducts pop; tunnels shudder. In many places people perish because they lack the simple habits of breathing hard air or climbing rough ladders. Forster spares none of the horror: the Machine’s worshippers, who had believed themselves safe, find themselves exposed and fragile. Yet within that horror a new narrative forms—one in which people learn, slowly, to use hands again.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p14')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 15 -->
+    <section class="para" id="p15">
+      <div class="text">
+At the end, Kuno and Vashti stand amid ruins and small fires. They are not triumphant; they are exhausted and terribly aware of loss. Kuno whispers that he has seen people on the surface working with their hands—men and women who will live and teach. Vashti, who once saw the Machine as providence, accepts the paradox: the Machine’s failure might be the only way for human beings to recover capacities they had abandoned.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p15')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 16 -->
+    <section class="para" id="p16">
+      <div class="text">
+Forster ends on a note that refuses both triumph and despair. The Machine’s silence is total; its hum is gone. Where once there was the machine’s ordered provision, now there are ashes and hands. The Homeless may carry forward a different civilization—one built slowly, with fatigue and courage. The story leaves us with the uneasy hope that a people who have been remade by failure might remember better what it is to be human.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p16')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 17 - reflection -->
+    <section class="para" id="p17">
+      <div class="text">
+Direct speech has done its work: Kuno’s blunt statements pierce ritualized complacency. Indirect speech shows how institutions domesticate danger by translating it into memory. For classroom discussion, these shifts are useful: ask students how a sentence changes when reported rather than spoken, and how narrative tone shifts with that change. In Forster’s hands the technique is moral as well as stylistic.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p17')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 18 - closing -->
+    <section class="para" id="p18">
+      <div class="text">
+Thus Chapter III harmonizes with the earlier chapters: a world of comfort meets the brute fact of nature, and human beings must choose whether to learn again. The Machine’s failure is tragic, but within tragedy Forster discerns possibility: a chance for people to relearn craft, courage, and the reciprocity of touch. The story’s final image is not a neat resolution but a beginning—hard-earned, uncertain, and real.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p18')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <nav role="navigation" aria-label="chapter navigation">
+      <a href="chapter1.html">⬅ Chapter I</a> · <a href="chapter2.html">Chapter II</a> · <a href="short-story.html">Back to Short Story</a> . <a href="comprehension.html">Go to Question</a>
+    </nav>
+
+  <script>
+    let currentUtterance = null;
+
+    function speak(id) {
+      stopAll();
+      const el = document.getElementById(id);
+      if (!el) return;
+      const textEl = el.querySelector('.text');
+      if (!textEl) return;
+      const text = textEl.innerText.trim();
+      if (!text) return;
+
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US'; // change to 'en-GB' or 'en-AU' if preferred
+      u.rate = 1.0;
+      u.pitch = 1.0;
+      u.onend = () => { currentUtterance = null; };
+      currentUtterance = u;
+      window.speechSynthesis.speak(u);
+    }
+
+    // expose speak to inline onclick
+    window.speak = speak;
+
+    function stopAll() {
+      if (window.speechSynthesis.speaking || currentUtterance) {
+        window.speechSynthesis.cancel();
+        currentUtterance = null;
+      }
+    }
+
+    // stop when tab hidden
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAll();
+    });
+  </script>
+</body>
+<footer>
+   Learning Module
+  </footer>
+</html>

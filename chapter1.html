@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Machine Stops — Chapter I</title>
+  <style>
+    :root{
+      --primary:#0b63d6;
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --ink:#1f2937;
+      --border:#e6edf3;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Georgia, "Times New Roman", serif;
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.75;
+      padding:28px;
+    }
+    .container{
+      max-width:980px;
+      margin:0 auto;
+      background:var(--card);
+      border-radius:12px;
+      padding:28px;
+      box-shadow:0 10px 30px rgba(16,24,40,0.06);
+    }
+    header{text-align:center}
+    h1{margin:0;font-size:1.9rem}
+    h2{margin:6px 0 18px;font-weight:500;color:#374151}
+    .intro{
+      margin:14px 0 18px;
+      padding:12px 14px;
+      border-radius:10px;
+      background:#f3f7ff;
+      border:1px solid var(--border);
+      color:var(--muted);
+    }
+    .controls{display:flex;justify-content:center;gap:10px;margin:10px 0 22px}
+    .btn{
+      background:var(--primary);
+      color:#fff;
+      border:none;
+      padding:9px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:0.95rem;
+    }
+    .para{
+      position:relative;
+      margin:16px 0;
+      padding:16px 18px 56px 18px;
+      border-left:4px solid var(--primary);
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:10px;
+    }
+    .para .text{white-space:pre-wrap}
+    .para-controls{
+      position:absolute;
+      right:14px;
+      bottom:12px;
+      display:flex;
+      gap:8px;
+    }
+    .note{font-size:0.95rem;color:var(--muted);margin-top:18px}
+    nav{margin-top:24px;padding:12px;text-align:center;background:#f0f6ff;border-radius:10px;border:1px solid var(--border)}
+    nav a{text-decoration:none;color:var(--primary);font-weight:700;margin:0 12px}
+    nav a:hover{text-decoration:underline}
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:0.95rem}
+    @media (max-width:640px){
+      .para-controls{position:static;margin-top:10px;justify-content:flex-end}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🌌 The Machine Stops</h1>
+      <h2>Chapter I — The Air-Ship</h2>
+    </header>
+
+
+    <div class="controls">
+      <button class="btn" onclick="stopAll()">⏹ Stop All</button>
+    </div>
+
+    <!-- Paragraph 1 -->
+    <section class="para" id="p1">
+      <div class="text">
+Deep underground, beneath layers of dust and memory, a civilization hums in perfect order. Humans live in identical hexagonal cells arranged like honeycomb, each cell a sealed world of light, air, and soft conversation. The Machine supplies everything: nourishment, entertainment, information, and the precise temperature for every hour of the day. Movement becomes optional; distance, an artifact. People are born into this gentle system and learn to accept its comforts as the highest good.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p1')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 2 -->
+    <section class="para" id="p2">
+      <div class="text">
+Vashti is one of the Machine’s devout daughters: a respected lecturer whose life unfolds within the small compass of a furnished room and a book of rules. She teaches without leaving her chair; students see her face and hear her voice through plates that render presence into images. For Vashti, the world is a mosaic of mediated contacts; physical touch is archaic, travel is unnecessary, and sermons come wrapped in polished convenience.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p2')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 3 -->
+    <section class="para" id="p3">
+      <div class="text">
+One evening, a bell summons her. On the glowing plate appears Kuno, her son, with a face grown lean and eager from a life of dissent. He speaks to her with urgency: <em>“Mother, I want to see you in the flesh,”</em> he says — direct speech that slices through habit. She replies in the old polished manner, offering five minutes before her next lecture. In her mind, seeing is already achieved by the plate; to travel is to waste the soul’s precious schedule.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p3')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 4 -->
+    <section class="para" id="p4">
+      <div class="text">
+Kuno insists: he wants presence, not image. He says he has ideas that do not come from books or buttons but from the air and the stars. Vashti shrugs; in reported thoughts later she will tell herself that Kuno was sentimental. This shift from the immediacy of his words to her indirect reflection — she thought that his notions were impractical — shows how mediated life translates living speech into neat, forgettable commentary.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p4')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 5 -->
+    <section class="para" id="p5">
+      <div class="text">
+Vashti’s world is built from rituals: the Book of the Machine prescribes responses for hunger, grief, and curiosity. She touches it with reverence; it is both handbook and scripture. If she is ill, the machine instructs which button to press; if she is sad, there is a sequence of consolations. Worship here is bureaucratic — gestures of faith mapped onto levers and plates — and the worshippers call their guidance “science.”
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p5')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 6 -->
+    <section class="para" id="p6">
+      <div class="text">
+Kuno’s plea lingers. He wants his mother to leave the comfortable circle and come to him: not for gossip, not for spectacle, but to stand where he stands. For him, to know the world is to be in it — to feel the resistance of earth, to smell air unfiltered by ducts, to risk injury, and thereby to acquire knowledge that circuits cannot transmit. His voice carries an accusation: the Machine has made them small.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p6')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 7 -->
+    <section class="para" id="p7">
+      <div class="text">
+Taken aback, Vashti does the thing she always does when the world intrudes: she floods her room with familiar comforts and returns to schedule. She will travel, she decides, because a filial promise requires it, yet even as she moves she enumerates annoyances — the unpleasant fellow passengers, the crude cabins, the intolerable thought of being served by a living attendant. Her mind lists reasons to hate the surface before she has seen it.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p7')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 8 -->
+    <section class="para" id="p8">
+      <div class="text">
+The journey itself is a study in constraint. The air-ship, a hulking remnant of earlier freedom, creaks along tunnels and rises into a sky that most have forgotten how to read. Passengers slide into their private cabins like hermits. At a moment of embarrassment a man’s Book falls onto the gangway; none stoop to pick it up. The scene is telling: even the sacred manual depends on mechanical hands; muscle has atrophied into ritual.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p8')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 9 -->
+    <section class="para" id="p9">
+      <div class="text">
+Vashti is disgusted by contact with real attendants and with other bodies. To touch someone — to be touched — feels almost obscene. She mutters the phrase that has become a charm among the complacent: “O Machine, O Machine,” and expects the world to answer. Yet, when the ship bursts through to open sky, she glimpses sea and stars and finds the sight unbearable and irresistible at once. The unframed world presses her; a small crack forms in her certainty.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p9')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 10 -->
+    <section class="para" id="p10">
+      <div class="text">
+The brief exposure to the surface -- phosphorescent waves, a sweep of mountains, the pale companion of old cities — registers as a threat to the tidy interior life. Vashti repeats a refrain, “No ideas here,” as if domesticating thought by denying the existence of surprise. She returns to protocol, but the image of the sky, of distance, refuses to be annulled. Kuno’s insistence acquires the quality of prophecy; the world beyond the Machine keeps murmuring to those attentive enough to listen.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p10')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 11 -->
+    <section class="para" id="p11">
+      <div class="text">
+Back in her cell, Vashti resumes performance: lectures piped across the globe, curated music, scheduled visitors appearing as gentle faces on plates. Her public life requires little movement and rewards conformity. When she reflects on Kuno, she will tell herself more politely, in indirect speech, that her son had been given to fanciful extremes. The translation from vivid utterance to summarizing thought protects her from admitting that she might have been wrong.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p11')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 12 -->
+    <section class="para" id="p12">
+      <div class="text">
+Yet beneath routine the Machine’s authority shows cracks. The story hints at a world grown complacent: manuals replace experience, committees define taste, and the very word “religion” evaporates into ritual for buttons. People murmur that the Machine feeds and protects them; in private they confess a small, nameless dread when the tubes hum oddly or the music stutters. For many, fear is quelled by the phrase “it is not important,” the communal denial that keeps panic at bay.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p12')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 13 -->
+    <section class="para" id="p13">
+      <div class="text">
+Forster’s language in this retelling keeps its moral weight: Kuno’s longing is early prophecy; Vashti’s comfort is a fragile theology. When he told her of the surface, he had said plainly, <em>“I have seen the earth; I have felt the air,”</em> and when she later recalls the exchange, she will say that he had spoken recklessly. This double register—immediate speech followed by mediated recollection—is the moral device that suspends readers between action and interpretation.
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p13')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 14 -->
+    <section class="para" id="p14">
+      <div class="text">
+As the chapter concludes, Vashti approaches her son across a civilization that no longer trusts bodies. The air-ship moves through night and light; she clutches her Book like a rosary; Kuno waits with a stubborn hunger for contact. The scene closes on movement rather than answer: she has left comfort behind, for now, and he has opened a path toward a future that might be dangerous, but alive. The reader is left poised: will presence survive protocol?
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p14')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <!-- Paragraph 15 (Concluding reflection) -->
+    <section class="para" id="p15">
+      <div class="text">
+Reflection: Chapter I establishes the central tension—between a culture of perfect mediation and the stubbornly unmechable world beyond it. Direct speech (Kuno’s urgent requests) and indirect speech (Vashti’s later rationalizations) function as literary mirrors: one shows the raw fact; the other shows how institutions domesticate facts into doctrines. The Machine promises safety; the surface promises truth. The question Forster opens here is simple but urgent: which would you choose?
+      </div>
+      <div class="para-controls">
+        <button class="btn" onclick="speak('p15')">🔊 Play</button>
+        <button class="btn" onclick="stopAll()">⏹ Stop</button>
+      </div>
+    </section>
+
+    <nav role="navigation" aria-label="chapter navigation">
+      <a href="short-story.html">Intro</a> · <a href="chapter2.html">Chapter II ➡</a> · <a href="short-story.html">Back to Short Story</a> . <a href="comprehension.html">Go to Question</a>
+    </nav>
+
+
+  <script>
+    let currentUtterance = null;
+
+    function speak(id) {
+      stopAll();
+      const el = document.getElementById(id);
+      if (!el) return;
+      const textEl = el.querySelector('.text');
+      if (!textEl) return;
+      const text = textEl.innerText.trim();
+      if (!text) return;
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US';
+      u.rate = 1.0;
+      u.pitch = 1.0;
+      currentUtterance = u;
+      window.speechSynthesis.speak(u);
+    }
+
+    // Helper to speak when button calls speak('pX')
+    function speakWrapper(id) {
+      speak(id);
+    }
+
+    // Allow inline onclick="speak('p1')"
+    window.speak = speak;
+
+    function stopAll() {
+      if (window.speechSynthesis.speaking || currentUtterance) {
+        window.speechSynthesis.cancel();
+        currentUtterance = null;
+      }
+    }
+
+    // Stop audio when user leaves the tab
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAll();
+    });
+  </script>
+</body>
+<footer>
+   Learning Module
+  </footer>
+</html>

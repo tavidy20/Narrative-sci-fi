@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Continue the Story — Sci-Fi Writing</title>
+<style>
+:root{
+  --bg:#0b0b1a;
+  --card: rgba(255,255,255,0.03);
+  --accent:#7aa2ff;
+  --text:#eef0ff;
+  --muted:#cfcfe3;
+  --btn:#7aa2ff;
+  --btn-hover:#5c85ff;
+}
+body{margin:0;padding:0;font-family:Inter, "Segoe UI", sans-serif;background:var(--bg);color:var(--text);}
+header{text-align:center;padding:30px 15px;background:linear-gradient(180deg,#0f1530,#0b0f26);}
+header h1{margin:0;font-size:2rem;color:var(--accent);}
+header p{margin:8px 0 0;color:var(--muted);max-width:900px;margin:auto;line-height:1.6;}
+main{max-width:980px;margin:20px auto;padding:15px;}
+.instructions{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;line-height:1.6;}
+textarea{width:100%;height:250px;padding:14px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid #444;color:var(--text);font-size:1rem;resize:vertical;}
+.btn{padding:10px 16px;border:none;border-radius:10px;background:var(--btn);color:#06102a;font-weight:600;cursor:pointer;margin-top:10px;}
+.btn:hover{background:var(--btn-hover);}
+.footer{margin-top:30px;padding:18px;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.03);}
+.nav-links{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+.nav-links a{background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:8px;color:var(--text);text-decoration:none;font-weight:600;}
+.nav-links a:hover{background:var(--accent);color:#06102a;}
+.word-count{margin-top:8px;font-size:0.9rem;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Continue the Story — Sci-Fi Writing</h1>
+  <p>Enhance your creative writing by continuing a Sci-Fi story from the given introduction. Use your imagination, stay consistent with the context, and focus on logical plot development.</p>
+</header>
+
+<main>
+  <div class="instructions">
+    <h2>Instructions:</h2>
+    <ol>
+      <li>Read or listen carefully to the story introduction provided below.</li>
+      <li>Click <strong>Play Audio</strong> to hear the introduction if you prefer listening.</li>
+      <li>Think about characters, setting, and events that can follow logically.</li>
+      <li>Write your continuation in the textarea below. Aim for creativity and coherence.</li>
+      <li>Keep track of the word count to ensure your story is long enough (suggested: 150-300 words).</li>
+      <li>When finished, click <strong>Check Word Count</strong> to see your progress.</li>
+      <li>You can replay the introduction audio as needed.</li>
+    </ol>
+  </div>
+
+  <!-- Story Introduction -->
+  <div class="instructions">
+    <h2>Story Introduction:</h2>
+    <p id="storyIntro">Captain Elara and her crew approached the mysterious quantum rift, where strange alien structures were partially visible through the swirling space-time anomalies. Sensors indicated unusual frequencies that had never been recorded before. The mission was crucial: collect as much data as possible while ensuring the safety of the crew and spacecraft.</p>
+    <div class="audio-controls">
+      <button class="btn" onclick="playSpeech('Captain Elara and her crew approached the mysterious quantum rift, where strange alien structures were partially visible through the swirling space-time anomalies. Sensors indicated unusual frequencies that had never been recorded before. The mission was crucial: collect as much data as possible while ensuring the safety of the crew and spacecraft.')">Play Audio</button>
+      <button class="btn" onclick="stopSpeech()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Writing Area -->
+  <textarea id="studentStory" placeholder="Start writing your continuation here..."></textarea>
+  <div class="word-count" id="wordCount">Word Count: 0</div>
+  <button class="btn" onclick="checkWordCount()">Check Word Count</button>
+</main>
+
+<!-- Footer with Overlink -->
+<footer class="footer">
+  <div class="nav-links">
+    <a href="write-orientation.html">Write the Orientation</a>
+    <a href="continue-story.html">Continue the Story</a>
+    <a href="short-narrative.html">Create a Short Sci-Fi Narrative</a>
+  </div>
+  <p>© 2025 Sci-Fi English Learning — Writing Module</p>
+</footer>
+
+<script>
+const synth = window.speechSynthesis;
+let currentUtterance = null;
+
+function playSpeech(text){
+  stopSpeech();
+  currentUtterance = new SpeechSynthesisUtterance(text);
+  currentUtterance.lang="en-US";
+  currentUtterance.rate=0.95;
+  currentUtterance.pitch=1;
+  synth.speak(currentUtterance);
+}
+
+function stopSpeech(){
+  if(synth && synth.speaking) synth.cancel();
+  currentUtterance=null;
+}
+
+const textarea = document.getElementById("studentStory");
+const wordCountEl = document.getElementById("wordCount");
+
+textarea.addEventListener("input", () => {
+  const words = textarea.value.trim().split(/\s+/).filter(w=>w.length>0);
+  wordCountEl.innerText = "Word Count: "+words.length;
+});
+
+function checkWordCount(){
+  const words = textarea.value.trim().split(/\s+/).filter(w=>w.length>0).length;
+  alert("Your story contains "+words+" words. Aim for 150-300 words for optimal practice.");
+}
+</script>
+
+</body>
+<footer>
+   Learning Module
+  </footer>
+</html>
